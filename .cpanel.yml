@@ -1,0 +1,5 @@
+---
+deployment:
+ tasks:
+ - export DEPLOYPATH=/home/whosmsir/back_end
+ - /bin/cp * $DEPLOYPATH
