@@ -401,6 +401,68 @@ const addOrderStep = (newOrderStep) => __awaiter(void 0, void 0, void 0, functio
     }
 });
 //--------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+const addGalleryStep = (newOrderStep) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { step, link, which, image } = newOrderStep;
+        // checking step availability
+        const filter = {
+            websiteName: constants_1.websiteName,
+            'mainPage.gallerySteps.step': step
+        };
+        const existingGalleryStep = yield siteInfo_1.default.findOne(filter).exec();
+        if (existingGalleryStep) {
+            return {
+                success: false,
+                error: {
+                    message: constants_1.errorMessages.siteInfo.stepExists,
+                    statusCode: constants_1.statusCodes.badRequest
+                }
+            };
+        }
+        const result = yield image_service_1.default.storeImage(image.format, image.data);
+        if (!result.success) {
+            return {
+                success: false,
+                error: {
+                    message: constants_1.errorMessages.siteInfo.imageProblem,
+                    statusCode: constants_1.statusCodes.ise
+                }
+            };
+        }
+        const update = {
+            $push: {
+                'mainPage.gallerySteps': {
+                    step,
+                    link,
+                    which,
+                    image: result.imageUrl
+                }
+            }
+        };
+        const updatedSiteInfo = yield siteInfo_1.default.findOneAndUpdate({ websiteName: constants_1.websiteName }, update, { new: true });
+        const addedGalleryStep = updatedSiteInfo === null || updatedSiteInfo === void 0 ? void 0 : updatedSiteInfo.mainPage.gallerySteps.find((galleryStep) => {
+            return galleryStep.step == step;
+        });
+        return {
+            success: true,
+            outputs: {
+                galleryStep: addedGalleryStep
+            }
+        };
+    }
+    catch (error) {
+        console.log('Error while adding order step: ', error);
+        return {
+            success: false,
+            error: {
+                message: constants_1.errorMessages.shared.ise,
+                statusCode: constants_1.statusCodes.ise
+            }
+        };
+    }
+});
+//--------------------------------------------------------------------------------
 const getOrderSteps = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const siteInfo = yield siteInfo_1.default.findOne({ websiteName: constants_1.websiteName }).exec();
@@ -862,6 +924,7 @@ exports.default = {
     deleteSocialNetwork,
     editSocialNetwork,
     addOrderStep,
+    addGalleryStep,
     getOrderSteps,
     getOrderStep,
     deleteOrderStep,

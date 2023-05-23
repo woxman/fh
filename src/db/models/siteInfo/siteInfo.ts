@@ -25,6 +25,14 @@ export interface ISiteInfo extends Document {
       image: string
       createdAt: number
     }[]
+    gallerySteps: {
+      _id: objectId
+      step: number
+      link: string
+      which: string
+      image: string
+      createdAt: number
+    }[]
     specialProducts: {
       subcategory: objectId
       factory: objectId
@@ -38,7 +46,7 @@ export interface ISiteInfo extends Document {
       workHours: string
       images: string[]
     }
-  }
+  },
   aboutUs: {
     pageContent: {
       title: string
@@ -135,6 +143,24 @@ const siteInfoSchema = new Schema<ISiteInfo>({
         type: String
       },
       description: {
+        type: String
+      },
+      image: { //This is going to be a url of a stored image
+        type: String
+      },
+      createdAt: {
+        type: Number,
+        default: () => Math.floor(Date.now() / 1000)
+      }
+    }],
+    gallerySteps: [{
+      step: {
+        type: Number
+      },
+      link: {
+        type: String
+      },
+      which: {
         type: String
       },
       image: { //This is going to be a url of a stored image

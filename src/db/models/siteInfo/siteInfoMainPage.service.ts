@@ -500,7 +500,90 @@ const addOrderStep = async (
     }
   }
 }
+//--------------------------------------------------------------------------------
 
+//--------------------------------------------------------------------------------
+
+const addGalleryStep = async (
+  newOrderStep: {
+    step: number
+    link: string
+    which: string
+    image: {
+      format: string
+      data: Buffer
+    }
+  }
+): Promise<IResponse> => {
+
+  try {
+    const { step, link, which, image } = newOrderStep
+
+    // checking step availability
+    const filter = {
+      websiteName,
+      'mainPage.gallerySteps.step': step
+    }
+
+    const existingGalleryStep = await SiteInfo.findOne(filter).exec()
+
+    if(existingGalleryStep) {
+      return {
+        success: false,
+        error: {
+          message: errorMessages.siteInfo.stepExists,
+          statusCode: statusCodes.badRequest
+        }
+      }
+    }
+
+    const result = await imageService.storeImage(image.format, image.data)
+
+    if(!result.success) {
+      return {
+        success: false,
+        error: {
+          message: errorMessages.siteInfo.imageProblem,
+          statusCode: statusCodes.ise
+        }
+      }
+    }
+
+    const update = { 
+      $push: { 
+        'mainPage.gallerySteps': {
+          step,
+          link,
+          which,
+          image: result.imageUrl
+        }
+      }
+    }
+
+    const updatedSiteInfo = await SiteInfo.findOneAndUpdate({ websiteName }, update, { new: true })
+
+    const addedGalleryStep = updatedSiteInfo?.mainPage.gallerySteps.find((galleryStep) => {
+      return galleryStep.step == step
+    })
+
+    return {
+      success: true,
+      outputs: {
+        galleryStep: addedGalleryStep
+      }
+    }
+  } catch(error) {
+    console.log('Error while adding order step: ', error)
+
+    return {
+      success: false,
+      error: {
+        message: errorMessages.shared.ise,
+        statusCode: statusCodes.ise
+      }
+    }
+  }
+}
 //--------------------------------------------------------------------------------
 
 const getOrderSteps = async (): Promise<IResponse> => {
@@ -1086,6 +1169,7 @@ export default {
   deleteSocialNetwork,
   editSocialNetwork,
   addOrderStep,
+  addGalleryStep,
   getOrderSteps,
   getOrderStep,
   deleteOrderStep,

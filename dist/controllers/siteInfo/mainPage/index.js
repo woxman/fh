@@ -16,6 +16,7 @@ const getSocialNetworks_1 = __importDefault(require("./getSocialNetworks"));
 const editSocialNetwork_1 = __importDefault(require("./editSocialNetwork"));
 const deleteSocialNetwork_1 = __importDefault(require("./deleteSocialNetwork"));
 const addOrderStep_1 = __importDefault(require("./addOrderStep"));
+const addGalleryStep_1 = __importDefault(require("./addGalleryStep"));
 const getOrderStep_1 = __importDefault(require("./getOrderStep"));
 const getOrderSteps_1 = __importDefault(require("./getOrderSteps"));
 const editOrderStep_1 = __importDefault(require("./editOrderStep"));
@@ -615,6 +616,7 @@ exports.panelMainPageRouter.patch('/social-network/:socialNetworkId', (0, auth_1
  *                   type: string
  */
 exports.panelMainPageRouter.delete('/social-network/:socialNetworkId', (0, auth_1.default)('admin'), deleteSocialNetwork_1.default);
+//Herer Start
 /**
  * @swagger
  * /panel/site-info/main-page/order-step:
@@ -703,6 +705,93 @@ exports.panelMainPageRouter.delete('/social-network/:socialNetworkId', (0, auth_
  *                   type: string
  */
 exports.panelMainPageRouter.post('/order-step', (0, auth_1.default)('admin'), addOrderStep_1.default);
+/**
+ * @swagger
+ * /panel/site-info/main-page/gallery-step:
+ *   post:
+ *     tags:
+ *       - Main page | Panel
+ *     summary: Add an gallery
+ *     description: Add an gallery
+ *     security:
+ *       - adminBearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               step:
+ *                 type: number
+ *               link:
+ *                 type: string
+ *               which:
+ *                 type: string
+ *               image:
+ *                 type: object
+ *                 properties:
+ *                   format:
+ *                     type: string
+ *                   data:
+ *                     type: string
+ *                     format: binary
+ *             required:
+ *               - step
+ *               - which
+ *               - image
+ *     responses:
+ *       200:
+ *         description: Created gallery
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 orderStep:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     step:
+ *                       type: string
+ *                     link:
+ *                       type: string
+ *                     which:
+ *                       type: string
+ *                     image:
+ *                       type: string
+ *                     createdAt:
+ *                       type: number
+ *       401:
+ *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       422:
+ *         description: Data validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+exports.panelMainPageRouter.post('/gallery-step', (0, auth_1.default)('admin'), addGalleryStep_1.default);
 /**
  * @swagger
  * /panel/site-info/main-page/order-step/{orderStepId}:
@@ -980,6 +1069,7 @@ exports.panelMainPageRouter.patch('/order-step/:orderStepId', (0, auth_1.default
  *                   type: string
  */
 exports.panelMainPageRouter.delete('/order-step/:orderStepId', (0, auth_1.default)('admin'), deleteOrderStep_1.default);
+//Herer Stop
 /**
  * @swagger
  * /panel/site-info/main-page/footer:

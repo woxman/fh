@@ -78,6 +78,24 @@ const siteInfoSchema = new mongoose_1.Schema({
                     default: () => Math.floor(Date.now() / 1000)
                 }
             }],
+        gallerySteps: [{
+                step: {
+                    type: Number
+                },
+                link: {
+                    type: String
+                },
+                which: {
+                    type: String
+                },
+                image: {
+                    type: String
+                },
+                createdAt: {
+                    type: Number,
+                    default: () => Math.floor(Date.now() / 1000)
+                }
+            }],
         specialProducts: [{
                 _id: false,
                 subcategory: {
