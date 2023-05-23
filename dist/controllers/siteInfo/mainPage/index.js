@@ -18,7 +18,9 @@ const deleteSocialNetwork_1 = __importDefault(require("./deleteSocialNetwork"));
 const addOrderStep_1 = __importDefault(require("./addOrderStep"));
 const addGalleryStep_1 = __importDefault(require("./addGalleryStep"));
 const getOrderStep_1 = __importDefault(require("./getOrderStep"));
+const getGalleryStep_1 = __importDefault(require("./getGalleryStep"));
 const getOrderSteps_1 = __importDefault(require("./getOrderSteps"));
+const getGallerySteps_1 = __importDefault(require("./getGallerySteps"));
 const editOrderStep_1 = __importDefault(require("./editOrderStep"));
 const deleteOrderStep_1 = __importDefault(require("./deleteOrderStep"));
 const updateFooter_1 = __importDefault(require("./updateFooter"));
@@ -863,6 +865,75 @@ exports.panelMainPageRouter.post('/gallery-step', (0, auth_1.default)('admin'), 
 exports.panelMainPageRouter.get('/order-step/:orderStepId', (0, auth_1.default)('admin'), getOrderStep_1.default);
 /**
  * @swagger
+ * /panel/site-info/main-page/gallery-step/{galleryStepId}:
+ *   get:
+ *     tags:
+ *       - Main page | Panel
+ *     summary: Get an order step
+ *     description: Get an gallery step by id
+ *     security:
+ *       - adminBearerAuth: []
+ *     parameters:
+ *       - name: orderStepId
+ *         in: path
+ *         required: true
+ *         description: The ID of the gallery step
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: The expected gallery step
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 orderStep:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     step:
+ *                       type: string
+ *                     link:
+ *                       type: string
+ *                     which:
+ *                       type: boolean
+ *                     image:
+ *                       type: string
+ *                     createdAt:
+ *                       type: number
+ *       401:
+ *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       404:
+ *         description: Not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+exports.panelMainPageRouter.get('/gallery-step/:galleryStepId', (0, auth_1.default)('admin'), getGalleryStep_1.default);
+/**
+ * @swagger
  * /panel/site-info/main-page/order-step:
  *   get:
  *     tags:
@@ -918,6 +989,63 @@ exports.panelMainPageRouter.get('/order-step/:orderStepId', (0, auth_1.default)(
  *                   type: string
  */
 exports.panelMainPageRouter.get('/order-step', (0, auth_1.default)('admin'), getOrderSteps_1.default);
+/**
+ * @swagger
+ * /panel/site-info/main-page/gallery-step:
+ *   get:
+ *     tags:
+ *       - Main page | Panel
+ *     summary: Get all gallery steps
+ *     description: Get all gallery steps
+ *     security:
+ *       - adminBearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of the gallery steps
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 orderSteps:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                       step:
+ *                         type: string
+ *                       link:
+ *                         type: string
+ *                       which:
+ *                         type: boolean
+ *                       image:
+ *                         type: string
+ *                       createdAt:
+ *                         type: number
+ *                 count:
+ *                   type: number
+ *       401:
+ *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+exports.panelMainPageRouter.get('/gallery-step', (0, auth_1.default)('admin'), getGallerySteps_1.default);
 /**
  * @swagger
  * /panel/site-info/main-page/order-step/{orderStepId}:

@@ -612,6 +612,34 @@ const getOrderSteps = async (): Promise<IResponse> => {
 
 //--------------------------------------------------------------------------------
 
+//--------------------------------------------------------------------------------
+
+const getGallerySteps = async (): Promise<IResponse> => {
+  try {
+    const siteInfo = await SiteInfo.findOne({ websiteName }).exec()
+
+    return {
+      success: true,
+      outputs: {
+        gallerySteps: siteInfo?.mainPage.gallerySteps
+      }
+    }
+
+  } catch(error) {
+    console.log('Error while getting order steps: ', error)
+
+    return {
+      success: false,
+      error: {
+        message: errorMessages.shared.ise,
+        statusCode: statusCodes.ise
+      }
+    }
+  }
+}
+
+//--------------------------------------------------------------------------------
+
 const getOrderStep = async (orderStepId: string): Promise<IResponse> => {
   try {
     const filter = {
@@ -638,6 +666,52 @@ const getOrderStep = async (orderStepId: string): Promise<IResponse> => {
       success: true,
       outputs: {
         orderStep
+      }
+    }
+
+  } catch(error) {
+    console.log('Error while getting order step: ', error)
+
+    return {
+      success: false,
+      error: {
+        message: errorMessages.shared.ise,
+        statusCode: statusCodes.ise
+      }
+    }
+  }
+}
+
+//--------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------
+
+const getGalleryStep = async (galleryStepId: string): Promise<IResponse> => {
+  try {
+    const filter = {
+      websiteName,
+      'mainPage.gallerySteps._id': new ObjectId(galleryStepId)
+    }
+    const siteInfo = await SiteInfo.findOne(filter).exec()
+
+    if(!siteInfo) {
+      return {
+        success: false,
+        error: {
+          message: errorMessages.shared.notFound,
+          statusCode: statusCodes.notFound
+        }
+      }
+    }
+
+    const galleryStep = siteInfo.mainPage.gallerySteps.find((galleryStep) => {
+      return galleryStep._id.toString() == galleryStepId
+    })
+
+    return {
+      success: true,
+      outputs: {
+        galleryStep
       }
     }
 
@@ -1171,7 +1245,9 @@ export default {
   addOrderStep,
   addGalleryStep,
   getOrderSteps,
+  getGallerySteps,
   getOrderStep,
+  getGalleryStep,
   deleteOrderStep,
   editOrderStep,
   updateFooter,

@@ -485,6 +485,29 @@ const getOrderSteps = () => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 //--------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+const getGallerySteps = () => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const siteInfo = yield siteInfo_1.default.findOne({ websiteName: constants_1.websiteName }).exec();
+        return {
+            success: true,
+            outputs: {
+                gallerySteps: siteInfo === null || siteInfo === void 0 ? void 0 : siteInfo.mainPage.gallerySteps
+            }
+        };
+    }
+    catch (error) {
+        console.log('Error while getting order steps: ', error);
+        return {
+            success: false,
+            error: {
+                message: constants_1.errorMessages.shared.ise,
+                statusCode: constants_1.statusCodes.ise
+            }
+        };
+    }
+});
+//--------------------------------------------------------------------------------
 const getOrderStep = (orderStepId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const filter = {
@@ -508,6 +531,45 @@ const getOrderStep = (orderStepId) => __awaiter(void 0, void 0, void 0, function
             success: true,
             outputs: {
                 orderStep
+            }
+        };
+    }
+    catch (error) {
+        console.log('Error while getting order step: ', error);
+        return {
+            success: false,
+            error: {
+                message: constants_1.errorMessages.shared.ise,
+                statusCode: constants_1.statusCodes.ise
+            }
+        };
+    }
+});
+//--------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+const getGalleryStep = (galleryStepId) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const filter = {
+            websiteName: constants_1.websiteName,
+            'mainPage.gallerySteps._id': new ObjectId(galleryStepId)
+        };
+        const siteInfo = yield siteInfo_1.default.findOne(filter).exec();
+        if (!siteInfo) {
+            return {
+                success: false,
+                error: {
+                    message: constants_1.errorMessages.shared.notFound,
+                    statusCode: constants_1.statusCodes.notFound
+                }
+            };
+        }
+        const galleryStep = siteInfo.mainPage.gallerySteps.find((galleryStep) => {
+            return galleryStep._id.toString() == galleryStepId;
+        });
+        return {
+            success: true,
+            outputs: {
+                galleryStep
             }
         };
     }
@@ -926,7 +988,9 @@ exports.default = {
     addOrderStep,
     addGalleryStep,
     getOrderSteps,
+    getGallerySteps,
     getOrderStep,
+    getGalleryStep,
     deleteOrderStep,
     editOrderStep,
     updateFooter,
