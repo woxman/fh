@@ -20,7 +20,7 @@ const product_1 = __importDefault(require("../product/product"));
 const product_service_1 = __importDefault(require("../product/product.service"));
 const addSubcategory = (categoryId, newSubcategory) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, urlSlug, description, properties } = newSubcategory;
+        const { name, urlSlug, code, description, properties } = newSubcategory;
         // Checking for availability
         const subcategoryWithExistingName = yield subcategory_1.default.findOne({ name }).exec();
         if (subcategoryWithExistingName) {
@@ -76,6 +76,7 @@ const addSubcategory = (categoryId, newSubcategory) => __awaiter(void 0, void 0,
             name,
             category: categoryId,
             urlSlug,
+            code,
             properties,
             description
         });

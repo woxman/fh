@@ -5,6 +5,7 @@ interface ISubcategory extends Document {
   category: objectId
   name: string
   urlSlug: string
+  code: string
   description: string
   properties: {
     property: objectId | {
@@ -38,6 +39,10 @@ const subcategorySchema = new Schema<ISubcategory>({
     type: String,
     required: true,
     unique: true,
+    trim: true
+  },
+  code: {
+    type: String,
     trim: true
   },
   description: {

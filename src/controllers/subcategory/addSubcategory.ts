@@ -10,6 +10,7 @@ const addSubcategory = async (req: Request, res: Response) => {
   const validationSchema = yup.object().shape({
     name: yup.string().required(),
     urlSlug: yup.string().required(),
+    code: yup.string(),
     description: yup.string().required(),
     properties: yup.array().of(yup.object({
       property: yup.string().length(24),
@@ -18,12 +19,13 @@ const addSubcategory = async (req: Request, res: Response) => {
   })
 
 	const handle = async () => {
-    const { name, urlSlug, properties, description } = req.body
+    const { name, urlSlug,code, properties, description } = req.body
     const { categoryId } = req.params
 
     const newSubcategory = {
       name: name.trim(),
       urlSlug: urlSlug.trim(),
+      code: code.trim(),
       properties,
       description
     }

@@ -37,6 +37,7 @@ exports.websiteSubcategoryRouter = (0, express_1.Router)();
  *         in: path
  *         required: true
  *         description: ID of the category to which the new subcategory will be related
+ *         code: Category code
  *         schema:
  *           type: string
  *     requestBody:
@@ -49,6 +50,8 @@ exports.websiteSubcategoryRouter = (0, express_1.Router)();
  *               name:
  *                 type: string
  *               urlSlug:
+ *                 type: string
+ *               code:
  *                 type: string
  *               description:
  *                 type: string
@@ -88,6 +91,8 @@ exports.websiteSubcategoryRouter = (0, express_1.Router)();
  *                           type: string
  *                     name:
  *                       type: string
+* *                    code:
+*                        type: string
  *                     urlSlug:
  *                       type: string
  *                     description:

@@ -10,7 +10,8 @@ const addSubcategory = async (
   categoryId: string, 
   newSubcategory: {
     name: string
-    urlSlug: string
+    urlSlug: string,
+    code: string,
     description: string
     properties: {
       property: string
@@ -19,7 +20,7 @@ const addSubcategory = async (
   }
 ): Promise<IResponse> => {
   try {
-    const { name, urlSlug, description, properties } = newSubcategory
+    const { name, urlSlug,code, description, properties } = newSubcategory
 
     // Checking for availability
     const subcategoryWithExistingName = await Subcategory.findOne({ name }).exec()
@@ -82,6 +83,7 @@ const addSubcategory = async (
       name,
       category: categoryId,
       urlSlug,
+      code,
       properties,
       description
     })
@@ -288,6 +290,7 @@ const editSubcategory = async (
   updates: { 
     name?: string
     urlSlug?: string
+    code?: string
     description?: string
     properties?: {
       property: string

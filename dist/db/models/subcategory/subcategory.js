@@ -43,6 +43,10 @@ const subcategorySchema = new mongoose_1.Schema({
         unique: true,
         trim: true
     },
+    code: {
+        type: String,
+        trim: true
+    },
     description: {
         type: String,
         required: true

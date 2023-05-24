@@ -38,6 +38,7 @@ export const websiteSubcategoryRouter = Router()
  *         in: path
  *         required: true
  *         description: ID of the category to which the new subcategory will be related
+ *         code: Category code
  *         schema:
  *           type: string
  *     requestBody:
@@ -50,6 +51,8 @@ export const websiteSubcategoryRouter = Router()
  *               name:
  *                 type: string
  *               urlSlug:
+ *                 type: string
+ *               code:
  *                 type: string
  *               description:
  *                 type: string
@@ -86,9 +89,11 @@ export const websiteSubcategoryRouter = Router()
  *                         _id:
  *                           type: string
  *                         name:
- *                           type: string
+ *                           type: string 
  *                     name:
  *                       type: string
+* *                    code:
+*                        type: string
  *                     urlSlug:
  *                       type: string
  *                     description:
