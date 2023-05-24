@@ -43,6 +43,7 @@ exports.errorMessages = {
         godAdminRoleRequired: "شما ادمین اصلی نیستید",
         emailAlreadyTaken: "با ایمیل مورد نظر حساب ادمین وجود دارد",
         phoneAlreadyTaken: "با شماره تلفن مورد نظر حساب ادمین وجود دارد",
+        codeAlreadyTaken: "با کد مورد نظر حساب ادمین وجود دارد",
         emailNotFound: "با ایمیل مورد نظر حساب کاربری وجود ندارد",
         godAdminAlreadyExists: "ادمین اصلی از قبل وجود دارد",
         incorrectCredentials: "ایمیل یا رمز عبور اشتباه است"

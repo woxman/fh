@@ -46,6 +46,7 @@ const editAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             email: yup.string().email(),
             password: yup.string(),
             phone: yup.string(),
+            code: yup.string(),
             name: yup.string(),
             permissions: yup.array().of(yup.string().oneOf(constants_1.permissions))
         })
@@ -54,11 +55,11 @@ const editAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         var _a;
         const currentAdminIsGodAdmin = (_a = res.locals.admin) === null || _a === void 0 ? void 0 : _a.isGodAdmin;
         const { adminId } = req.params;
-        const allowedUpdates = ["isSuperAdmin", "email", "phone", "name", "permissions"];
+        const allowedUpdates = ["isSuperAdmin", "email", "phone", "code", "name", "permissions"];
         const adminUpdates = {};
         Object.keys(req.body.updates || {}).forEach((update) => {
             if (allowedUpdates.includes(update)) {
-                if (["name", "phone", "email"].includes(update)) {
+                if (["name", "phone", "email", "code"].includes(update)) {
                     adminUpdates[update] = req.body.updates[update].trim();
                 }
                 else {

@@ -15,6 +15,7 @@ const addAdmin = async (
     email: string
     password: string
     phone: string
+    code: string
     name: string
     permissions: string[]
   },
@@ -25,7 +26,7 @@ const addAdmin = async (
 ): Promise<IResponse> => {
 
   try {
-    const { isSuperAdmin, email, password, phone, name, permissions } = newAdmin
+    const { isSuperAdmin, email, password, phone,code, name, permissions } = newAdmin
     const { adminId, ip } = reportDetails
 
     // checking godAdmin permissions
@@ -70,6 +71,7 @@ const addAdmin = async (
       email,
       password: encrypt(password),
       phone,
+      code,
       name,
       permissions
     })
@@ -342,6 +344,7 @@ const editAdmin = async (
     isSuperAdmin?: string
     email?: string
     phone?: string
+    code?: string
     name?: string
     permissions?: string[]
   },
@@ -401,6 +404,20 @@ const editAdmin = async (
         }
       }
     }
+    // checking code availability
+    if(adminUpdates.code) {
+      const existingAdminWithThisCode = await Admin.findOne({ code: adminUpdates.code }).exec()
+    
+      if(existingAdminWithThisCode) {
+        return {
+          success: false,
+          error: {
+            message: errorMessages.adminService.codeAlreadyTaken,
+            statusCode: statusCodes.badRequest
+          }
+        }
+      }
+    }
     
     const updatedAdmin = await Admin.findByIdAndUpdate(adminId, adminUpdates, { new: true }).exec()
 
@@ -440,6 +457,7 @@ const editCurrentAdmin = async (
   adminUpdates: {
     email?: string
     phone?: string
+    code?: string
     name?: string
   }
 ): Promise<IResponse> => {
@@ -481,6 +499,20 @@ const editCurrentAdmin = async (
           success: false,
           error: {
             message: errorMessages.adminService.phoneAlreadyTaken,
+            statusCode: statusCodes.badRequest
+          }
+        }
+      }
+    }
+    // checking code availability
+    if(adminUpdates.code) {
+      const existingAdminWithThisCode = await Admin.findOne({ code: adminUpdates.code }).exec()
+    
+      if(existingAdminWithThisCode) {
+        return {
+          success: false,
+          error: {
+            message: errorMessages.adminService.codeAlreadyTaken,
             statusCode: statusCodes.badRequest
           }
         }

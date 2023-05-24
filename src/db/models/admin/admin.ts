@@ -5,6 +5,7 @@ export interface IAdmin extends Document {
   isSuperAdmin: boolean
   email: string
   phone: string
+  code: string
   password: string
   name: string
   permissions: string[]
@@ -33,6 +34,10 @@ const adminSchema = new Schema<IAdmin>({
     type: String,
     unique: true,
     required: true
+  },
+  code: {
+    type: String,
+    unique: true,
   },
   password: {
     type: String,

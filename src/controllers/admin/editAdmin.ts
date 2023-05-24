@@ -13,6 +13,7 @@ const editAdmin = async (req: Request, res: Response) => {
       email: yup.string().email(),
       password: yup.string(),
       phone: yup.string(),
+      code: yup.string(),
       name: yup.string(),
       permissions: yup.array().of(yup.string().oneOf(permissions))
     })
@@ -23,14 +24,14 @@ const editAdmin = async (req: Request, res: Response) => {
 
     const { adminId } = req.params
 
-    const allowedUpdates = ["isSuperAdmin", "email", "phone", "name", "permissions"]
+    const allowedUpdates = ["isSuperAdmin", "email", "phone","code", "name", "permissions"]
 
     const adminUpdates: { [key: string]: any} = {}
 
     Object.keys(req.body.updates || {}).forEach((update) => {
       if(allowedUpdates.includes(update)) {
         
-        if(["name", "phone", "email"].includes(update)) {
+        if(["name", "phone", "email","code"].includes(update)) {
           adminUpdates[update] = req.body.updates[update].trim()
 
         } else {

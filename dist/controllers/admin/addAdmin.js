@@ -45,18 +45,20 @@ const addAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         email: yup.string().email().required(),
         password: yup.string().required(),
         phone: yup.string().required(),
+        code: yup.string(),
         name: yup.string().required(),
         permissions: yup.array().of(yup.string().oneOf(constants_1.permissions))
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
         var _a;
         const currentAdminIsGodAdmin = (_a = res.locals.admin) === null || _a === void 0 ? void 0 : _a.isGodAdmin;
-        const { isSuperAdmin, email, password, phone, name, permissions } = req.body;
+        const { isSuperAdmin, email, password, phone, code, name, permissions } = req.body;
         const newAdmin = {
             isSuperAdmin,
             email: email.trim(),
             password: password.trim(),
             phone: phone.trim(),
+            code: code.trim(),
             name: name.trim(),
             permissions
         };

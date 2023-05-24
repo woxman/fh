@@ -43,12 +43,13 @@ const editCurrentAdmin = (req, res) => __awaiter(void 0, void 0, void 0, functio
         updates: yup.object({
             email: yup.string().email(),
             phone: yup.string(),
+            code: yup.string(),
             name: yup.string(),
         })
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
         const adminId = res.locals.admin._id;
-        const allowedUpdates = ["email", "phone", "name"];
+        const allowedUpdates = ["email", "phone", "code", "name"];
         const adminUpdates = {};
         Object.keys(req.body.updates || {}).forEach((update) => {
             if (allowedUpdates.includes(update)) {

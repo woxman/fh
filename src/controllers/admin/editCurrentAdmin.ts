@@ -10,6 +10,7 @@ const editCurrentAdmin = async (req: Request, res: Response) => {
     updates: yup.object({
       email: yup.string().email(),
       phone: yup.string(),
+      code: yup.string(),
       name: yup.string(),
     })
   })
@@ -18,7 +19,7 @@ const editCurrentAdmin = async (req: Request, res: Response) => {
 
     const adminId = res.locals.admin._id
 
-    const allowedUpdates = ["email", "phone", "name"]
+    const allowedUpdates = ["email", "phone","code", "name"]
 
     const adminUpdates: { [key: string]: any} = {}
 

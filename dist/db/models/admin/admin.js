@@ -45,6 +45,10 @@ const adminSchema = new mongoose_1.Schema({
         unique: true,
         required: true
     },
+    code: {
+        type: String,
+        unique: true,
+    },
     password: {
         type: String,
         required: true

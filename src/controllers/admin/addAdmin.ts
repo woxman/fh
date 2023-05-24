@@ -13,6 +13,7 @@ const addAdmin = async (req: Request, res: Response) => {
     email: yup.string().email().required(),
     password: yup.string().required(),
     phone: yup.string().required(),
+    code: yup.string(),
     name: yup.string().required(),
     permissions: yup.array().of(yup.string().oneOf(permissions))
   })
@@ -20,13 +21,14 @@ const addAdmin = async (req: Request, res: Response) => {
 	const handle = async () => {
 		const currentAdminIsGodAdmin = res.locals.admin?.isGodAdmin
     
-    const { isSuperAdmin, email, password, phone, name, permissions } = req.body
+    const { isSuperAdmin, email, password, phone,code, name, permissions } = req.body
 
     const newAdmin = {
       isSuperAdmin,
       email: email.trim(),
       password: password.trim(),
       phone: phone.trim(),
+      code: code.trim(),
       name: name.trim(),
       permissions
     }

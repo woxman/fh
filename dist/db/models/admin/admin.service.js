@@ -22,7 +22,7 @@ const report_1 = __importDefault(require("../report/report"));
 const ObjectId = mongoose_1.default.Types.ObjectId;
 const addAdmin = (currentAdminIsGodAdmin, newAdmin, reportDetails) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { isSuperAdmin, email, password, phone, name, permissions } = newAdmin;
+        const { isSuperAdmin, email, password, phone, code, name, permissions } = newAdmin;
         const { adminId, ip } = reportDetails;
         // checking godAdmin permissions
         if (!currentAdminIsGodAdmin && isSuperAdmin) {
@@ -61,6 +61,7 @@ const addAdmin = (currentAdminIsGodAdmin, newAdmin, reportDetails) => __awaiter(
             email,
             password: (0, encryption_1.encrypt)(password),
             phone,
+            code,
             name,
             permissions
         });
@@ -317,6 +318,19 @@ const editAdmin = (adminId, adminUpdates, currentAdminIsGodAdmin) => __awaiter(v
                 };
             }
         }
+        // checking code availability
+        if (adminUpdates.code) {
+            const existingAdminWithThisCode = yield admin_1.default.findOne({ code: adminUpdates.code }).exec();
+            if (existingAdminWithThisCode) {
+                return {
+                    success: false,
+                    error: {
+                        message: constants_1.errorMessages.adminService.codeAlreadyTaken,
+                        statusCode: constants_1.statusCodes.badRequest
+                    }
+                };
+            }
+        }
         const updatedAdmin = yield admin_1.default.findByIdAndUpdate(adminId, adminUpdates, { new: true }).exec();
         if (!updatedAdmin) {
             return {
@@ -379,6 +393,19 @@ const editCurrentAdmin = (adminId, adminUpdates) => __awaiter(void 0, void 0, vo
                     success: false,
                     error: {
                         message: constants_1.errorMessages.adminService.phoneAlreadyTaken,
+                        statusCode: constants_1.statusCodes.badRequest
+                    }
+                };
+            }
+        }
+        // checking code availability
+        if (adminUpdates.code) {
+            const existingAdminWithThisCode = yield admin_1.default.findOne({ code: adminUpdates.code }).exec();
+            if (existingAdminWithThisCode) {
+                return {
+                    success: false,
+                    error: {
+                        message: constants_1.errorMessages.adminService.codeAlreadyTaken,
                         statusCode: constants_1.statusCodes.badRequest
                     }
                 };
