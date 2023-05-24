@@ -505,7 +505,7 @@ const addOrderStep = async (
 //--------------------------------------------------------------------------------
 
 const addGalleryStep = async (
-  newOrderStep: {
+  newGalleryStep: {
     step: number
     link: string
     which: string
@@ -517,7 +517,7 @@ const addGalleryStep = async (
 ): Promise<IResponse> => {
 
   try {
-    const { step, link, which, image } = newOrderStep
+    const { step, link, which, image } = newGalleryStep
 
     // checking step availability
     const filter = {
@@ -573,7 +573,7 @@ const addGalleryStep = async (
       }
     }
   } catch(error) {
-    console.log('Error while adding order step: ', error)
+    console.log('Error while adding gallery step: ', error)
 
     return {
       success: false,
@@ -626,7 +626,7 @@ const getGallerySteps = async (): Promise<IResponse> => {
     }
 
   } catch(error) {
-    console.log('Error while getting order steps: ', error)
+    console.log('Error while getting galley steps: ', error)
 
     return {
       success: false,
@@ -716,7 +716,7 @@ const getGalleryStep = async (galleryStepId: string): Promise<IResponse> => {
     }
 
   } catch(error) {
-    console.log('Error while getting order step: ', error)
+    console.log('Error while getting gallery step: ', error)
 
     return {
       success: false,
@@ -795,7 +795,7 @@ const deleteGalleryStep = async (galleryStepId: string): Promise<IResponse> => {
     }
 
   } catch(error) {
-    console.log('Error while deleting order step: ', error)
+    console.log('Error while deleting gallery step: ', error)
 
     return {
       success: false,
@@ -1003,18 +1003,18 @@ const editGalleryStep = async (
 
     const updatedSiteInfo = await SiteInfo.findOneAndUpdate(filter, update, { arrayFilters, new: true }).exec()
 
-    const updatedOrderStep = updatedSiteInfo?.mainPage.gallerySteps.find((galleryStep) => {
+    const updatedGalleryStep = updatedSiteInfo?.mainPage.gallerySteps.find((galleryStep) => {
       return galleryStep._id.toString() == galleryStepId
     })
 
     return {
       success: true,
       outputs: {
-        orderStep: updatedOrderStep
+        galleryStep: updatedGalleryStep
       }
     }
   } catch(error) {
-    console.log('Error while editing an order step: ', error)
+    console.log('Error while editing an gallery step: ', error)
 
     return {
       success: false,

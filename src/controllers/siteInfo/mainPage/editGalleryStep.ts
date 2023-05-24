@@ -27,7 +27,7 @@ const editGalleryStep = async (req: Request, res: Response) => {
 
     Object.keys(req.body.updates || {}).forEach((update) => {
       if(allowedUpdates.includes(update)) {
-        if(["link"].includes(update)) {
+        if(["which"].includes(update)) {
           galleryStepUpdates[update] = req.body.updates[update].trim()
         } else {
           galleryStepUpdates[update] = req.body.updates[update]

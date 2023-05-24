@@ -57,7 +57,7 @@ const editGalleryStep = (req, res) => __awaiter(void 0, void 0, void 0, function
         const galleryStepUpdates = {};
         Object.keys(req.body.updates || {}).forEach((update) => {
             if (allowedUpdates.includes(update)) {
-                if (["link"].includes(update)) {
+                if (["which"].includes(update)) {
                     galleryStepUpdates[update] = req.body.updates[update].trim();
                 }
                 else {

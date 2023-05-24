@@ -402,9 +402,9 @@ const addOrderStep = (newOrderStep) => __awaiter(void 0, void 0, void 0, functio
 });
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
-const addGalleryStep = (newOrderStep) => __awaiter(void 0, void 0, void 0, function* () {
+const addGalleryStep = (newGalleryStep) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { step, link, which, image } = newOrderStep;
+        const { step, link, which, image } = newGalleryStep;
         // checking step availability
         const filter = {
             websiteName: constants_1.websiteName,
@@ -452,7 +452,7 @@ const addGalleryStep = (newOrderStep) => __awaiter(void 0, void 0, void 0, funct
         };
     }
     catch (error) {
-        console.log('Error while adding order step: ', error);
+        console.log('Error while adding gallery step: ', error);
         return {
             success: false,
             error: {
@@ -497,7 +497,7 @@ const getGallerySteps = () => __awaiter(void 0, void 0, void 0, function* () {
         };
     }
     catch (error) {
-        console.log('Error while getting order steps: ', error);
+        console.log('Error while getting galley steps: ', error);
         return {
             success: false,
             error: {
@@ -574,7 +574,7 @@ const getGalleryStep = (galleryStepId) => __awaiter(void 0, void 0, void 0, func
         };
     }
     catch (error) {
-        console.log('Error while getting order step: ', error);
+        console.log('Error while getting gallery step: ', error);
         return {
             success: false,
             error: {
@@ -641,7 +641,7 @@ const deleteGalleryStep = (galleryStepId) => __awaiter(void 0, void 0, void 0, f
         };
     }
     catch (error) {
-        console.log('Error while deleting order step: ', error);
+        console.log('Error while deleting gallery step: ', error);
         return {
             success: false,
             error: {
@@ -795,18 +795,18 @@ const editGalleryStep = (galleryStepId, updates) => __awaiter(void 0, void 0, vo
         });
         const arrayFilters = [{ 'i._id': galleryStepId }];
         const updatedSiteInfo = yield siteInfo_1.default.findOneAndUpdate(filter, update, { arrayFilters, new: true }).exec();
-        const updatedOrderStep = updatedSiteInfo === null || updatedSiteInfo === void 0 ? void 0 : updatedSiteInfo.mainPage.gallerySteps.find((galleryStep) => {
+        const updatedGalleryStep = updatedSiteInfo === null || updatedSiteInfo === void 0 ? void 0 : updatedSiteInfo.mainPage.gallerySteps.find((galleryStep) => {
             return galleryStep._id.toString() == galleryStepId;
         });
         return {
             success: true,
             outputs: {
-                orderStep: updatedOrderStep
+                galleryStep: updatedGalleryStep
             }
         };
     }
     catch (error) {
-        console.log('Error while editing an order step: ', error);
+        console.log('Error while editing an gallery step: ', error);
         return {
             success: false,
             error: {
