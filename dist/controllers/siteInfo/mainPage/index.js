@@ -22,7 +22,9 @@ const getGalleryStep_1 = __importDefault(require("./getGalleryStep"));
 const getOrderSteps_1 = __importDefault(require("./getOrderSteps"));
 const getGallerySteps_1 = __importDefault(require("./getGallerySteps"));
 const editOrderStep_1 = __importDefault(require("./editOrderStep"));
+const editGalleryStep_1 = __importDefault(require("./editGalleryStep"));
 const deleteOrderStep_1 = __importDefault(require("./deleteOrderStep"));
+const deleteGalleryStep_1 = __importDefault(require("./deleteGalleryStep"));
 const updateFooter_1 = __importDefault(require("./updateFooter"));
 const getFooter_1 = __importDefault(require("./getFooter"));
 const updateSpecialProducts_1 = __importDefault(require("./updateSpecialProducts"));
@@ -1150,6 +1152,108 @@ exports.panelMainPageRouter.get('/gallery-step', (0, auth_1.default)('admin'), g
 exports.panelMainPageRouter.patch('/order-step/:orderStepId', (0, auth_1.default)('admin'), editOrderStep_1.default);
 /**
  * @swagger
+ * /panel/site-info/main-page/gallery-step/{galleryStepId}:
+ *   patch:
+ *     tags:
+ *       - Main page | Panel
+ *     summary: Edit an gallery step
+ *     description: Edit an gallery step by id
+ *     security:
+ *       - adminBearerAuth: []
+ *     parameters:
+ *       - name: galleryStepId
+ *         in: path
+ *         required: true
+ *         description: The ID of the gallery step
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               updates:
+ *                 type: object
+ *                 properties:
+ *                   step:
+ *                     type: number
+ *                   link:
+ *                     type: string
+ *                   which:
+ *                     type: string
+ *                   image:
+ *                     type: object
+ *                     properties:
+ *                       format:
+ *                         type: string
+ *                       data:
+ *                         type: string
+ *                         format: binary
+ *     responses:
+ *       200:
+ *         description: Updated gallery step
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 orderStep:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     step:
+ *                       type: string
+ *                     link:
+ *                       type: string
+ *                     which:
+ *                       type: boolean
+ *                     image:
+ *                       type: string
+ *                     createdAt:
+ *                       type: number
+ *       401:
+ *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       404:
+ *         description: Not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       422:
+ *         description: Data validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+exports.panelMainPageRouter.patch('/gallery-step/:galleryStepId', (0, auth_1.default)('admin'), editGalleryStep_1.default);
+/**
+ * @swagger
  * /panel/site-info/main-page/order-step/{orderStepId}:
  *   delete:
  *     tags:
@@ -1197,6 +1301,55 @@ exports.panelMainPageRouter.patch('/order-step/:orderStepId', (0, auth_1.default
  *                   type: string
  */
 exports.panelMainPageRouter.delete('/order-step/:orderStepId', (0, auth_1.default)('admin'), deleteOrderStep_1.default);
+/**
+ * @swagger
+ * /panel/site-info/main-page/gallery-step/{galleryStepId}:
+ *   delete:
+ *     tags:
+ *       - Main page | Panel
+ *     summary: Delete an gallery step
+ *     description: Delete an gallery step
+ *     security:
+ *       - adminBearerAuth: []
+ *     parameters:
+ *       - name: galleryStepId
+ *         in: path
+ *         required: true
+ *         description: The ID of the gallery step
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: The gallery step deleted
+ *       401:
+ *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       404:
+ *         description: Not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+exports.panelMainPageRouter.delete('/gallery-step/:galleryStepId', (0, auth_1.default)('admin'), deleteGalleryStep_1.default);
 //Herer Stop
 /**
  * @swagger

@@ -618,8 +618,42 @@ const deleteOrderStep = (orderStepId) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 //--------------------------------------------------------------------------------
-const editOrderStep = (orderStepId, updates) => __awaiter(void 0, void 0, void 0, function* () {
+//--------------------------------------------------------------------------------
+const deleteGalleryStep = (galleryStepId) => __awaiter(void 0, void 0, void 0, function* () {
     var _d;
+    try {
+        const filter = {
+            websiteName: constants_1.websiteName,
+            'mainPage.gallerySteps._id': new ObjectId(galleryStepId)
+        };
+        const update = {
+            $pull: { 'mainPage.gallerySteps': { _id: new ObjectId(galleryStepId) } }
+        };
+        const siteInfo = yield siteInfo_1.default.findOneAndUpdate(filter, update).exec();
+        const imageUrl = (_d = siteInfo === null || siteInfo === void 0 ? void 0 : siteInfo.mainPage.gallerySteps.find((galleryStep) => {
+            return galleryStep._id.toString() == galleryStepId;
+        })) === null || _d === void 0 ? void 0 : _d.image;
+        if (imageUrl) {
+            yield image_service_1.default.deleteImage(imageUrl);
+        }
+        return {
+            success: true
+        };
+    }
+    catch (error) {
+        console.log('Error while deleting order step: ', error);
+        return {
+            success: false,
+            error: {
+                message: constants_1.errorMessages.shared.ise,
+                statusCode: constants_1.statusCodes.ise
+            }
+        };
+    }
+});
+//--------------------------------------------------------------------------------
+const editOrderStep = (orderStepId, updates) => __awaiter(void 0, void 0, void 0, function* () {
+    var _e;
     try {
         if (Object.keys(updates).length == 0) {
             return {
@@ -663,9 +697,9 @@ const editOrderStep = (orderStepId, updates) => __awaiter(void 0, void 0, void 0
         }
         // Store new image in database
         if (updates.image) {
-            const imageUrl = (_d = siteInfo.mainPage.orderSteps.find((orderStep) => {
+            const imageUrl = (_e = siteInfo.mainPage.orderSteps.find((orderStep) => {
                 return orderStep._id.toString() == orderStepId;
-            })) === null || _d === void 0 ? void 0 : _d.image;
+            })) === null || _e === void 0 ? void 0 : _e.image;
             if (imageUrl) {
                 yield image_service_1.default.updateImage(imageUrl, updates.image.format, updates.image.data);
             }
@@ -680,6 +714,89 @@ const editOrderStep = (orderStepId, updates) => __awaiter(void 0, void 0, void 0
         const updatedSiteInfo = yield siteInfo_1.default.findOneAndUpdate(filter, update, { arrayFilters, new: true }).exec();
         const updatedOrderStep = updatedSiteInfo === null || updatedSiteInfo === void 0 ? void 0 : updatedSiteInfo.mainPage.orderSteps.find((orderStep) => {
             return orderStep._id.toString() == orderStepId;
+        });
+        return {
+            success: true,
+            outputs: {
+                orderStep: updatedOrderStep
+            }
+        };
+    }
+    catch (error) {
+        console.log('Error while editing an order step: ', error);
+        return {
+            success: false,
+            error: {
+                message: constants_1.errorMessages.shared.ise,
+                statusCode: constants_1.statusCodes.ise
+            }
+        };
+    }
+});
+//--------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------
+const editGalleryStep = (galleryStepId, updates) => __awaiter(void 0, void 0, void 0, function* () {
+    var _f;
+    try {
+        if (Object.keys(updates).length == 0) {
+            return {
+                success: false,
+                error: {
+                    message: constants_1.errorMessages.shared.noChanges,
+                    statusCode: constants_1.statusCodes.badRequest
+                }
+            };
+        }
+        const filter = {
+            websiteName: constants_1.websiteName,
+            'mainPage.gallerySteps._id': new ObjectId(galleryStepId)
+        };
+        const siteInfo = yield siteInfo_1.default.findOne(filter).exec();
+        if (!siteInfo) {
+            return {
+                success: false,
+                error: {
+                    message: constants_1.errorMessages.shared.notFound,
+                    statusCode: constants_1.statusCodes.notFound
+                }
+            };
+        }
+        if (updates.step) {
+            // checking step availability
+            const filter = {
+                websiteName: constants_1.websiteName,
+                'mainPage.gallerySteps.step': updates.step
+            };
+            const existingGalleryStep = yield siteInfo_1.default.findOne(filter).exec();
+            if (existingGalleryStep) {
+                return {
+                    success: false,
+                    error: {
+                        message: constants_1.errorMessages.siteInfo.stepExists,
+                        statusCode: constants_1.statusCodes.badRequest
+                    }
+                };
+            }
+        }
+        // Store new image in database
+        if (updates.image) {
+            const imageUrl = (_f = siteInfo.mainPage.gallerySteps.find((galleryStep) => {
+                return galleryStep._id.toString() == galleryStepId;
+            })) === null || _f === void 0 ? void 0 : _f.image;
+            if (imageUrl) {
+                yield image_service_1.default.updateImage(imageUrl, updates.image.format, updates.image.data);
+            }
+            delete updates.image;
+        }
+        const update = {};
+        const updatesValues = Object.values(updates);
+        Object.keys(updates).forEach((u, i) => {
+            update[`mainPage.gallerySteps.$[i].${u}`] = updatesValues[i];
+        });
+        const arrayFilters = [{ 'i._id': galleryStepId }];
+        const updatedSiteInfo = yield siteInfo_1.default.findOneAndUpdate(filter, update, { arrayFilters, new: true }).exec();
+        const updatedOrderStep = updatedSiteInfo === null || updatedSiteInfo === void 0 ? void 0 : updatedSiteInfo.mainPage.gallerySteps.find((galleryStep) => {
+            return galleryStep._id.toString() == galleryStepId;
         });
         return {
             success: true,
@@ -992,7 +1109,9 @@ exports.default = {
     getOrderStep,
     getGalleryStep,
     deleteOrderStep,
+    deleteGalleryStep,
     editOrderStep,
+    editGalleryStep,
     updateFooter,
     getFooter,
     updateNewsAndBanner,

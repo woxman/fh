@@ -766,9 +766,47 @@ const deleteOrderStep = async (orderStepId: string): Promise<IResponse> => {
     }
   }
 }
+//--------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------
 
+const deleteGalleryStep = async (galleryStepId: string): Promise<IResponse> => {
+  try {
+    const filter = {
+      websiteName,
+      'mainPage.gallerySteps._id': new ObjectId(galleryStepId)
+    }
+
+    const update = {
+      $pull: { 'mainPage.gallerySteps': { _id: new ObjectId(galleryStepId) }}
+    }
+    const siteInfo = await SiteInfo.findOneAndUpdate(filter, update).exec()
+
+    const imageUrl = siteInfo?.mainPage.gallerySteps.find((galleryStep) => {
+      return galleryStep._id.toString() == galleryStepId
+    })?.image
+
+    if(imageUrl) {
+      await imageService.deleteImage(imageUrl)
+    }
+
+    return {
+      success: true
+    }
+
+  } catch(error) {
+    console.log('Error while deleting order step: ', error)
+
+    return {
+      success: false,
+      error: {
+        message: errorMessages.shared.ise,
+        statusCode: statusCodes.ise
+      }
+    }
+  }
+}
+//--------------------------------------------------------------------------------
 const editOrderStep = async (
   orderStepId: string,
   updates: {
@@ -878,7 +916,115 @@ const editOrderStep = async (
     }
   }
 }
+//--------------------------------------------------------------------------------
 
+//--------------------------------------------------------------------------------
+const editGalleryStep = async (
+  galleryStepId: string,
+  updates: {
+    step?: number
+    link?: string
+    which?: string
+    image?: {
+      format: string
+      data: Buffer
+    }
+  }
+): Promise<IResponse> => {
+  try {
+    if(Object.keys(updates).length == 0) {
+      return {
+        success: false,
+        error: {
+          message: errorMessages.shared.noChanges,
+          statusCode: statusCodes.badRequest
+        }
+      }
+    }
+
+    const filter = {
+      websiteName,
+      'mainPage.gallerySteps._id': new ObjectId(galleryStepId)
+    }
+
+    const siteInfo = await SiteInfo.findOne(filter).exec()
+
+    if(!siteInfo) {
+      return {
+        success: false,
+        error: {
+          message: errorMessages.shared.notFound,
+          statusCode: statusCodes.notFound
+        }
+      }
+    }
+
+    if(updates.step) {
+      // checking step availability
+      const filter = {
+        websiteName,
+        'mainPage.gallerySteps.step': updates.step
+      }
+
+      const existingGalleryStep = await SiteInfo.findOne(filter).exec()
+
+      if(existingGalleryStep) {
+        return {
+          success: false,
+          error: {
+            message: errorMessages.siteInfo.stepExists,
+            statusCode: statusCodes.badRequest
+          }
+        }
+      }
+    }
+    // Store new image in database
+    if(updates.image) {
+      const imageUrl = siteInfo.mainPage.gallerySteps.find((galleryStep) => {
+        return galleryStep._id.toString() == galleryStepId
+      })?.image
+
+      if(imageUrl) {
+        await imageService.updateImage(imageUrl, updates.image.format, updates.image.data)
+      }
+
+      delete updates.image
+    }
+
+    const update: { [key: string]: any} = {}
+
+    const updatesValues = Object.values(updates)
+
+    Object.keys(updates).forEach((u, i) => {
+      update[`mainPage.gallerySteps.$[i].${u}`] = updatesValues[i]
+    })
+
+    const arrayFilters = [{'i._id': galleryStepId}]
+
+    const updatedSiteInfo = await SiteInfo.findOneAndUpdate(filter, update, { arrayFilters, new: true }).exec()
+
+    const updatedOrderStep = updatedSiteInfo?.mainPage.gallerySteps.find((galleryStep) => {
+      return galleryStep._id.toString() == galleryStepId
+    })
+
+    return {
+      success: true,
+      outputs: {
+        orderStep: updatedOrderStep
+      }
+    }
+  } catch(error) {
+    console.log('Error while editing an order step: ', error)
+
+    return {
+      success: false,
+      error: {
+        message: errorMessages.shared.ise,
+        statusCode: statusCodes.ise
+      }
+    }
+  }
+}
 //--------------------------------------------------------------------------------
 
 const updateFooter = async (
@@ -1249,7 +1395,9 @@ export default {
   getOrderStep,
   getGalleryStep,
   deleteOrderStep,
+  deleteGalleryStep,
   editOrderStep,
+  editGalleryStep,
   updateFooter,
   getFooter,
   updateNewsAndBanner,
