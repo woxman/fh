@@ -18,13 +18,21 @@ const config_1 = __importDefault(require("../../config"));
 const { smsApiKey } = config_1.default;
 const sendCode = (phone, code) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const message = `کد تایید شما: ${code}`;
-        const url = `https://api.kavenegar.com/v1/${smsApiKey}/sms/send.json`;
+        //const message = `کد تایید شما: ${code}`
+        //const url = `https://api.kavenegar.com/v1/${smsApiKey}/sms/send.json`
+        /*const options = {
+          params: {
+            receptor: phone,
+            message,
+            sender: '2000044459563'
+          }
+        }*/
+        const message = `${code}`;
+        const url = `https://api.kavenegar.com/v1/${smsApiKey}/verify/lookup.json`;
         const options = {
             params: {
                 receptor: phone,
-                message,
-                sender: '2000044459563'
+                token: message
             }
         };
         yield axios_1.default.post(url, {}, options);
