@@ -644,7 +644,6 @@ panelMainPageRouter.patch('/social-network/:socialNetworkId', auth('admin'), edi
 panelMainPageRouter.delete('/social-network/:socialNetworkId', auth('admin'), deleteSocialNetwork)
 
 
-//Herer Start
 /**
  * @swagger
  * /panel/site-info/main-page/order-step:
@@ -1386,7 +1385,6 @@ panelMainPageRouter.delete('/order-step/:orderStepId', auth('admin'), deleteOrde
  *                   type: string
  */
 panelMainPageRouter.delete('/gallery-step/:galleryStepId', auth('admin'), deleteGalleryStep)
-//Herer Stop
 
 
 /**
