@@ -620,7 +620,6 @@ exports.panelMainPageRouter.patch('/social-network/:socialNetworkId', (0, auth_1
  *                   type: string
  */
 exports.panelMainPageRouter.delete('/social-network/:socialNetworkId', (0, auth_1.default)('admin'), deleteSocialNetwork_1.default);
-//Herer Start
 /**
  * @swagger
  * /panel/site-info/main-page/order-step:
@@ -1350,7 +1349,6 @@ exports.panelMainPageRouter.delete('/order-step/:orderStepId', (0, auth_1.defaul
  *                   type: string
  */
 exports.panelMainPageRouter.delete('/gallery-step/:galleryStepId', (0, auth_1.default)('admin'), deleteGalleryStep_1.default);
-//Herer Stop
 /**
  * @swagger
  * /panel/site-info/main-page/footer:

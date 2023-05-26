@@ -51,8 +51,6 @@ exports.websiteSubcategoryRouter = (0, express_1.Router)();
  *                 type: string
  *               urlSlug:
  *                 type: string
- *               code:
- *                 type: string
  *               description:
  *                 type: string
  *               properties:
@@ -91,8 +89,8 @@ exports.websiteSubcategoryRouter = (0, express_1.Router)();
  *                           type: string
  *                     name:
  *                       type: string
-* *                    code:
-*                        type: string
+ *                     code:
+ *                       type: string
  *                     urlSlug:
  *                       type: string
  *                     description:

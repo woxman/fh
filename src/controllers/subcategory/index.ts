@@ -52,8 +52,6 @@ export const websiteSubcategoryRouter = Router()
  *                 type: string
  *               urlSlug:
  *                 type: string
- *               code:
- *                 type: string
  *               description:
  *                 type: string
  *               properties: 
@@ -92,8 +90,8 @@ export const websiteSubcategoryRouter = Router()
  *                           type: string 
  *                     name:
  *                       type: string
-* *                    code:
-*                        type: string
+ *                     code:
+ *                       type: string
  *                     urlSlug:
  *                       type: string
  *                     description:
