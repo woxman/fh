@@ -1046,7 +1046,7 @@ exports.panelMainPageRouter.get('/order-step', (0, auth_1.default)('admin'), get
  *                 message:
  *                   type: string
  */
-exports.panelMainPageRouter.get('/gallery-step', (0, auth_1.default)('admin'), getGallerySteps_1.default);
+exports.panelMainPageRouter.get('/gallery-step', getGallerySteps_1.default);
 /**
  * @swagger
  * /panel/site-info/main-page/order-step/{orderStepId}:

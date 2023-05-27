@@ -1077,7 +1077,7 @@ panelMainPageRouter.get('/order-step', auth('admin'), getOrderSteps)
  *                 message:
  *                   type: string
  */
-panelMainPageRouter.get('/gallery-step', auth('admin'), getGallerySteps)
+panelMainPageRouter.get('/gallery-step', getGallerySteps)
 
 
 /**
@@ -1726,10 +1726,6 @@ panelMainPageRouter.put('/special-products', auth('admin'), updateSpecialProduct
  *                   type: string
  */
 panelMainPageRouter.get('/special-products', auth('admin'), getSpecialProducts)
-
-
-
-
 
 
 //---------------------------------------------------------------
