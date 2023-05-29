@@ -631,6 +631,183 @@ exports.websiteUserRouter.get('/', (0, auth_1.default)('user'), getCurrentUser_1
 exports.websiteUserRouter.patch('/', (0, auth_1.default)('user'), editUser_1.default);
 /**
  * @swagger
+ * /panel/user:
+ *   patch:
+ *     tags:
+ *       - User | Website
+ *     summary: Edit current user
+ *     description: Edit current user
+ *     security:
+ *       - userBearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               updates:
+ *                 type: object
+ *                 properties:
+ *                   name:
+ *                     type: string
+ *                   email:
+ *                     type: string
+ *                   addresses:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *     responses:
+ *       200:
+ *         description: A user object.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     phone:
+ *                       type: boolean
+ *                     name:
+ *                       type: boolean
+ *                     email:
+ *                       type: string
+ *                     favoriteProducts:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           _id:
+ *                             type: string
+ *                           subcategory:
+ *                             type: object
+ *                             properties:
+ *                               _id:
+ *                                 type: string
+ *                               name:
+ *                                 type: string
+ *                           factory:
+ *                             type: object
+ *                             properties:
+ *                               _id:
+ *                                 type: string
+ *                               name:
+ *                                 type: string
+ *                           name:
+ *                             type: string
+ *                           urlSlug:
+ *                             type: string
+ *                           description:
+ *                             type: string
+ *                           properties:
+ *                             type: array
+ *                             items:
+ *                               type: object
+ *                               properties:
+ *                                 name:
+ *                                   type: string
+ *                                 value:
+ *                                   type: string
+ *                           unit:
+ *                             type: string
+ *                           price:
+ *                             type: number
+ *                           priceHistory:
+ *                             type: array
+ *                             items:
+ *                               type: object
+ *                               properties:
+ *                                 price:
+ *                                   type: number
+ *                                 date:
+ *                                   type: number
+ *                           tags:
+ *                             type: array
+ *                             items:
+ *                               type: string
+ *                           images:
+ *                             type: array
+ *                             items:
+ *                               type: string
+ *                           averageRating:
+ *                             type: number
+ *                           ratingsCount:
+ *                             type: number
+ *                           ratings:
+ *                             type: array
+ *                             items:
+ *                               type: object
+ *                               properties:
+ *                                 user:
+ *                                   type: string
+ *                                   description: ID of the related user
+ *                                 rating:
+ *                                   type: number
+ *                           createdAt:
+ *                             type: number
+ *                           updatedAt:
+ *                             type: number
+ *                     addresses:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     createdAt:
+ *                       type: number
+ *                     updatedAt:
+ *                       type: number
+ *       401:
+ *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       400:
+ *         description: Unique fields required or no changes received or special permission required
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       422:
+ *         description: Data validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       404:
+ *         description: Not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+exports.panelUserRouter.patch('/', (0, auth_1.default)('user'), editUser_1.default);
+/**
+ * @swagger
  * /website/user/favorite/toggle:
  *   post:
  *     tags:
