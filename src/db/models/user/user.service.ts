@@ -279,6 +279,68 @@ const getUser = async (userId: objectId): Promise<IResponse> => {
 
 //---------------------------
 
+const getUsers = async (
+  options: {
+    limit?: number,
+    skip?: number,
+    sortBy?: string,
+    sortOrder?: string,
+    search?: string
+  }
+): Promise<IResponse> => {
+  try {
+
+    const { limit, skip, sortBy, sortOrder, search } = options
+
+    // Create and fill the query options object
+    const queryOptions: { [key: string]: any } = {}
+    
+    if(limit) {
+      queryOptions['limit'] = limit
+    }
+
+    if(skip) {
+      queryOptions['skip'] = skip
+    }
+
+    if(sortBy) {
+      queryOptions['sort'] = {}
+      queryOptions['sort'][`${sortBy}`] = sortOrder || 'asc'
+    }
+
+    const filter: { [key: string]: any } = {}
+    if(search) {
+      filter.name = { $regex: search }
+    }
+    
+    // Fetch the users
+    const count = await User.countDocuments(filter)
+    const users = await User.find(filter, {}, queryOptions).exec()
+
+    return {
+      success: true,
+      outputs: { 
+        count,
+        users
+      }
+    }
+
+  } catch(error) {
+    console.log('Error while getting users: ', error)
+
+    return {
+      success: false,
+      error: {
+        message: errorMessages.shared.ise,
+        statusCode: statusCodes.ise
+      }
+    }
+  }
+}
+
+//----------------------------------------------------------
+
+
 const toggleFavoriteProduct = async (userId: string, productId: string): Promise<IResponse> => {
   try {
     // Make sure the user exists
@@ -443,6 +505,7 @@ const deleteUser = async (userId: string): Promise<IResponse> => {
 
 export default {
   addUser,
+  getUsers,
   sendLoginCode,
   login,
   logout,

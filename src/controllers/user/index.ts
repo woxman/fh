@@ -8,7 +8,7 @@ import logout from './logout'
 import getCurrentUser from './getCurrentUser'
 import editUser from './editUser'
 import toggleFavoriteProduct from './toggleFavoriteProduct'
-import deleteUser from './logout'
+import deleteUser from './deleteUser'
 
 export const websiteUserRouter = Router()
 export const panelUserRouter = Router()
@@ -466,7 +466,6 @@ websiteUserRouter.post('/logout', auth('user'), logout)
 websiteUserRouter.get('/', auth('user'), getCurrentUser)
 
 
-
 /**
  * @swagger
  * /website/user:
@@ -825,7 +824,6 @@ websiteUserRouter.patch('/', auth('user'), editUser)
 panelUserRouter.patch('/', auth('user'), editUser)
 
 
-
 /**
  * @swagger
  * /website/user/favorite/toggle:
@@ -872,6 +870,8 @@ panelUserRouter.patch('/', auth('user'), editUser)
 websiteUserRouter.post('/favorite/toggle', auth('user'), toggleFavoriteProduct)
 
 
+//websiteUserRouter.delete('/', auth('user'), deleteUser)
 
-websiteUserRouter.delete('/', auth('user'), deleteUser)
+
+panelUserRouter.delete('/', auth('user'), deleteUser)
 

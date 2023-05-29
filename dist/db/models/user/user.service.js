@@ -243,6 +243,48 @@ const getUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 //---------------------------
+const getUsers = (options) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { limit, skip, sortBy, sortOrder, search } = options;
+        // Create and fill the query options object
+        const queryOptions = {};
+        if (limit) {
+            queryOptions['limit'] = limit;
+        }
+        if (skip) {
+            queryOptions['skip'] = skip;
+        }
+        if (sortBy) {
+            queryOptions['sort'] = {};
+            queryOptions['sort'][`${sortBy}`] = sortOrder || 'asc';
+        }
+        const filter = {};
+        if (search) {
+            filter.name = { $regex: search };
+        }
+        // Fetch the users
+        const count = yield user_1.default.countDocuments(filter);
+        const users = yield user_1.default.find(filter, {}, queryOptions).exec();
+        return {
+            success: true,
+            outputs: {
+                count,
+                users
+            }
+        };
+    }
+    catch (error) {
+        console.log('Error while getting users: ', error);
+        return {
+            success: false,
+            error: {
+                message: constants_1.errorMessages.shared.ise,
+                statusCode: constants_1.statusCodes.ise
+            }
+        };
+    }
+});
+//----------------------------------------------------------
 const toggleFavoriteProduct = (userId, productId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Make sure the user exists
@@ -385,6 +427,7 @@ const deleteUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.default = {
     addUser,
+    getUsers,
     sendLoginCode,
     login,
     logout,
