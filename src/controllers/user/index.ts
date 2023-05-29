@@ -6,6 +6,7 @@ import addUser from './addUser'
 import sendLoginCode from './sendLoginCode'
 import logout from './logout'
 import getCurrentUser from './getCurrentUser'
+import getUsers from './getUsers'
 import editUser from './editUser'
 import toggleFavoriteProduct from './toggleFavoriteProduct'
 import deleteUser from './deleteUser'
@@ -331,6 +332,96 @@ websiteUserRouter.post('/login', login)
 websiteUserRouter.post('/logout', auth('user'), logout)
 
 
+/**
+ * @swagger
+ * /panel/user:
+ *   get:
+ *     tags:
+ *       - User | Panel
+ *     summary: Get list of users
+ *     description: Get list of users
+ *     security:
+ *       - usersBearerAuth: []
+ *     parameters:
+ *       - name: limit
+ *         in: query
+ *         schema:
+ *           type: number
+ *         description: The number of items to return
+ *       - name: skip
+ *         in: query
+ *         schema:
+ *           type: number
+ *         description: The number of items to skip before starting to collect the results
+ *       - name: sortBy
+ *         in: query
+ *         schema:
+ *           type: string
+ *           enum: ["name", "email", "phone", "addresses", "createdAt", "updatedAt"]
+ *         description: The property to sort by
+ *       - name: sortOrder
+ *         in: query
+ *         schema:
+ *           type: string
+ *           enum: ['asc', 'desc']
+ *         description: The order to sort by
+ *       - name: search
+ *         in: query
+ *         schema:
+ *           type: string
+ *         description: The expression to filter the results by
+ *     responses:
+ *       200:
+ *         description: List of user objects.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 users:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                       phone:
+ *                         type: string
+ *                       name:
+ *                         type: string
+ *                       email:
+ *                         type: string
+ *                       addresses:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *                       createdAt:
+ *                         type: number
+ *                       updatedAt:
+ *                         type: number
+ *                 count:
+ *                   type: number
+ *       401:
+ *         description: Not authorized 
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+panelUserRouter.get('/', auth('admin'), getUsers)
+
 
 /**
  * @swagger
@@ -465,6 +556,138 @@ websiteUserRouter.post('/logout', auth('user'), logout)
  */
 websiteUserRouter.get('/', auth('user'), getCurrentUser)
 
+/**
+ * @swagger
+ * /panle/user:
+ *   get:
+ *     tags:
+ *       - User | panel
+ *     summary: get current user
+ *     description: get current user
+ *     security:
+ *       - userBearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A user object
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     phone:
+ *                       type: boolean
+ *                     name:
+ *                       type: boolean
+ *                     email:
+ *                       type: string
+ *                     favoriteProducts:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           _id:
+ *                             type: string
+ *                           subcategory:
+ *                             type: object
+ *                             properties:
+ *                               _id:
+ *                                 type: string
+ *                               name:
+ *                                 type: string
+ *                           factory:
+ *                             type: object
+ *                             properties:
+ *                               _id:
+ *                                 type: string
+ *                               name:
+ *                                 type: string
+ *                           name:
+ *                             type: string
+ *                           urlSlug:
+ *                             type: string
+ *                           description:
+ *                             type: string
+ *                           properties:
+ *                             type: array
+ *                             items:
+ *                               type: object
+ *                               properties:
+ *                                 name:
+ *                                   type: string
+ *                                 value:
+ *                                   type: string
+ *                           unit:
+ *                             type: string
+ *                           price:
+ *                             type: number
+ *                           priceHistory:
+ *                             type: array
+ *                             items:
+ *                               type: object
+ *                               properties:
+ *                                 price:
+ *                                   type: number
+ *                                 date:
+ *                                   type: number
+ *                           tags:
+ *                             type: array
+ *                             items:
+ *                               type: string
+ *                           images:
+ *                             type: array
+ *                             items:
+ *                               type: string
+ *                           averageRating:
+ *                             type: number
+ *                           ratingsCount:
+ *                             type: number
+ *                           ratings:
+ *                             type: array
+ *                             items:
+ *                               type: object
+ *                               properties:
+ *                                 user:
+ *                                   type: string
+ *                                   description: ID of the related user
+ *                                 rating:
+ *                                   type: number
+ *                           createdAt:
+ *                             type: number
+ *                           updatedAt:
+ *                             type: number
+ *                     addresses:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     createdAt:
+ *                       type: number
+ *                     updatedAt:
+ *                       type: number
+ *       401:
+ *         description: Not authorized 
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+panelUserRouter.get('/', auth('user'), getCurrentUser)
 
 /**
  * @swagger
