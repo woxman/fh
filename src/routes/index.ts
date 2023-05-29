@@ -1,7 +1,7 @@
 import { Router } from 'express'
 
 import { panelAdminRouter } from '../controllers/admin'
-import { websiteUserRouter } from '../controllers/user'
+import { panelUserRouter, websiteUserRouter } from '../controllers/user'
 import { panelCategoryRouter, websiteCategoryRouter } from '../controllers/category'
 import { panelSubcategoryRouter, websiteSubcategoryRouter } from '../controllers/subcategory'
 import { panelPropertyRouter, websitePropertyRouter } from '../controllers/property'
@@ -17,7 +17,9 @@ import { imageRouter } from "../controllers/image"
 const mainRouter = Router()
 
 mainRouter.use('/panel/admin', panelAdminRouter)
+mainRouter.use('/panel/user', panelAdminRouter)
 mainRouter.use('/website/user', websiteUserRouter)
+mainRouter.use('/website/user', panelUserRouter)
 mainRouter.use('/panel/category', panelCategoryRouter)
 mainRouter.use('/website/category', websiteCategoryRouter)
 mainRouter.use('/panel/subcategory', panelSubcategoryRouter)
