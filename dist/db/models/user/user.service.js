@@ -18,7 +18,65 @@ const constants_1 = require("../../../utils/constants");
 const token_1 = require("../../../utils/helpers/token");
 const sms_1 = require("../../../utils/helpers/sms");
 const mongoose_1 = __importDefault(require("mongoose"));
+const report_1 = __importDefault(require("../report/report"));
 const ObjectId = mongoose_1.default.Types.ObjectId;
+const addUser = (newUser, reportDetails) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { phone, email, name, addresses } = newUser;
+        const { adminId, ip } = reportDetails;
+        // checking email availability
+        const existingUserWithThisEmail = yield user_1.default.findOne({ email }).exec();
+        if (existingUserWithThisEmail) {
+            return {
+                success: false,
+                error: {
+                    message: constants_1.errorMessages.userService.emailAlreadyTaken,
+                    statusCode: constants_1.statusCodes.badRequest
+                }
+            };
+        }
+        // checking phone availability
+        const existingUserWithThisPhone = yield user_1.default.findOne({ phone }).exec();
+        if (existingUserWithThisPhone) {
+            return {
+                success: false,
+                error: {
+                    message: constants_1.errorMessages.userService.phoneAlreadyTaken,
+                    statusCode: constants_1.statusCodes.badRequest
+                }
+            };
+        }
+        const createdUser = yield user_1.default.create({
+            phone,
+            email,
+            name,
+            addresses,
+        });
+        yield report_1.default.create({
+            admin: adminId,
+            ip,
+            event: 'createUser',
+            createdUser
+        });
+        return {
+            success: true,
+            outputs: {
+                user: createdUser
+            }
+        };
+    }
+    catch (error) {
+        console.log('Error while creating new user: ', error);
+        return {
+            success: false,
+            error: {
+                message: constants_1.errorMessages.shared.ise,
+                statusCode: constants_1.statusCodes.ise
+            }
+        };
+    }
+});
+//-------------------------------------------
 const sendLoginCode = (phone) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield user_1.default.findOne({ phone }).exec();
@@ -326,6 +384,7 @@ const deleteUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.default = {
+    addUser,
     sendLoginCode,
     login,
     logout,

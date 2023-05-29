@@ -5,7 +5,87 @@ import { statusCodes, errorMessages } from "../../../utils/constants"
 import { generateToken } from "../../../utils/helpers/token"
 import { sendCode } from "../../../utils/helpers/sms"
 import mongoose, { ObjectId as objectId } from "mongoose"
+import Report from "../report/report"
 const ObjectId = mongoose.Types.ObjectId
+
+
+const addUser = async (
+  newUser: {
+    phone: string
+    email: string
+    name: string    
+    addresses: string[]
+  },
+  reportDetails: {
+    adminId: objectId
+    ip: string 
+  }
+): Promise<IResponse> => {
+
+  try {
+    const { phone, email, name, addresses} = newUser
+    const { adminId, ip } = reportDetails
+
+    // checking email availability
+    const existingUserWithThisEmail = await User.findOne({ email }).exec()
+
+    if(existingUserWithThisEmail) {
+      return {
+        success: false,
+        error: {
+          message: errorMessages.userService.emailAlreadyTaken,
+          statusCode: statusCodes.badRequest
+        }
+      }
+    }
+
+    // checking phone availability
+    const existingUserWithThisPhone = await User.findOne({ phone }).exec()
+
+    if(existingUserWithThisPhone) {
+      return {
+        success: false,
+        error: {
+          message: errorMessages.userService.phoneAlreadyTaken,
+          statusCode: statusCodes.badRequest
+        }
+      }
+    }
+
+    const createdUser = await User.create({
+      phone,
+      email,
+      name,
+      addresses,  
+    })
+
+    await Report.create({
+      admin: adminId,
+      ip,
+      event: 'createUser',
+      createdUser
+    })
+
+    return {
+      success: true,
+      outputs: {
+        user: createdUser
+      }
+    }
+  } catch(error) {
+    console.log('Error while creating new user: ', error)
+
+    return {
+      success: false,
+      error: {
+        message: errorMessages.shared.ise,
+        statusCode: statusCodes.ise
+      }
+    }
+  }
+}
+
+//-------------------------------------------
 
 const sendLoginCode = async (phone: string): Promise<IResponse> => {
   try {
@@ -362,6 +442,7 @@ const deleteUser = async (userId: string): Promise<IResponse> => {
 }
 
 export default {
+  addUser,
   sendLoginCode,
   login,
   logout,

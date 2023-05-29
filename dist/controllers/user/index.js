@@ -7,6 +7,7 @@ exports.panelUserRouter = exports.websiteUserRouter = void 0;
 const express_1 = require("express");
 const auth_1 = __importDefault(require("../../middlewares/auth"));
 const login_1 = __importDefault(require("./login"));
+const addUser_1 = __importDefault(require("./addUser"));
 const sendLoginCode_1 = __importDefault(require("./sendLoginCode"));
 const logout_1 = __importDefault(require("./logout"));
 const getCurrentUser_1 = __importDefault(require("./getCurrentUser"));
@@ -106,9 +107,7 @@ exports.panelUserRouter = (0, express_1.Router)();
  *                 message:
  *                   type: string
  */
-exports.panelUserRouter.post('/', (req, res) => {
-    return (res.json({ status: true }));
-});
+exports.panelUserRouter.post('/', (0, auth_1.default)('admin'), addUser_1.default);
 /**
  * @swagger
  * /website/user/login-code:

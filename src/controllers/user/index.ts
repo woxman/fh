@@ -2,6 +2,7 @@ import { Router } from 'express'
 
 import auth from "../../middlewares/auth"
 import login from './login'
+import addUser from './addUser'
 import sendLoginCode from './sendLoginCode'
 import logout from './logout'
 import getCurrentUser from './getCurrentUser'
@@ -106,9 +107,8 @@ export const panelUserRouter = Router()
  *                 message:
  *                   type: string
  */
-panelUserRouter.post('/',  (req,res)=>{
-    return (res.json({status:true}))
-})
+panelUserRouter.post('/', auth('admin'),  addUser)
+
 
 /**
  * @swagger
