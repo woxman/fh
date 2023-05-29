@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.websiteUserRouter = void 0;
+exports.panelUserRouter = exports.websiteUserRouter = void 0;
 const express_1 = require("express");
 const auth_1 = __importDefault(require("../../middlewares/auth"));
 const login_1 = __importDefault(require("./login"));
@@ -14,12 +14,101 @@ const editUser_1 = __importDefault(require("./editUser"));
 const toggleFavoriteProduct_1 = __importDefault(require("./toggleFavoriteProduct"));
 const logout_2 = __importDefault(require("./logout"));
 exports.websiteUserRouter = (0, express_1.Router)();
+exports.panelUserRouter = (0, express_1.Router)();
 /**
  * @swagger
  * tags:
  * - name: User | Website
  *   description: User routes for website
  */
+/**
+ * @swagger
+ * /panel/user:
+ *   post:
+ *     tags:
+ *       - User | Panel
+ *     summary: Create a new user
+ *     description: Create a new user
+ *     security:
+ *       - userBearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               phone:
+ *                 type: string
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               addresses:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *             required:
+ *               - phone
+ *               - name
+ *     responses:
+ *       200:
+ *         description: An user object.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     phone:
+ *                       type: string
+ *                     name:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *                     addresses:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     createdAt:
+ *                       type: number
+ *                     updatedAt:
+ *                       type: number
+ *       401:
+ *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       400:
+ *         description: The name is taken
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+exports.panelUserRouter.post('/', (req, res) => {
+    return (res.json({ status: true }));
+});
 /**
  * @swagger
  * /website/user/login-code:

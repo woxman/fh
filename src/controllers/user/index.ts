@@ -10,6 +10,7 @@ import toggleFavoriteProduct from './toggleFavoriteProduct'
 import deleteUser from './logout'
 
 export const websiteUserRouter = Router()
+export const panelUserRouter = Router()
 
 
 
@@ -20,7 +21,94 @@ export const websiteUserRouter = Router()
  *   description: User routes for website
  */
 
-
+/**
+ * @swagger
+ * /panel/user:
+ *   post:
+ *     tags:
+ *       - User | Panel
+ *     summary: Create a new user
+ *     description: Create a new user
+ *     security:
+ *       - userBearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               phone:
+ *                 type: string
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               addresses:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *             required:
+ *               - phone
+ *               - name
+ *     responses:
+ *       200:
+ *         description: An user object.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     phone:
+ *                       type: string
+ *                     name:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *                     addresses:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     createdAt:
+ *                       type: number
+ *                     updatedAt:
+ *                       type: number
+ *       401:
+ *         description: Not authorized 
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       400:
+ *         description: The name is taken
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+panelUserRouter.post('/',  (req,res)=>{
+    return (res.json({status:true}))
+})
 
 /**
  * @swagger
