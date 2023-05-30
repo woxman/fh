@@ -87,6 +87,97 @@ const addUser = async (
 
 //-------------------------------------------
 
+const addUsers = async (
+  newUser: {
+    phone: string[]
+    email: string[]
+    name: string[]    
+    addresses: string[]
+  },
+  reportDetails: {
+    adminId: objectId
+    ip: string 
+  }
+): Promise<IResponse> => {
+
+  try {
+    const { phone, email, name, addresses} = newUser
+    const { adminId, ip } = reportDetails    
+    let isExistEmail=false;
+    let isExistPhone=false;
+
+    await email.forEach(async function callback(value, index) {
+      // checking email availability
+      const existingUserWithThisEmail = await User.findOne({ value }).exec()
+      if(existingUserWithThisEmail) {
+        isExistEmail=true;
+      }
+	  });
+    if(isExistEmail) {
+      return {
+        success: false,
+        error: {
+          message: errorMessages.userService.emailsAlreadyTaken,
+          statusCode: statusCodes.badRequest
+        }
+      }
+    }
+
+    await phone.forEach(async function callback(value, index) {
+      // checking phone availability
+      const existingUserWithThisPhone = await User.findOne({ value }).exec()
+      if(existingUserWithThisPhone) {
+        isExistPhone=true;
+      }
+	  });
+    if(isExistPhone) {
+      return {
+        success: false,
+        error: {
+          message: errorMessages.userService.phonesAlreadyTaken,
+          statusCode: statusCodes.badRequest
+        }
+      }
+    }
+
+    let createdUsersList;
+    await phone.forEach(async function callback(value, index) {
+      const createdUser = await User.create({
+        phone:phone[index],
+        email:email[index],
+        name:name[index],
+        addresses:addresses[index],  
+      })
+      await Report.create({
+        admin: adminId,
+        ip,
+        event: 'createUsers',
+        createdUser
+      })
+      createdUsersList.push(createdUser);
+	  });    
+
+    return {
+      success: true,
+      outputs: {
+        user: createdUsersList
+      }
+    }
+  } catch(error) {
+    console.log('Error while creating new users list: ', error)
+
+    return {
+      success: false,
+      error: {
+        message: errorMessages.shared.ise,
+        statusCode: statusCodes.ise
+      }
+    }
+  }
+}
+
+//-------------------------------------------
+
 const sendLoginCode = async (phone: string): Promise<IResponse> => {
   try {
     const user = await User.findOne({phone}).exec()
@@ -505,6 +596,7 @@ const deleteUser = async (userId: string): Promise<IResponse> => {
 
 export default {
   addUser,
+  addUsers,
   getUsers,
   sendLoginCode,
   login,

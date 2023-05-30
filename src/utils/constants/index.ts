@@ -48,7 +48,9 @@ export const errorMessages = {
   },
   userService: {
     phoneAlreadyTaken: "با شماره تلفن مورد نظر حساب کاربری وجود دارد",
+    phonesAlreadyTaken: "با یکی از شماره تلفن های مورد نظر حساب کاربری وجود دارد",
     emailAlreadyTaken: "با ایمیل مورد نظر حساب کاربری وجود دارد",
+    emailsAlreadyTaken: "با یکی از ایمیل  های مورد نظر حساب کاربری وجود دارد",
     phoneNotFound: "با شماره تلفن مورد نظر حساب کاربری وجود ندارد",
     incorrectLoginCode: "کد وارد شده اشتباه است",
     loginCodeExpired: "مهلت استفاده از کد به پایان رسیده است",

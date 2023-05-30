@@ -77,6 +77,85 @@ const addUser = (newUser, reportDetails) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 //-------------------------------------------
+const addUsers = (newUser, reportDetails) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { phone, email, name, addresses } = newUser;
+        const { adminId, ip } = reportDetails;
+        let isExistEmail = false;
+        let isExistPhone = false;
+        yield email.forEach(function callback(value, index) {
+            return __awaiter(this, void 0, void 0, function* () {
+                // checking email availability
+                const existingUserWithThisEmail = yield user_1.default.findOne({ value }).exec();
+                if (existingUserWithThisEmail) {
+                    isExistEmail = true;
+                }
+            });
+        });
+        if (isExistEmail) {
+            return {
+                success: false,
+                error: {
+                    message: constants_1.errorMessages.userService.emailsAlreadyTaken,
+                    statusCode: constants_1.statusCodes.badRequest
+                }
+            };
+        }
+        yield phone.forEach(function callback(value, index) {
+            return __awaiter(this, void 0, void 0, function* () {
+                // checking phone availability
+                const existingUserWithThisPhone = yield user_1.default.findOne({ value }).exec();
+                if (existingUserWithThisPhone) {
+                    isExistPhone = true;
+                }
+            });
+        });
+        if (isExistPhone) {
+            return {
+                success: false,
+                error: {
+                    message: constants_1.errorMessages.userService.phonesAlreadyTaken,
+                    statusCode: constants_1.statusCodes.badRequest
+                }
+            };
+        }
+        let createdUsersList;
+        yield phone.forEach(function callback(value, index) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const createdUser = yield user_1.default.create({
+                    phone: phone[index],
+                    email: email[index],
+                    name: name[index],
+                    addresses: addresses[index],
+                });
+                yield report_1.default.create({
+                    admin: adminId,
+                    ip,
+                    event: 'createUsers',
+                    createdUser
+                });
+                createdUsersList.push(createdUser);
+            });
+        });
+        return {
+            success: true,
+            outputs: {
+                user: createdUsersList
+            }
+        };
+    }
+    catch (error) {
+        console.log('Error while creating new users list: ', error);
+        return {
+            success: false,
+            error: {
+                message: constants_1.errorMessages.shared.ise,
+                statusCode: constants_1.statusCodes.ise
+            }
+        };
+    }
+});
+//-------------------------------------------
 const sendLoginCode = (phone) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield user_1.default.findOne({ phone }).exec();
@@ -427,6 +506,7 @@ const deleteUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.default = {
     addUser,
+    addUsers,
     getUsers,
     sendLoginCode,
     login,

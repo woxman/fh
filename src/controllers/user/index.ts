@@ -3,6 +3,7 @@ import { Router } from 'express'
 import auth from "../../middlewares/auth"
 import login from './login'
 import addUser from './addUser'
+import addUsers from './addUsers'
 import sendLoginCode from './sendLoginCode'
 import logout from './logout'
 import getCurrentUser from './getCurrentUser'
@@ -110,6 +111,105 @@ export const panelUserRouter = Router()
  *                   type: string
  */
 panelUserRouter.post('/', auth('admin'),  addUser)
+
+/**
+ * @swagger
+ * /panel/user/combo:
+ *   post:
+ *     tags:
+ *       - User | Panel
+ *     summary: Create a new users
+ *     description: Create a new users
+ *     security:
+ *       - userBearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               phone:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               name:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               email:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               addresses:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *             required:
+ *               - phone
+ *               - name
+ *     responses:
+ *       200:
+ *         description: An users object.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     phone:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     name:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     email:
+  *                       type: array
+ *                       items:
+ *                         type: string
+ *                     addresses:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     createdAt:
+ *                       type: number
+ *                     updatedAt:
+ *                       type: number
+ *       401:
+ *         description: Not authorized 
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       400:
+ *         description: The name is taken
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+panelUserRouter.post('/combo', auth('admin'),  addUsers)
 
 
 /**

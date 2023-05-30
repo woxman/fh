@@ -8,6 +8,7 @@ const express_1 = require("express");
 const auth_1 = __importDefault(require("../../middlewares/auth"));
 const login_1 = __importDefault(require("./login"));
 const addUser_1 = __importDefault(require("./addUser"));
+const addUsers_1 = __importDefault(require("./addUsers"));
 const sendLoginCode_1 = __importDefault(require("./sendLoginCode"));
 const logout_1 = __importDefault(require("./logout"));
 const getCurrentUser_1 = __importDefault(require("./getCurrentUser"));
@@ -109,6 +110,104 @@ exports.panelUserRouter = (0, express_1.Router)();
  *                   type: string
  */
 exports.panelUserRouter.post('/', (0, auth_1.default)('admin'), addUser_1.default);
+/**
+ * @swagger
+ * /panel/user/combo:
+ *   post:
+ *     tags:
+ *       - User | Panel
+ *     summary: Create a new users
+ *     description: Create a new users
+ *     security:
+ *       - userBearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               phone:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               name:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               email:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               addresses:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *             required:
+ *               - phone
+ *               - name
+ *     responses:
+ *       200:
+ *         description: An users object.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     phone:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     name:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     email:
+  *                       type: array
+ *                       items:
+ *                         type: string
+ *                     addresses:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     createdAt:
+ *                       type: number
+ *                     updatedAt:
+ *                       type: number
+ *       401:
+ *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       400:
+ *         description: The name is taken
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+exports.panelUserRouter.post('/combo', (0, auth_1.default)('admin'), addUsers_1.default);
 /**
  * @swagger
  * /website/user/login-code:

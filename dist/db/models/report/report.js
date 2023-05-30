@@ -43,7 +43,14 @@ const reportSchema = new mongoose_1.Schema({
         type: ObjectId,
         ref: 'Admin'
     },
+    createdUser: {
+        type: ObjectId,
+        ref: 'User'
+    },
     deletedAdmin: {
+        type: String
+    },
+    deletedUser: {
         type: String
     }
 }, {
