@@ -252,6 +252,7 @@ const getProducts = async (
     search?: string
   }
 ): Promise<IResponse> => {
+  console.log("TTER")
   try {
     const { limit, skip, sortBy, sortOrder, search } = options
 

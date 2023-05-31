@@ -201,6 +201,7 @@ const getProduct = (productId) => __awaiter(void 0, void 0, void 0, function* ()
 });
 // ----------------------------------------------------------------------------
 const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("TTER");
     try {
         const { limit, skip, sortBy, sortOrder, search } = options;
         // Create and fill the query options object
