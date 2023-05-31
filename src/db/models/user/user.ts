@@ -13,6 +13,7 @@ export interface IUser extends Document {
   addresses: string[]
   favoriteProducts: objectId[],
   tokens: string[]
+  code: string
   createdAt: Date
   updatedAt: Date
 }
@@ -47,6 +48,9 @@ const userSchema = new Schema<IUser>({
   addresses: [{
     type: String
   }],
+  code: { 
+    type: String
+  },
   tokens: [{
     type: String,
     default: []

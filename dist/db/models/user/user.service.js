@@ -46,11 +46,14 @@ const addUser = (newUser, reportDetails) => __awaiter(void 0, void 0, void 0, fu
                 }
             };
         }
+        const lastUser = yield user_1.default.find({}).sort({ _id: -1 }).limit(1).exec();
+        const lastUserCode = parseInt(lastUser[0]['code']) + 1;
         const createdUser = yield user_1.default.create({
             phone,
             email,
             name,
             addresses,
+            code: lastUserCode
         });
         yield report_1.default.create({
             admin: adminId,
@@ -122,11 +125,14 @@ const addUsers = (newUser, reportDetails) => __awaiter(void 0, void 0, void 0, f
         let createdUsersList;
         yield phone.forEach(function callback(value, index) {
             return __awaiter(this, void 0, void 0, function* () {
+                const lastUser = yield user_1.default.find({}).sort({ _id: -1 }).limit(1).exec();
+                const lastUserCode = parseInt(lastUser[0]['code']) + 1;
                 const createdUser = yield user_1.default.create({
                     phone: phone[index],
                     email: email[index],
                     name: name[index],
                     addresses: addresses[index],
+                    code: lastUserCode
                 });
                 yield report_1.default.create({
                     admin: adminId,
@@ -165,9 +171,12 @@ const sendLoginCode = (phone) => __awaiter(void 0, void 0, void 0, function* () 
         };
         if (!user) {
             // Creating new user
+            const lastUser = yield user_1.default.find({}).sort({ _id: -1 }).limit(1).exec();
+            const lastUserCode = parseInt(lastUser[0]['code']) + 1;
             const newUser = {
                 phone,
-                loginCode
+                loginCode,
+                code: lastUserCode
             };
             yield user_1.default.create(newUser);
         }

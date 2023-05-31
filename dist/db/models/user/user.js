@@ -55,6 +55,9 @@ const userSchema = new mongoose_1.Schema({
     addresses: [{
             type: String
         }],
+    code: {
+        type: String
+    },
     tokens: [{
             type: String,
             default: []

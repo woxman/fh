@@ -12,6 +12,8 @@ import editUser from './editUser'
 import toggleFavoriteProduct from './toggleFavoriteProduct'
 import deleteUser from './deleteUser'
 
+import User, { IUser } from "../../db/models/user/user"
+
 export const websiteUserRouter = Router()
 export const panelUserRouter = Router()
 
@@ -245,7 +247,6 @@ panelUserRouter.post('/combo', auth('admin'),  addUsers)
  *                   type: string
  */
 websiteUserRouter.post('/login-code', sendLoginCode)
-
 
 
 /**

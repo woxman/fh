@@ -52,11 +52,14 @@ const addUser = async (
       }
     }
 
+    const lastUser = await User.find({}).sort({_id: -1}).limit(1).exec();
+    const lastUserCode = parseInt(lastUser[0]['code'])+1;
     const createdUser = await User.create({
       phone,
       email,
       name,
-      addresses,  
+      addresses,
+      code:lastUserCode
     })
 
     await Report.create({
@@ -142,11 +145,14 @@ const addUsers = async (
 
     let createdUsersList;
     await phone.forEach(async function callback(value, index) {
+      const lastUser = await User.find({}).sort({_id: -1}).limit(1).exec();
+      const lastUserCode = parseInt(lastUser[0]['code'])+1;
       const createdUser = await User.create({
         phone:phone[index],
         email:email[index],
         name:name[index],
-        addresses:addresses[index],  
+        addresses:addresses[index],
+        code:lastUserCode
       })
       await Report.create({
         admin: adminId,
@@ -189,9 +195,12 @@ const sendLoginCode = async (phone: string): Promise<IResponse> => {
 
     if(!user) {
       // Creating new user
+      const lastUser = await User.find({}).sort({_id: -1}).limit(1).exec();
+      const lastUserCode = parseInt(lastUser[0]['code'])+1;
       const newUser = {
         phone,
-        loginCode
+        loginCode,
+        code:lastUserCode
       }
       await User.create(newUser)
 
