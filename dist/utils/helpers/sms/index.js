@@ -32,7 +32,8 @@ const sendCode = (phone, code) => __awaiter(void 0, void 0, void 0, function* ()
         const options = {
             params: {
                 receptor: phone,
-                token: message
+                token: message,
+                template: "fooladHadad"
             }
         };
         console.log(options);

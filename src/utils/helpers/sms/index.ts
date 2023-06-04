@@ -20,7 +20,8 @@ export const sendCode = async (phone: string, code: number) => {
     const options = {
       params: {
         receptor: phone,
-        token:message
+        token:message,
+        template:"fooladHadad"
       }
     }
     console.log(options)
