@@ -9,10 +9,10 @@ import { ObjectId  as objectId } from 'mongoose'
 
 const addUsers = async (req: Request, res: Response) => {
   const validationSchema = yup.object().shape({    
-    phone: yup.array().of(yup.string()),
-    email: yup.array().of(yup.string()),
-    name: yup.array().of(yup.string()),
-    addresses: yup.array().of(yup.string())
+    phone: yup.array().of(yup.string().required()),
+    email: yup.array().of(yup.string().required()),
+    name: yup.array().of(yup.string().required()),
+    addresses: yup.array().of(yup.string().required())
   })
 
 	const handle = async () => {

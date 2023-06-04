@@ -150,6 +150,8 @@ panelUserRouter.post('/', auth('admin'),  addUser)
  *             required:
  *               - phone
  *               - name
+ *               - email
+ *               - addresses
  *     responses:
  *       200:
  *         description: An users object.

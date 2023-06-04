@@ -40,10 +40,10 @@ const helper_1 = require("../helper");
 const user_service_1 = __importDefault(require("../../db/models/user/user.service"));
 const addUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const validationSchema = yup.object().shape({
-        phone: yup.array().of(yup.string()),
-        email: yup.array().of(yup.string()),
-        name: yup.array().of(yup.string()),
-        addresses: yup.array().of(yup.string())
+        phone: yup.array().of(yup.string().required()),
+        email: yup.array().of(yup.string().required()),
+        name: yup.array().of(yup.string().required()),
+        addresses: yup.array().of(yup.string().required())
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
         const { phone, email, name, addresses } = req.body;

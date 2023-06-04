@@ -146,6 +146,8 @@ exports.panelUserRouter.post('/', (0, auth_1.default)('admin'), addUser_1.defaul
  *             required:
  *               - phone
  *               - name
+ *               - email
+ *               - addresses
  *     responses:
  *       200:
  *         description: An users object.

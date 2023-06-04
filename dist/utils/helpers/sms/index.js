@@ -35,9 +35,13 @@ const sendCode = (phone, code) => __awaiter(void 0, void 0, void 0, function* ()
                 token: message
             }
         };
+        console.log(options);
         yield axios_1.default.post(url, {}, options);
     }
     catch (error) {
+        console.log("*************Eror sms**************");
+        console.log(error);
+        console.log("*************Eror sms**************");
         throw error;
     }
 });

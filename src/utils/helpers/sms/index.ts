@@ -23,9 +23,13 @@ export const sendCode = async (phone: string, code: number) => {
         token:message
       }
     }
+    console.log(options)
 
     await axios.post(url, {}, options)
   } catch(error) {
+    console.log("*************Eror sms**************")
+    console.log(error)
+    console.log("*************Eror sms**************")
     throw error
   }
 }
