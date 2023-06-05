@@ -44,13 +44,13 @@ const getFactoriesProductsBySubcategoryId = (req, res) => __awaiter(void 0, void
         skip: yup.string()
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
-        const { subcategoryId } = req.params;
+        const { subcategoryUrlSlug } = req.params;
         const { limit, skip } = req.query;
         const options = {
             limit: limit ? Number(limit) : undefined,
             skip: skip ? Number(skip) : undefined
         };
-        return yield product_service_1.default.getFactoriesProductsBySubcategoryId(subcategoryId, options);
+        return yield product_service_1.default.getFactoriesProductsBySubcategoryId(subcategoryUrlSlug, options);
     });
     const extractOutput = (outputs) => outputs;
     return (0, helper_1.handleRequest)({ req, res, queryValidationSchema, handle, extractOutput });

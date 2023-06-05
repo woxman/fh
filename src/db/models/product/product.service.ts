@@ -174,10 +174,10 @@ const addProduct = async (
 
 // ----------------------------------------------------------------------------
 
-const getProduct = async (productId: string): Promise<IResponse> => {
+const getProduct = async (productUrlSlug: string): Promise<IResponse> => {
   try {
-    // Find and return the product
-    const product = await Product.findById(productId)
+    // Find and return the product    
+    const product = await Product.findOne({urlSlug:productUrlSlug})
       .populate({
         path: 'subcategory',
         select: '_id name category',
@@ -187,8 +187,7 @@ const getProduct = async (productId: string): Promise<IResponse> => {
         }
       })
       .populate('factory', '_id name')
-      .exec()
-
+      .exec()      
     if(!product) {
       return {
         success: false,
@@ -448,7 +447,7 @@ const getProductsByFactoryId = async (
 // ----------------------------------------------------------------------------
 
 const getFactoriesProductsBySubcategoryId = async (
-  subcategoryId: string,
+  subcategoryUrlSlug: string,
   options: {
     limit?: number
     skip?: number
@@ -456,7 +455,7 @@ const getFactoriesProductsBySubcategoryId = async (
 ): Promise<IResponse> => {
   try {
     // Check if the product exists
-    const subcategory = await Subcategory.findById(subcategoryId).exec()
+    const subcategory = await Subcategory.findOne({urlSlug:subcategoryUrlSlug}).exec()
     if(!subcategory) {
       return {
         success: false,
@@ -466,11 +465,11 @@ const getFactoriesProductsBySubcategoryId = async (
         }
       }
     }
-
+    
     const { limit, skip } = options
     
     // Fetch the products
-    let subcategoryProducts = await Product.find({ subcategory: subcategoryId })
+    let subcategoryProducts = await Product.find({ subcategory: subcategory._id })
       .populate({
         path: 'subcategory',
         select: '_id name category',

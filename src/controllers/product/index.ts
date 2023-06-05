@@ -1090,14 +1090,14 @@ panelProductRouter.post('/delete', auth('admin'), deleteProducts)
  
 /**
  * @swagger
- * /website/product/{productId}:
+ * /website/product/{productUrlSlug}:
  *   get:
  *     tags:
  *       - Product | Website
  *     summary: Get a product by id
  *     description: Get a product in full details by id
  *     parameters:
- *       - name: productId
+ *       - name: productUrlSlug
  *         in: path
  *         required: true
  *         description: The ID of the expected product
@@ -1227,7 +1227,7 @@ panelProductRouter.post('/delete', auth('admin'), deleteProducts)
  *                 message:
  *                   type: string
  */ 
-websiteProductRouter.get('/:productId', getProduct)
+websiteProductRouter.get('/:productUrlSlug', getProduct)
  
 
  
@@ -1375,14 +1375,14 @@ websiteProductRouter.get('/', getProducts)
  
 /**
  * @swagger
- * /website/product/subcategory/{subcategoryId}:
+ * /website/product/subcategory/{subcategoryUrlSlug}:
  *   get:
  *     tags:
  *       - Product | Website
  *     summary: Get a list of factories products by subcategory id
  *     description: Get a list of factories products in a subcategory (by passing id of the subcategory) in full details by passing the desired query parameters
  *     parameters:
- *       - name: subcategoryId
+ *       - name: subcategoryUrlSlug
  *         in: path
  *         required: true
  *         description: ID of the subcategory whose products we want
@@ -1520,7 +1520,7 @@ websiteProductRouter.get('/', getProducts)
  *                 message:
  *                   type: string
  */
-websiteProductRouter.get('/subcategory/:subcategoryId', getFactoriesProductsBySubcategoryId)
+websiteProductRouter.get('/subcategory/:subcategoryUrlSlug', getFactoriesProductsBySubcategoryId)
 
 
 

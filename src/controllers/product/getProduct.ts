@@ -6,8 +6,8 @@ import productService from "../../db/models/product/product.service"
 const getProduct = async (req: Request, res: Response) => {
 	
   const handle = async () => {
-    const { productId } = req.params
-		return await productService.getProduct(productId)
+    const { productUrlSlug } = req.params
+		return await productService.getProduct(productUrlSlug)
 	}
 
 	const extractOutput = (outputs: object) => outputs

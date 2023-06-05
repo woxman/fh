@@ -1063,14 +1063,14 @@ exports.panelProductRouter.post('/delete', (0, auth_1.default)('admin'), deleteP
 //-------------------------------------------------------------------------------------------
 /**
  * @swagger
- * /website/product/{productId}:
+ * /website/product/{productUrlSlug}:
  *   get:
  *     tags:
  *       - Product | Website
  *     summary: Get a product by id
  *     description: Get a product in full details by id
  *     parameters:
- *       - name: productId
+ *       - name: productUrlSlug
  *         in: path
  *         required: true
  *         description: The ID of the expected product
@@ -1200,7 +1200,7 @@ exports.panelProductRouter.post('/delete', (0, auth_1.default)('admin'), deleteP
  *                 message:
  *                   type: string
  */
-exports.websiteProductRouter.get('/:productId', getProduct_1.default);
+exports.websiteProductRouter.get('/:productUrlSlug', getProduct_1.default);
 /**
  * @swagger
  * /website/product:
@@ -1342,14 +1342,14 @@ exports.websiteProductRouter.get('/:productId', getProduct_1.default);
 exports.websiteProductRouter.get('/', getProducts_1.default);
 /**
  * @swagger
- * /website/product/subcategory/{subcategoryId}:
+ * /website/product/subcategory/{subcategoryUrlSlug}:
  *   get:
  *     tags:
  *       - Product | Website
  *     summary: Get a list of factories products by subcategory id
  *     description: Get a list of factories products in a subcategory (by passing id of the subcategory) in full details by passing the desired query parameters
  *     parameters:
- *       - name: subcategoryId
+ *       - name: subcategoryUrlSlug
  *         in: path
  *         required: true
  *         description: ID of the subcategory whose products we want
@@ -1487,7 +1487,7 @@ exports.websiteProductRouter.get('/', getProducts_1.default);
  *                 message:
  *                   type: string
  */
-exports.websiteProductRouter.get('/subcategory/:subcategoryId', getFactoriesProductsBySubcategoryId_1.default);
+exports.websiteProductRouter.get('/subcategory/:subcategoryUrlSlug', getFactoriesProductsBySubcategoryId_1.default);
 /**
  * @swagger
  * /website/product/{productId}/rate:

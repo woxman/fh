@@ -139,10 +139,10 @@ const addProduct = (subcategoryId, newProduct) => __awaiter(void 0, void 0, void
     }
 });
 // ----------------------------------------------------------------------------
-const getProduct = (productId) => __awaiter(void 0, void 0, void 0, function* () {
+const getProduct = (productUrlSlug) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // Find and return the product
-        const product = yield product_1.default.findById(productId)
+        // Find and return the product    
+        const product = yield product_1.default.findOne({ urlSlug: productUrlSlug })
             .populate({
             path: 'subcategory',
             select: '_id name category',
@@ -357,10 +357,10 @@ const getProductsByFactoryId = (factoryId, options) => __awaiter(void 0, void 0,
     }
 });
 // ----------------------------------------------------------------------------
-const getFactoriesProductsBySubcategoryId = (subcategoryId, options) => __awaiter(void 0, void 0, void 0, function* () {
+const getFactoriesProductsBySubcategoryId = (subcategoryUrlSlug, options) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Check if the product exists
-        const subcategory = yield subcategory_1.default.findById(subcategoryId).exec();
+        const subcategory = yield subcategory_1.default.findOne({ urlSlug: subcategoryUrlSlug }).exec();
         if (!subcategory) {
             return {
                 success: false,
@@ -372,7 +372,7 @@ const getFactoriesProductsBySubcategoryId = (subcategoryId, options) => __awaite
         }
         const { limit, skip } = options;
         // Fetch the products
-        let subcategoryProducts = yield product_1.default.find({ subcategory: subcategoryId })
+        let subcategoryProducts = yield product_1.default.find({ subcategory: subcategory._id })
             .populate({
             path: 'subcategory',
             select: '_id name category',
