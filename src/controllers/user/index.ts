@@ -7,6 +7,7 @@ import addUsers from './addUsers'
 import sendLoginCode from './sendLoginCode'
 import logout from './logout'
 import getCurrentUser from './getCurrentUser'
+import getUser from './getUser'
 import getUsers from './getUsers'
 import editUser from './editUser'
 import toggleFavoriteProduct from './toggleFavoriteProduct'
@@ -525,6 +526,85 @@ websiteUserRouter.post('/logout', auth('user'), logout)
  */
 panelUserRouter.get('/', auth('admin'), getUsers)
 
+/**
+ * @swagger
+ * /panel/user/{userId}:
+ *   get:
+ *     tags:
+ *       - User | Panel
+ *     summary: get an user by id
+ *     description: get an user by id
+ *     security:
+ *       - userBearerAuth: []
+ *     parameters:
+ *       - name: userId
+ *         in: path
+ *         required: true
+ *         description: The ID of the user
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: An admin object.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 admin:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     isGodAdmin:
+ *                       type: boolean
+ *                     isSuperAdmin:
+ *                       type: boolean
+ *                     email:
+ *                       type: string
+ *                     password:
+ *                       type: string
+ *                     phone:
+ *                       type: string
+ *                     name:
+ *                       type: string
+ *                     permissions:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     createdAt:
+ *                       type: number
+ *                     updatedAt:
+ *                       type: number
+ *       401:
+ *         description: Not authorized 
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       404:
+ *         description: Not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+panelUserRouter.get('/:userId', auth('admin'), getUser)
 
 /**
  * @swagger
@@ -657,140 +737,8 @@ panelUserRouter.get('/', auth('admin'), getUsers)
  *                 message:
  *                   type: string
  */
-websiteUserRouter.get('/', auth('user'), getCurrentUser)
+websiteUserRouter.get('/', getCurrentUser)
 
-/**
- * @swagger
- * /panle/user:
- *   get:
- *     tags:
- *       - User | panel
- *     summary: get current user
- *     description: get current user
- *     security:
- *       - userBearerAuth: []
- *     responses:
- *       200:
- *         description: A user object
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 user:
- *                   type: object
- *                   properties:
- *                     _id:
- *                       type: string
- *                     phone:
- *                       type: boolean
- *                     name:
- *                       type: boolean
- *                     email:
- *                       type: string
- *                     favoriteProducts:
- *                       type: array
- *                       items:
- *                         type: object
- *                         properties:
- *                           _id:
- *                             type: string
- *                           subcategory:
- *                             type: object
- *                             properties:
- *                               _id:
- *                                 type: string
- *                               name:
- *                                 type: string
- *                           factory:
- *                             type: object
- *                             properties:
- *                               _id:
- *                                 type: string
- *                               name:
- *                                 type: string
- *                           name:
- *                             type: string
- *                           urlSlug:
- *                             type: string
- *                           description:
- *                             type: string
- *                           properties:
- *                             type: array
- *                             items:
- *                               type: object
- *                               properties:
- *                                 name:
- *                                   type: string
- *                                 value:
- *                                   type: string
- *                           unit:
- *                             type: string
- *                           price:
- *                             type: number
- *                           priceHistory:
- *                             type: array
- *                             items:
- *                               type: object
- *                               properties:
- *                                 price:
- *                                   type: number
- *                                 date:
- *                                   type: number
- *                           tags:
- *                             type: array
- *                             items:
- *                               type: string
- *                           images:
- *                             type: array
- *                             items:
- *                               type: string
- *                           averageRating:
- *                             type: number
- *                           ratingsCount:
- *                             type: number
- *                           ratings:
- *                             type: array
- *                             items:
- *                               type: object
- *                               properties:
- *                                 user:
- *                                   type: string
- *                                   description: ID of the related user
- *                                 rating:
- *                                   type: number
- *                           createdAt:
- *                             type: number
- *                           updatedAt:
- *                             type: number
- *                     addresses:
- *                       type: array
- *                       items:
- *                         type: string
- *                     createdAt:
- *                       type: number
- *                     updatedAt:
- *                       type: number
- *       401:
- *         description: Not authorized 
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- */
-panelUserRouter.get('/', auth('user'), getCurrentUser)
 
 /**
  * @swagger

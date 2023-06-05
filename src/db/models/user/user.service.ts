@@ -330,7 +330,7 @@ const logout = async (token: string): Promise<IResponse> => {
 
 //--------------------------------------------------
 
-const getUser = async (userId: objectId): Promise<IResponse> => {
+const getUser = async (userId: string): Promise<IResponse> => {
   try {
     const user = await User.findById(userId)
       .populate({

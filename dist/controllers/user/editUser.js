@@ -48,6 +48,7 @@ const editUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
         const userId = res.locals.user._id;
+        console.log(userId);
         const allowedUpdates = ["name", "email", "addresses"];
         const updates = {};
         Object.keys(req.body.updates || {}).forEach((update) => {
