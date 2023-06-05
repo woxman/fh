@@ -16,7 +16,7 @@ const report_1 = require("../controllers/report");
 const image_1 = require("../controllers/image");
 const mainRouter = (0, express_1.Router)();
 mainRouter.use('/panel/admin', admin_1.panelAdminRouter);
-mainRouter.use('/panel/user', admin_1.panelAdminRouter);
+mainRouter.use('/panel/user', user_1.panelUserRouter);
 mainRouter.use('/website/user', user_1.websiteUserRouter);
 mainRouter.use('/website/user', user_1.panelUserRouter);
 mainRouter.use('/panel/category', category_1.panelCategoryRouter);
@@ -28,11 +28,11 @@ mainRouter.use('/website/property', property_1.websitePropertyRouter);
 mainRouter.use('/panel/factory', factory_1.panelFactoryRouter);
 mainRouter.use('/website/factory', factory_1.websiteFactoryRouter);
 mainRouter.use('/panel/product', product_1.panelProductRouter);
-mainRouter.use('/website/product', product_1.websiteProductRouter);
+mainRouter.use('/website/product', product_1.websiteProductRouter); /*TTT*/
 mainRouter.use('/panel/bill', bill_1.panelBillRouter);
 mainRouter.use('/website/bill', bill_1.websiteBillRouter);
 mainRouter.use('/panel/blog', blog_1.panelBlogRouter);
-mainRouter.use('/website/blog', blog_1.websiteBlogRouter);
+mainRouter.use('/website/blog', blog_1.websiteBlogRouter); /*TTT*/
 mainRouter.use('/panel/site-info', siteInfo_1.panelSiteInfoRouter);
 mainRouter.use('/website/site-info', siteInfo_1.websiteSiteInfoRouter);
 mainRouter.use('/panel/order', order_1.panelOrderRouter);

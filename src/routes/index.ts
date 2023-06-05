@@ -17,7 +17,7 @@ import { imageRouter } from "../controllers/image"
 const mainRouter = Router()
 
 mainRouter.use('/panel/admin', panelAdminRouter)
-mainRouter.use('/panel/user', panelAdminRouter)
+mainRouter.use('/panel/user', panelUserRouter)
 mainRouter.use('/website/user', websiteUserRouter)
 mainRouter.use('/website/user', panelUserRouter)
 mainRouter.use('/panel/category', panelCategoryRouter)
@@ -29,11 +29,11 @@ mainRouter.use('/website/property', websitePropertyRouter)
 mainRouter.use('/panel/factory', panelFactoryRouter)
 mainRouter.use('/website/factory', websiteFactoryRouter)
 mainRouter.use('/panel/product', panelProductRouter)
-mainRouter.use('/website/product', websiteProductRouter)
+mainRouter.use('/website/product', websiteProductRouter)/*TTT*/
 mainRouter.use('/panel/bill', panelBillRouter)
 mainRouter.use('/website/bill', websiteBillRouter)
 mainRouter.use('/panel/blog', panelBlogRouter)
-mainRouter.use('/website/blog', websiteBlogRouter)
+mainRouter.use('/website/blog', websiteBlogRouter)/*TTT*/
 mainRouter.use('/panel/site-info', panelSiteInfoRouter)
 mainRouter.use('/website/site-info', websiteSiteInfoRouter)
 mainRouter.use('/panel/order', panelOrderRouter)
