@@ -55,6 +55,10 @@ const editUserPanel = (req, res) => __awaiter(void 0, void 0, void 0, function* 
                 updates[update] = req.body.updates[update];
             }
         });
+        console.log("^^^^^^^^^^^^^^^^");
+        console.log(userId);
+        console.log(updates);
+        console.log("^^^^^^^^^^^^^^^^");
         return yield user_service_1.default.editUser(userId, updates);
     });
     const extractOutput = (outputs) => outputs;

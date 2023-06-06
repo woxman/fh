@@ -429,7 +429,7 @@ const toggleFavoriteProduct = (userId, productId) => __awaiter(void 0, void 0, v
 //----------------------------------------
 const editUser = (userId, updates) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // checking adminUpdates object to not be empty
+        // checking userUpdates object to not be empty
         if (Object.keys(updates).length == 0) {
             return {
                 success: false,
@@ -466,6 +466,9 @@ const editUser = (userId, updates) => __awaiter(void 0, void 0, void 0, function
                 }
             ]
         }).exec();
+        console.log("((((((((((((((((");
+        console.log(updatedUser);
+        console.log("))))))))))))))))");
         if (!updatedUser) {
             return {
                 success: false,
