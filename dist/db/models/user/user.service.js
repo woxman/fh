@@ -131,7 +131,7 @@ const addUsers = (newUser, reportDetails) => __awaiter(void 0, void 0, void 0, f
         let createdUsersList;
         yield phone.forEach(function callback(value, index) {
             return __awaiter(this, void 0, void 0, function* () {
-                const lastUser = yield user_1.default.find({}).sort({ _id: -1 }).limit(1).exec();
+                const lastUser = yield user_1.default.find({}).sort({ createdAt: -1 }).limit(1).exec();
                 const lastUserCode = parseInt(lastUser[0]['code']) + 1;
                 const createdUser = yield user_1.default.create({
                     phone: phone[index],
@@ -178,7 +178,7 @@ const sendLoginCode = (phone) => __awaiter(void 0, void 0, void 0, function* () 
         };
         if (!user) {
             // Creating new user
-            const lastUser = yield user_1.default.find({}).sort({ _id: -1 }).limit(1).exec();
+            const lastUser = yield user_1.default.find({}).sort({ createdAt: -1 }).limit(1).exec();
             const lastUserCode = parseInt(lastUser[0]['code']) + 1;
             const newUser = {
                 phone,

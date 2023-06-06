@@ -151,7 +151,7 @@ const addUsers = async (
 
     let createdUsersList;
     await phone.forEach(async function callback(value, index) {
-      const lastUser = await User.find({}).sort({_id: -1}).limit(1).exec();
+      const lastUser = await User.find({}).sort({createdAt: -1}).limit(1).exec();
       const lastUserCode = parseInt(lastUser[0]['code'])+1;
       const createdUser = await User.create({
         phone:phone[index],
@@ -202,7 +202,7 @@ const sendLoginCode = async (phone: string): Promise<IResponse> => {
 
     if(!user) {
       // Creating new user
-      const lastUser = await User.find({}).sort({_id: -1}).limit(1).exec();
+      const lastUser = await User.find({}).sort({createdAt: -1}).limit(1).exec();
       const lastUserCode = parseInt(lastUser[0]['code'])+1;
       const newUser = {
         phone,
