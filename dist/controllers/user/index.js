@@ -15,6 +15,7 @@ const getCurrentUser_1 = __importDefault(require("./getCurrentUser"));
 const getUser_1 = __importDefault(require("./getUser"));
 const getUsers_1 = __importDefault(require("./getUsers"));
 const editUser_1 = __importDefault(require("./editUser"));
+const editUserPanel_1 = __importDefault(require("./editUserPanel"));
 const toggleFavoriteProduct_1 = __importDefault(require("./toggleFavoriteProduct"));
 const deleteUser_1 = __importDefault(require("./deleteUser"));
 exports.websiteUserRouter = (0, express_1.Router)();
@@ -902,7 +903,7 @@ exports.websiteUserRouter.get('/', getCurrentUser_1.default);
 exports.websiteUserRouter.patch('/', (0, auth_1.default)('user'), editUser_1.default);
 /**
  * @swagger
- * /panel/user:
+ * /panel/user/{userId}::
  *   patch:
  *     tags:
  *       - User | Website
@@ -1076,7 +1077,7 @@ exports.websiteUserRouter.patch('/', (0, auth_1.default)('user'), editUser_1.def
  *                 message:
  *                   type: string
  */
-exports.panelUserRouter.patch('/', (0, auth_1.default)('user'), editUser_1.default);
+exports.panelUserRouter.patch('/:userId', (0, auth_1.default)('user'), editUserPanel_1.default);
 /**
  * @swagger
  * /website/user/favorite/toggle:

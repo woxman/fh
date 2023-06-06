@@ -4,19 +4,19 @@ import * as yup from "yup"
 import { handleRequest } from '../helper'
 import userService from "../../db/models/user/user.service"
 
-const editUser = async (req: Request, res: Response) => {
+const editUserPanel = async (req: Request, res: Response) => {
 
   const validationSchema = yup.object().shape({
     updates: yup.object({
       name: yup.string(),
-      email: yup.string().email(),
+      email: yup.string().email(), 
       addresses: yup.array().of(yup.string())
     })
   })
 
 	const handle = async () => {
 
-    const userId = res.locals.user._id
+    const { userId } = req.params
 
     const allowedUpdates = ["name", "email", "addresses"]
 
@@ -36,4 +36,4 @@ const editUser = async (req: Request, res: Response) => {
 	return handleRequest({ req, res, validationSchema, handle, extractOutput })
 }
 
-export default editUser
+export default editUserPanel

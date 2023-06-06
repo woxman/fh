@@ -10,6 +10,7 @@ import getCurrentUser from './getCurrentUser'
 import getUser from './getUser'
 import getUsers from './getUsers'
 import editUser from './editUser'
+import editUserPanel from './editUserPanel'
 import toggleFavoriteProduct from './toggleFavoriteProduct'
 import deleteUser from './deleteUser'
 
@@ -921,7 +922,7 @@ websiteUserRouter.patch('/', auth('user'), editUser)
 
 /**
  * @swagger
- * /panel/user:
+ * /panel/user/{userId}::
  *   patch:
  *     tags:
  *       - User | Website
@@ -1095,7 +1096,7 @@ websiteUserRouter.patch('/', auth('user'), editUser)
  *                 message:
  *                   type: string
  */
-panelUserRouter.patch('/', auth('user'), editUser)
+panelUserRouter.patch('/:userId', auth('user'), editUserPanel)
 
 
 /**

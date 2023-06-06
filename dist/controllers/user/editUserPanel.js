@@ -38,7 +38,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const yup = __importStar(require("yup"));
 const helper_1 = require("../helper");
 const user_service_1 = __importDefault(require("../../db/models/user/user.service"));
-const editUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const editUserPanel = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const validationSchema = yup.object().shape({
         updates: yup.object({
             name: yup.string(),
@@ -47,7 +47,7 @@ const editUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         })
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
-        const userId = res.locals.user._id;
+        const { userId } = req.params;
         const allowedUpdates = ["name", "email", "addresses"];
         const updates = {};
         Object.keys(req.body.updates || {}).forEach((update) => {
@@ -60,4 +60,4 @@ const editUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const extractOutput = (outputs) => outputs;
     return (0, helper_1.handleRequest)({ req, res, validationSchema, handle, extractOutput });
 });
-exports.default = editUser;
+exports.default = editUserPanel;
