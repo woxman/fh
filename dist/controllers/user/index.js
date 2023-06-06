@@ -1077,7 +1077,7 @@ exports.websiteUserRouter.patch('/', (0, auth_1.default)('user'), editUser_1.def
  *                 message:
  *                   type: string
  */
-exports.panelUserRouter.patch('/:userId', (0, auth_1.default)('user'), editUserPanel_1.default);
+exports.panelUserRouter.patch('/:userId', (0, auth_1.default)('admin'), editUserPanel_1.default);
 /**
  * @swagger
  * /website/user/favorite/toggle:

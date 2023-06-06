@@ -1096,7 +1096,7 @@ websiteUserRouter.patch('/', auth('user'), editUser)
  *                 message:
  *                   type: string
  */
-panelUserRouter.patch('/:userId', auth('user'), editUserPanel)
+panelUserRouter.patch('/:userId', auth('admin'), editUserPanel)
 
 
 /**
