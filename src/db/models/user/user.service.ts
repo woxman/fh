@@ -111,7 +111,10 @@ const addUsers = async (
 
     await email.forEach(async function callback(value, index) {
       // checking email availability
-      const existingUserWithThisEmail = await User.findOne({ value }).exec()
+      console.log("Email");
+      console.log(value);
+      console.log("Email");
+      const existingUserWithThisEmail = await User.findOne({ email:value }).exec()
       if(existingUserWithThisEmail) {
         isExistEmail=true;
       }
@@ -127,8 +130,11 @@ const addUsers = async (
     }
 
     await phone.forEach(async function callback(value, index) {
+      console.log("phone");
+      console.log(phone);
+      console.log("phone");
       // checking phone availability
-      const existingUserWithThisPhone = await User.findOne({ value }).exec()
+      const existingUserWithThisPhone = await User.findOne({ phone:value }).exec()
       if(existingUserWithThisPhone) {
         isExistPhone=true;
       }
@@ -154,6 +160,7 @@ const addUsers = async (
         addresses:addresses[index],
         code:lastUserCode
       })
+      console.log(createdUser);
       await Report.create({
         admin: adminId,
         ip,
@@ -550,9 +557,6 @@ const editUser = async (
         ]
       }).exec()
 
-    console.log("((((((((((((((((")
-    console.log(updatedUser)
-    console.log("))))))))))))))))")
     if(!updatedUser) {
       return {
         success: false,

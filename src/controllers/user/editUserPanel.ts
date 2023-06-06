@@ -28,11 +28,6 @@ const editUserPanel = async (req: Request, res: Response) => {
       }
     })
 
-
-    console.log("^^^^^^^^^^^^^^^^")
-    console.log(userId)
-    console.log(updates)
-    console.log("^^^^^^^^^^^^^^^^")
 		return await userService.editUser(userId, updates)
 	}
 

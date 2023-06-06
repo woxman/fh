@@ -89,7 +89,10 @@ const addUsers = (newUser, reportDetails) => __awaiter(void 0, void 0, void 0, f
         yield email.forEach(function callback(value, index) {
             return __awaiter(this, void 0, void 0, function* () {
                 // checking email availability
-                const existingUserWithThisEmail = yield user_1.default.findOne({ value }).exec();
+                console.log("Email");
+                console.log(value);
+                console.log("Email");
+                const existingUserWithThisEmail = yield user_1.default.findOne({ email: value }).exec();
                 if (existingUserWithThisEmail) {
                     isExistEmail = true;
                 }
@@ -106,8 +109,11 @@ const addUsers = (newUser, reportDetails) => __awaiter(void 0, void 0, void 0, f
         }
         yield phone.forEach(function callback(value, index) {
             return __awaiter(this, void 0, void 0, function* () {
+                console.log("phone");
+                console.log(phone);
+                console.log("phone");
                 // checking phone availability
-                const existingUserWithThisPhone = yield user_1.default.findOne({ value }).exec();
+                const existingUserWithThisPhone = yield user_1.default.findOne({ phone: value }).exec();
                 if (existingUserWithThisPhone) {
                     isExistPhone = true;
                 }
@@ -134,6 +140,7 @@ const addUsers = (newUser, reportDetails) => __awaiter(void 0, void 0, void 0, f
                     addresses: addresses[index],
                     code: lastUserCode
                 });
+                console.log(createdUser);
                 yield report_1.default.create({
                     admin: adminId,
                     ip,
@@ -466,9 +473,6 @@ const editUser = (userId, updates) => __awaiter(void 0, void 0, void 0, function
                 }
             ]
         }).exec();
-        console.log("((((((((((((((((");
-        console.log(updatedUser);
-        console.log("))))))))))))))))");
         if (!updatedUser) {
             return {
                 success: false,
