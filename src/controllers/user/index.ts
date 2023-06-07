@@ -13,6 +13,7 @@ import editUser from './editUser'
 import editUserPanel from './editUserPanel'
 import toggleFavoriteProduct from './toggleFavoriteProduct'
 import deleteUser from './deleteUser'
+import deleteUsers from './deleteUsers'
 
 import User, { IUser } from "../../db/models/user/user"
 
@@ -1146,8 +1147,8 @@ panelUserRouter.patch('/:userId', auth('admin'), editUserPanel)
 websiteUserRouter.post('/favorite/toggle', auth('user'), toggleFavoriteProduct)
 
 
-//websiteUserRouter.delete('/', auth('user'), deleteUser)
+websiteUserRouter.delete('/', auth('user'), deleteUser)
 
 
-panelUserRouter.delete('/', auth('user'), deleteUser)
+panelUserRouter.delete('/', auth('user'), deleteUsers)
 

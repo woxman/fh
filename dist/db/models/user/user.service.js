@@ -520,6 +520,41 @@ const deleteUser = (userId) => __awaiter(void 0, void 0, void 0, function* () {
         };
     }
 });
+//----------------------------------------
+const deleteUsers = (idList, reportDetails) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const filter = {
+            _id: { $in: idList },
+        };
+        const { adminId, ip } = reportDetails;
+        const users = yield user_1.default.find(filter);
+        // deleting users
+        for (const user of users) {
+            const deletedUser = yield user_1.default.findByIdAndDelete(user._id).exec();
+            if (deletedUser) {
+                yield report_1.default.create({
+                    admin: adminId,
+                    ip,
+                    event: 'deleteUser',
+                    deletedUser: deletedUser.name
+                });
+            }
+        }
+        return {
+            success: true
+        };
+    }
+    catch (error) {
+        console.log('Error while deleting users: ', error);
+        return {
+            success: false,
+            error: {
+                message: constants_1.errorMessages.shared.ise,
+                statusCode: constants_1.statusCodes.ise
+            }
+        };
+    }
+});
 exports.default = {
     addUser,
     addUsers,
@@ -530,5 +565,6 @@ exports.default = {
     getUser,
     editUser,
     toggleFavoriteProduct,
-    deleteUser
+    deleteUser,
+    deleteUsers,
 };

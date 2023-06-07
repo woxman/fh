@@ -610,6 +610,55 @@ const deleteUser = async (userId: string): Promise<IResponse> => {
   }
 }
 
+//----------------------------------------
+
+
+const deleteUsers = async (
+  idList: string[],
+  reportDetails: {
+    adminId: objectId
+    ip: string 
+  }  
+): Promise<IResponse> => {
+  try {
+    const filter = {
+      _id : { $in: idList },
+    }
+    const { adminId, ip } = reportDetails
+
+    const users = await User.find(filter)
+
+    // deleting users
+    for(const user of users) {
+      const deletedUser = await User.findByIdAndDelete(user._id).exec()
+      if(deletedUser) {
+        await Report.create({
+          admin: adminId,
+          ip,
+          event: 'deleteUser',
+          deletedUser: deletedUser.name
+        })
+      }
+    }
+
+    return {
+      success: true
+    }
+
+  } catch(error) {
+    console.log('Error while deleting users: ', error)
+
+    return {
+      success: false,
+      error: {
+        message: errorMessages.shared.ise,
+        statusCode: statusCodes.ise
+      }
+    }
+  }
+}
+
+
 export default {
   addUser,
   addUsers,
@@ -620,5 +669,6 @@ export default {
   getUser,
   editUser,
   toggleFavoriteProduct,
-  deleteUser
+  deleteUser,
+  deleteUsers,
 }

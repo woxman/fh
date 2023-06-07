@@ -18,6 +18,7 @@ const editUser_1 = __importDefault(require("./editUser"));
 const editUserPanel_1 = __importDefault(require("./editUserPanel"));
 const toggleFavoriteProduct_1 = __importDefault(require("./toggleFavoriteProduct"));
 const deleteUser_1 = __importDefault(require("./deleteUser"));
+const deleteUsers_1 = __importDefault(require("./deleteUsers"));
 exports.websiteUserRouter = (0, express_1.Router)();
 exports.panelUserRouter = (0, express_1.Router)();
 /**
@@ -1122,5 +1123,5 @@ exports.panelUserRouter.patch('/:userId', (0, auth_1.default)('admin'), editUser
  *                   type: string
  */
 exports.websiteUserRouter.post('/favorite/toggle', (0, auth_1.default)('user'), toggleFavoriteProduct_1.default);
-//websiteUserRouter.delete('/', auth('user'), deleteUser)
-exports.panelUserRouter.delete('/', (0, auth_1.default)('user'), deleteUser_1.default);
+exports.websiteUserRouter.delete('/', (0, auth_1.default)('user'), deleteUser_1.default);
+exports.panelUserRouter.delete('/', (0, auth_1.default)('user'), deleteUsers_1.default);
