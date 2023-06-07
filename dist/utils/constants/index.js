@@ -61,6 +61,9 @@ exports.errorMessages = {
     blogService: {
         titleAlreadyTaken: "با عنوان مورد نظر از قبل بلاگی وجود دارد"
     },
+    pageService: {
+        titleAlreadyTaken: "با عنوان مورد نظر از قبل صفحه ای وجود دارد"
+    },
     siteInfo: {
         nameIsTaken: 'این نام تکراری است',
         titleIsTaken: 'این عنوان تکراری است',
