@@ -1150,5 +1150,5 @@ websiteUserRouter.post('/favorite/toggle', auth('user'), toggleFavoriteProduct)
 websiteUserRouter.delete('/', auth('user'), deleteUser)
 
 
-panelUserRouter.delete('/', auth('admin'), deleteUsers)
+panelUserRouter.post('/delete', auth('admin'), deleteUsers)
 

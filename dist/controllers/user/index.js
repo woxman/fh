@@ -1124,4 +1124,4 @@ exports.panelUserRouter.patch('/:userId', (0, auth_1.default)('admin'), editUser
  */
 exports.websiteUserRouter.post('/favorite/toggle', (0, auth_1.default)('user'), toggleFavoriteProduct_1.default);
 exports.websiteUserRouter.delete('/', (0, auth_1.default)('user'), deleteUser_1.default);
-exports.panelUserRouter.delete('/', (0, auth_1.default)('admin'), deleteUsers_1.default);
+exports.panelUserRouter.post('/delete', (0, auth_1.default)('admin'), deleteUsers_1.default);
