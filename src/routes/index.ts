@@ -9,6 +9,7 @@ import { panelFactoryRouter, websiteFactoryRouter } from '../controllers/factory
 import { panelProductRouter, websiteProductRouter } from '../controllers/product'
 import { panelBillRouter, websiteBillRouter } from '../controllers/bill'
 import { panelBlogRouter, websiteBlogRouter } from '../controllers/blog'
+import { panelPageRouter, websitePageRouter } from '../controllers/page'
 import { panelSiteInfoRouter, websiteSiteInfoRouter } from "../controllers/siteInfo"
 import { panelOrderRouter, websiteOrderRouter } from '../controllers/order'
 import { panelReportRouter } from '../controllers/report'
@@ -29,11 +30,13 @@ mainRouter.use('/website/property', websitePropertyRouter)
 mainRouter.use('/panel/factory', panelFactoryRouter)
 mainRouter.use('/website/factory', websiteFactoryRouter)
 mainRouter.use('/panel/product', panelProductRouter)
-mainRouter.use('/website/product', websiteProductRouter)/*TTT*/
+mainRouter.use('/website/product', websiteProductRouter)
 mainRouter.use('/panel/bill', panelBillRouter)
 mainRouter.use('/website/bill', websiteBillRouter)
 mainRouter.use('/panel/blog', panelBlogRouter)
-mainRouter.use('/website/blog', websiteBlogRouter)/*TTT*/
+mainRouter.use('/website/blog', websiteBlogRouter)
+mainRouter.use('/panel/page', panelPageRouter)
+mainRouter.use('/website/page', websitePageRouter)
 mainRouter.use('/panel/site-info', panelSiteInfoRouter)
 mainRouter.use('/website/site-info', websiteSiteInfoRouter)
 mainRouter.use('/panel/order', panelOrderRouter)
