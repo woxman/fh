@@ -42,7 +42,7 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const queryValidationSchema = yup.object().shape({
         limit: yup.string(),
         skip: yup.string(),
-        sortBy: yup.string().oneOf(["phone", "email", "name", "addresses", "createdAt", "updatedAt"]),
+        sortBy: yup.string().oneOf(["phone", "email", "name", "addresses", "postCode", "shSabtMelli", "shEghtasadi", "createdAt", "updatedAt"]),
         sortOrder: yup.string().oneOf(['asc', 'desc']),
         search: yup.string(),
     });

@@ -10,6 +10,9 @@ const editUserPanel = async (req: Request, res: Response) => {
     updates: yup.object({
       name: yup.string(),
       email: yup.string().email(), 
+      postCode: yup.string(),
+      shSabtMelli: yup.string(),
+      shEghtasadi: yup.string(),
       addresses: yup.array().of(yup.string())
     })
   })
@@ -18,7 +21,7 @@ const editUserPanel = async (req: Request, res: Response) => {
 
     const { userId } = req.params
 
-    const allowedUpdates = ["name", "email", "addresses"]
+    const allowedUpdates = ["name", "email", "addresses", "postCode", "shSabtMelli", "shEghtasadi"]
 
     const updates: { [key: string]: any} = {}
 

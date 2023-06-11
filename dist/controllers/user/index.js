@@ -50,6 +50,12 @@ exports.panelUserRouter = (0, express_1.Router)();
  *                 type: string
  *               email:
  *                 type: string
+ *               postCode:
+ *                 type: string
+ *               shSabtMelli:
+ *                 type: string
+ *               shEghtasadi:
+ *                 type: string
  *               addresses:
  *                 type: array
  *                 items:
@@ -450,7 +456,7 @@ exports.websiteUserRouter.post('/logout', (0, auth_1.default)('user'), logout_1.
  *         in: query
  *         schema:
  *           type: string
- *           enum: ["name", "email", "phone", "addresses", "createdAt", "updatedAt"]
+ *           enum: ["name", "email", "phone", "addresses","postCode","shSabtMelli","shEghtasadi", "createdAt", "updatedAt"]
  *         description: The property to sort by
  *       - name: sortOrder
  *         in: query
@@ -483,6 +489,12 @@ exports.websiteUserRouter.post('/logout', (0, auth_1.default)('user'), logout_1.
  *                       name:
  *                         type: string
  *                       email:
+ *                         type: string
+ *                       postCode:
+ *                         type: string
+ *                       shSabtMelli:
+ *                         type: string
+ *                       shEghtasadi:
  *                         type: string
  *                       addresses:
  *                         type: array
@@ -544,22 +556,22 @@ exports.panelUserRouter.get('/', (0, auth_1.default)('admin'), getUsers_1.defaul
  *                   properties:
  *                     _id:
  *                       type: string
- *                     isGodAdmin:
- *                       type: boolean
- *                     isSuperAdmin:
- *                       type: boolean
  *                     email:
- *                       type: string
- *                     password:
  *                       type: string
  *                     phone:
  *                       type: string
  *                     name:
  *                       type: string
- *                     permissions:
+ *                     postCode:
+ *                       type: string
+ *                     shSabtMelli:
+ *                       type: string
+ *                     shEghtasadi:
+ *                       type: string
+ *                     addresses:
  *                       type: array
- *                       items:
- *                         type: string
+ *                         items:
+ *                           type: string
  *                     createdAt:
  *                       type: number
  *                     updatedAt:
@@ -621,6 +633,12 @@ exports.panelUserRouter.get('/:userId', (0, auth_1.default)('admin'), getUser_1.
  *                     name:
  *                       type: boolean
  *                     email:
+ *                       type: string
+ *                     postCode:
+ *                       type: string
+ *                     shSabtMelli:
+ *                       type: string
+ *                     shEghtasadi:
  *                       type: string
  *                     favoriteProducts:
  *                       type: array
@@ -749,6 +767,12 @@ exports.websiteUserRouter.get('/', getCurrentUser_1.default);
  *                     type: string
  *                   email:
  *                     type: string
+ *                   postCode:
+ *                     type: string
+ *                   shSabtMelli:
+ *                     type: string
+ *                   shEghtasadi:
+ *                     type: string
  *                   addresses:
  *                     type: array
  *                     items:
@@ -771,6 +795,12 @@ exports.websiteUserRouter.get('/', getCurrentUser_1.default);
  *                     name:
  *                       type: boolean
  *                     email:
+ *                       type: string
+ *                     postCode:
+ *                       type: string
+ *                     shSabtMelli:
+ *                       type: string
+ *                     shEghtasadi:
  *                       type: string
  *                     favoriteProducts:
  *                       type: array
@@ -926,6 +956,12 @@ exports.websiteUserRouter.patch('/', (0, auth_1.default)('user'), editUser_1.def
  *                     type: string
  *                   email:
  *                     type: string
+ *                   postCode:
+ *                     type: string
+ *                   shSabtMelli:
+ *                     type: string
+ *                   shEghtasadi:
+ *                     type: string
  *                   addresses:
  *                     type: array
  *                     items:
@@ -948,6 +984,12 @@ exports.websiteUserRouter.patch('/', (0, auth_1.default)('user'), editUser_1.def
  *                     name:
  *                       type: boolean
  *                     email:
+ *                       type: string
+ *                     postCode:
+ *                       type: string
+ *                     shSabtMelli:
+ *                       type: string
+ *                     shEghtasadi:
  *                       type: string
  *                     favoriteProducts:
  *                       type: array

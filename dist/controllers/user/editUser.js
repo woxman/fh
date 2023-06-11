@@ -43,12 +43,15 @@ const editUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         updates: yup.object({
             name: yup.string(),
             email: yup.string().email(),
+            postCode: yup.string(),
+            shSabtMelli: yup.string(),
+            shEghtasadi: yup.string(),
             addresses: yup.array().of(yup.string())
         })
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
         const userId = res.locals.user._id;
-        const allowedUpdates = ["name", "email", "addresses"];
+        const allowedUpdates = ["name", "email", "addresses", "postCode", "shSabtMelli", "shEghtasadi"];
         const updates = {};
         Object.keys(req.body.updates || {}).forEach((update) => {
             if (allowedUpdates.includes(update)) {

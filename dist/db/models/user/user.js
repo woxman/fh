@@ -58,6 +58,18 @@ const userSchema = new mongoose_1.Schema({
     code: {
         type: String
     },
+    postCode: {
+        type: String,
+        default: ""
+    },
+    shSabtMelli: {
+        type: String,
+        default: ""
+    },
+    shEghtasadi: {
+        type: String,
+        default: ""
+    },
     tokens: [{
             type: String,
             default: []

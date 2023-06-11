@@ -43,15 +43,21 @@ const addUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         phone: yup.string().required(),
         email: yup.string().email(),
         name: yup.string().required(),
-        addresses: yup.array().of(yup.string())
+        addresses: yup.array().of(yup.string()),
+        postCode: yup.string(),
+        shSabtMelli: yup.string(),
+        shEghtasadi: yup.string(),
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
-        const { phone, email, name, addresses } = req.body;
+        const { phone, email, name, addresses, postCode, shSabtMelli, shEghtasadi } = req.body;
         const newUser = {
             phone: phone.trim(),
             email: email.trim(),
             name: name.trim(),
             addresses,
+            postCode,
+            shSabtMelli,
+            shEghtasadi,
         };
         let ip = 'unknown';
         if (req.ips.length) {

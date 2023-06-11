@@ -15,6 +15,9 @@ const addUser = async (
     email: string
     name: string    
     addresses: string[]
+    postCode: string
+    shSabtMelli: string
+    shEghtasadi: string
   },
   reportDetails: {
     adminId: objectId
@@ -511,6 +514,9 @@ const editUser = async (
   updates: {
     name?: string
     email?: string
+    postCode?: string
+    shSabtMelli?: string
+    shEghtasadi?: string
     addresses?: string[]
   }
 ): Promise<IResponse> => {

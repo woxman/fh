@@ -53,6 +53,12 @@ export const panelUserRouter = Router()
  *                 type: string
  *               email:
  *                 type: string
+ *               postCode:
+ *                 type: string
+ *               shSabtMelli:
+ *                 type: string
+ *               shEghtasadi:
+ *                 type: string
  *               addresses:
  *                 type: array
  *                 items:
@@ -464,7 +470,7 @@ websiteUserRouter.post('/logout', auth('user'), logout)
  *         in: query
  *         schema:
  *           type: string
- *           enum: ["name", "email", "phone", "addresses", "createdAt", "updatedAt"]
+ *           enum: ["name", "email", "phone", "addresses","postCode","shSabtMelli","shEghtasadi", "createdAt", "updatedAt"]
  *         description: The property to sort by
  *       - name: sortOrder
  *         in: query
@@ -497,6 +503,12 @@ websiteUserRouter.post('/logout', auth('user'), logout)
  *                       name:
  *                         type: string
  *                       email:
+ *                         type: string
+ *                       postCode:
+ *                         type: string
+ *                       shSabtMelli:
+ *                         type: string
+ *                       shEghtasadi:
  *                         type: string
  *                       addresses:
  *                         type: array
@@ -559,22 +571,22 @@ panelUserRouter.get('/', auth('admin'), getUsers)
  *                   properties:
  *                     _id:
  *                       type: string
- *                     isGodAdmin:
- *                       type: boolean
- *                     isSuperAdmin:
- *                       type: boolean
  *                     email:
- *                       type: string
- *                     password:
  *                       type: string
  *                     phone:
  *                       type: string
  *                     name:
  *                       type: string
- *                     permissions:
+ *                     postCode:
+ *                       type: string
+ *                     shSabtMelli:
+ *                       type: string
+ *                     shEghtasadi:
+ *                       type: string
+ *                     addresses:
  *                       type: array
- *                       items:
- *                         type: string
+ *                         items:
+ *                           type: string
  *                     createdAt:
  *                       type: number
  *                     updatedAt:
@@ -637,6 +649,12 @@ panelUserRouter.get('/:userId', auth('admin'), getUser)
  *                     name:
  *                       type: boolean
  *                     email:
+ *                       type: string
+ *                     postCode:
+ *                       type: string
+ *                     shSabtMelli:
+ *                       type: string
+ *                     shEghtasadi:
  *                       type: string
  *                     favoriteProducts:
  *                       type: array
@@ -767,6 +785,12 @@ websiteUserRouter.get('/', getCurrentUser)
  *                     type: string
  *                   email:
  *                     type: string
+ *                   postCode:
+ *                     type: string
+ *                   shSabtMelli:
+ *                     type: string
+ *                   shEghtasadi:
+ *                     type: string
  *                   addresses:
  *                     type: array
  *                     items:
@@ -789,6 +813,12 @@ websiteUserRouter.get('/', getCurrentUser)
  *                     name:
  *                       type: boolean
  *                     email:
+ *                       type: string
+ *                     postCode:
+ *                       type: string
+ *                     shSabtMelli:
+ *                       type: string
+ *                     shEghtasadi:
  *                       type: string
  *                     favoriteProducts:
  *                       type: array
@@ -946,6 +976,12 @@ websiteUserRouter.patch('/', auth('user'), editUser)
  *                     type: string
  *                   email:
  *                     type: string
+ *                   postCode:
+ *                     type: string
+ *                   shSabtMelli:
+ *                     type: string
+ *                   shEghtasadi:
+ *                     type: string
  *                   addresses:
  *                     type: array
  *                     items:
@@ -968,6 +1004,12 @@ websiteUserRouter.patch('/', auth('user'), editUser)
  *                     name:
  *                       type: boolean
  *                     email:
+ *                       type: string
+ *                     postCode:
+ *                       type: string
+ *                     shSabtMelli:
+ *                       type: string
+ *                     shEghtasadi:
  *                       type: string
  *                     favoriteProducts:
  *                       type: array

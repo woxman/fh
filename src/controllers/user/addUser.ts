@@ -12,18 +12,24 @@ const addUser = async (req: Request, res: Response) => {
     phone: yup.string().required(),
     email: yup.string().email(),
     name: yup.string().required(),
-    addresses: yup.array().of(yup.string())
+    addresses: yup.array().of(yup.string()),
+    postCode: yup.string(),
+    shSabtMelli: yup.string(),
+    shEghtasadi: yup.string(),
   })
 
 	const handle = async () => {
     
-        const { phone, email, name, addresses} = req.body
+        const { phone, email, name, addresses, postCode, shSabtMelli, shEghtasadi} = req.body
 
         const newUser = {
             phone:phone.trim(),
             email: email.trim(),
             name: name.trim(),
-            addresses,            
+            addresses,
+            postCode,
+            shSabtMelli,
+            shEghtasadi,
         }
 
         let ip: string = 'unknown'
