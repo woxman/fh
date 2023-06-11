@@ -22,7 +22,7 @@ const report_1 = __importDefault(require("../report/report"));
 const ObjectId = mongoose_1.default.Types.ObjectId;
 const addUser = (newUser, reportDetails) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { phone, email, name, addresses } = newUser;
+        const { phone, email, name, addresses, postCode, shSabtMelli, shEghtasadi } = newUser;
         const { adminId, ip } = reportDetails;
         // checking email availability
         const existingUserWithThisEmail = yield user_1.default.findOne({ email }).exec();
@@ -52,6 +52,9 @@ const addUser = (newUser, reportDetails) => __awaiter(void 0, void 0, void 0, fu
             phone,
             email,
             name,
+            postCode,
+            shSabtMelli,
+            shEghtasadi,
             addresses,
             code: lastUserCode
         });

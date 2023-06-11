@@ -26,7 +26,7 @@ const addUser = async (
 ): Promise<IResponse> => {
 
   try {
-    const { phone, email, name, addresses} = newUser
+    const { phone, email, name, addresses, postCode, shSabtMelli, shEghtasadi} = newUser
     const { adminId, ip } = reportDetails
 
     // checking email availability
@@ -61,6 +61,9 @@ const addUser = async (
       phone,
       email,
       name,
+      postCode,
+      shSabtMelli,
+      shEghtasadi,
       addresses,
       code:lastUserCode
     })

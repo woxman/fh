@@ -85,6 +85,12 @@ export const panelUserRouter = Router()
  *                       type: string
  *                     email:
  *                       type: string
+ *                     postCode:
+ *                       type: string
+ *                     shSabtMelli:
+ *                       type: string
+ *                     shEghtasadi:
+ *                       type: string
  *                     addresses:
  *                       type: array
  *                       items:
@@ -183,7 +189,7 @@ panelUserRouter.post('/', auth('admin'),  addUser)
  *                       items:
  *                         type: string
  *                     email:
-  *                       type: array
+ *                       type: array
  *                       items:
  *                         type: string
  *                     addresses:
@@ -547,10 +553,10 @@ panelUserRouter.get('/', auth('admin'), getUsers)
  *   get:
  *     tags:
  *       - User | Panel
- *     summary: get an user by id
- *     description: get an user by id
+ *     summary: get a user by id
+ *     description: get a user by id
  *     security:
- *       - userBearerAuth: []
+ *       - adminBearerAuth: []
  *     parameters:
  *       - name: userId
  *         in: path
@@ -560,22 +566,20 @@ panelUserRouter.get('/', auth('admin'), getUsers)
  *           type: string
  *     responses:
  *       200:
- *         description: An admin object.
+ *         description: A page object.
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 admin:
+ *                 page:
  *                   type: object
  *                   properties:
  *                     _id:
  *                       type: string
- *                     email:
- *                       type: string
- *                     phone:
- *                       type: string
  *                     name:
+ *                       type: string
+ *                     email:
  *                       type: string
  *                     postCode:
  *                       type: string
@@ -585,8 +589,8 @@ panelUserRouter.get('/', auth('admin'), getUsers)
  *                       type: string
  *                     addresses:
  *                       type: array
- *                         items:
- *                           type: string
+ *                       items:
+ *                         type: string
  *                     createdAt:
  *                       type: number
  *                     updatedAt:
