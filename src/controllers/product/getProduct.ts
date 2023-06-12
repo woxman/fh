@@ -6,7 +6,8 @@ import productService from "../../db/models/product/product.service"
 const getProduct = async (req: Request, res: Response) => {
 	
   const handle = async () => {
-    const { productUrlSlug } = req.params
+    	let { productUrlSlug } = req.params
+		productUrlSlug=decodeURI(productUrlSlug)
 		return await productService.getProduct(productUrlSlug)
 	}
 

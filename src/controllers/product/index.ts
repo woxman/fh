@@ -223,19 +223,19 @@ panelProductRouter.post('/subcategory/:subcategoryId', auth('admin'), addProduct
 
 /**
  * @swagger
- * /panel/product/{productId}:
+ * /panel/product/{productUrlSlug}:
  *   get:
  *     tags:
  *       - Product | Panel
- *     summary: Get a product by id
- *     description: Get a product in full details by id
+ *     summary: Get a product by urlSlug
+ *     description: Get a product in full details by urlSlug
  *     security:
  *       - adminBearerAuth: []
  *     parameters:
  *       - name: productId
  *         in: path
  *         required: true
- *         description: The ID of the expected product
+ *         description: The urlSlug of the expected product
  *         schema:
  *           type: string
  *     responses:
@@ -371,7 +371,7 @@ panelProductRouter.post('/subcategory/:subcategoryId', auth('admin'), addProduct
  *                 message:
  *                   type: string
  */ 
-panelProductRouter.get('/:productId', auth('admin'), getProduct)
+panelProductRouter.get('/:productUrlSlug', auth('admin'), getProduct)
  
 
  

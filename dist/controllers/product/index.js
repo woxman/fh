@@ -219,19 +219,19 @@ exports.websiteProductRouter = (0, express_1.Router)();
 exports.panelProductRouter.post('/subcategory/:subcategoryId', (0, auth_1.default)('admin'), addProduct_1.default);
 /**
  * @swagger
- * /panel/product/{productId}:
+ * /panel/product/{productUrlSlug}:
  *   get:
  *     tags:
  *       - Product | Panel
- *     summary: Get a product by id
- *     description: Get a product in full details by id
+ *     summary: Get a product by urlSlug
+ *     description: Get a product in full details by urlSlug
  *     security:
  *       - adminBearerAuth: []
  *     parameters:
  *       - name: productId
  *         in: path
  *         required: true
- *         description: The ID of the expected product
+ *         description: The urlSlug of the expected product
  *         schema:
  *           type: string
  *     responses:
@@ -367,7 +367,7 @@ exports.panelProductRouter.post('/subcategory/:subcategoryId', (0, auth_1.defaul
  *                 message:
  *                   type: string
  */
-exports.panelProductRouter.get('/:productId', (0, auth_1.default)('admin'), getProduct_1.default);
+exports.panelProductRouter.get('/:productUrlSlug', (0, auth_1.default)('admin'), getProduct_1.default);
 /**
  * @swagger
  * /panel/product:

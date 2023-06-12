@@ -16,7 +16,8 @@ const helper_1 = require("../helper");
 const product_service_1 = __importDefault(require("../../db/models/product/product.service"));
 const getProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
-        const { productUrlSlug } = req.params;
+        let { productUrlSlug } = req.params;
+        productUrlSlug = decodeURI(productUrlSlug);
         return yield product_service_1.default.getProduct(productUrlSlug);
     });
     const extractOutput = (outputs) => outputs;
