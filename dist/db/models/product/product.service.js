@@ -357,7 +357,7 @@ const getProductsByFactoryId = (factoryId, options) => __awaiter(void 0, void 0,
     }
 });
 // ----------------------------------------------------------------------------
-const getFactoriesProductsBySubcategoryId = (subcategoryUrlSlug, options) => __awaiter(void 0, void 0, void 0, function* () {
+const getFactoriesProductsBySubcategoryUrlSlug = (subcategoryUrlSlug, options) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Check if the product exists
         const subcategory = yield subcategory_1.default.findOne({ urlSlug: subcategoryUrlSlug }).exec();
@@ -733,7 +733,7 @@ exports.default = {
     getProducts,
     getProductsBySubcategoryId,
     getProductsByFactoryId,
-    getFactoriesProductsBySubcategoryId,
+    getFactoriesProductsBySubcategoryUrlSlug,
     editProduct,
     deleteProducts,
     rateProduct

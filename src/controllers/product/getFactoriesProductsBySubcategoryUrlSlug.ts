@@ -12,7 +12,8 @@ const getFactoriesProductsBySubcategoryId = async (req: Request, res: Response) 
   })
   
   const handle = async () => {
-    const { subcategoryUrlSlug } = req.params
+    let { subcategoryUrlSlug } = req.body
+    subcategoryUrlSlug =decodeURI(subcategoryUrlSlug )
     const { limit, skip } = req.query
     
     const options = {
@@ -20,7 +21,7 @@ const getFactoriesProductsBySubcategoryId = async (req: Request, res: Response) 
       skip: skip ? Number(skip) : undefined
     }
 
-		return await productService.getFactoriesProductsBySubcategoryId(subcategoryUrlSlug, options)
+		return await productService.getFactoriesProductsBySubcategoryUrlSlug(subcategoryUrlSlug, options)
 	}
 
 	const extractOutput = (outputs: object) => outputs

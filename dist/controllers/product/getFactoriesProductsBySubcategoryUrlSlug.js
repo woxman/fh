@@ -51,7 +51,7 @@ const getFactoriesProductsBySubcategoryId = (req, res) => __awaiter(void 0, void
             limit: limit ? Number(limit) : undefined,
             skip: skip ? Number(skip) : undefined
         };
-        return yield product_service_1.default.getFactoriesProductsBySubcategoryId(subcategoryUrlSlug, options);
+        return yield product_service_1.default.getFactoriesProductsBySubcategoryUrlSlug(subcategoryUrlSlug, options);
     });
     const extractOutput = (outputs) => outputs;
     return (0, helper_1.handleRequest)({ req, res, queryValidationSchema, handle, extractOutput });

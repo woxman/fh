@@ -11,7 +11,7 @@ const getProduct_1 = __importDefault(require("./getProduct"));
 const getProducts_1 = __importDefault(require("./getProducts"));
 const getProductsByFactoryId_1 = __importDefault(require("./getProductsByFactoryId"));
 const getProductsBySubcategoryId_1 = __importDefault(require("./getProductsBySubcategoryId"));
-const getFactoriesProductsBySubcategoryId_1 = __importDefault(require("./getFactoriesProductsBySubcategoryId"));
+const getFactoriesProductsBySubcategoryUrlSlug_1 = __importDefault(require("./getFactoriesProductsBySubcategoryUrlSlug"));
 const editProduct_1 = __importDefault(require("./editProduct"));
 const deleteProducts_1 = __importDefault(require("./deleteProducts"));
 const rateProduct_1 = __importDefault(require("./rateProduct"));
@@ -1487,7 +1487,7 @@ exports.websiteProductRouter.get('/', getProducts_1.default);
  *                 message:
  *                   type: string
  */
-exports.websiteProductRouter.get('/subcategory/:subcategoryUrlSlug', getFactoriesProductsBySubcategoryId_1.default);
+exports.websiteProductRouter.get('/subcategory/:subcategoryUrlSlug', getFactoriesProductsBySubcategoryUrlSlug_1.default);
 /**
  * @swagger
  * /website/product/{productId}/rate:

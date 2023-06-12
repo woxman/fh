@@ -446,7 +446,7 @@ const getProductsByFactoryId = async (
 
 // ----------------------------------------------------------------------------
 
-const getFactoriesProductsBySubcategoryId = async (
+const getFactoriesProductsBySubcategoryUrlSlug = async (
   subcategoryUrlSlug: string,
   options: {
     limit?: number
@@ -910,7 +910,7 @@ export default {
   getProducts,
   getProductsBySubcategoryId,
   getProductsByFactoryId,
-  getFactoriesProductsBySubcategoryId,
+  getFactoriesProductsBySubcategoryUrlSlug,
   editProduct,
   deleteProducts,
   rateProduct

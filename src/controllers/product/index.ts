@@ -7,7 +7,7 @@ import getProduct from './getProduct'
 import getProducts from './getProducts'
 import getProductsByFactoryId from './getProductsByFactoryId'
 import getProductsBySubcategoryId from './getProductsBySubcategoryId'
-import getFactoriesProductsBySubcategoryId from './getFactoriesProductsBySubcategoryId'
+import getFactoriesProductsBySubcategoryUrlSlug from './getFactoriesProductsBySubcategoryUrlSlug'
 import editProduct from './editProduct'
 import deleteProducts from './deleteProducts'
 import rateProduct from './rateProduct'
@@ -1520,7 +1520,7 @@ websiteProductRouter.get('/', getProducts)
  *                 message:
  *                   type: string
  */
-websiteProductRouter.get('/subcategory/:subcategoryUrlSlug', getFactoriesProductsBySubcategoryId)
+websiteProductRouter.get('/subcategory/:subcategoryUrlSlug', getFactoriesProductsBySubcategoryUrlSlug)
 
 
 
