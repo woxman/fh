@@ -44,7 +44,7 @@ const getFactoriesProductsBySubcategoryId = (req, res) => __awaiter(void 0, void
         skip: yup.string()
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
-        let { subcategoryUrlSlug } = req.body;
+        let { subcategoryUrlSlug } = req.params;
         subcategoryUrlSlug = decodeURI(subcategoryUrlSlug);
         const { limit, skip } = req.query;
         const options = {

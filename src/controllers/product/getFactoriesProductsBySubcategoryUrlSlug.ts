@@ -12,8 +12,9 @@ const getFactoriesProductsBySubcategoryId = async (req: Request, res: Response) 
   })
   
   const handle = async () => {
-    let { subcategoryUrlSlug } = req.body
+    let { subcategoryUrlSlug } = req.params
     subcategoryUrlSlug =decodeURI(subcategoryUrlSlug )
+    
     const { limit, skip } = req.query
     
     const options = {
