@@ -145,10 +145,10 @@ const getProduct = (productUrlSlug) => __awaiter(void 0, void 0, void 0, functio
         const product = yield product_1.default.findOne({ urlSlug: productUrlSlug })
             .populate({
             path: 'subcategory',
-            select: '_id name category',
+            select: '_id name category urlSlug',
             populate: {
                 path: 'category',
-                select: '_id name'
+                select: '_id name urlSlug'
             }
         })
             .populate('factory', '_id name')

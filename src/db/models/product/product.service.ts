@@ -180,10 +180,10 @@ const getProduct = async (productUrlSlug: string): Promise<IResponse> => {
     const product = await Product.findOne({urlSlug:productUrlSlug})
       .populate({
         path: 'subcategory',
-        select: '_id name category',
+        select: '_id name category urlSlug',
         populate: {
           path: 'category',
-          select: '_id name'
+          select: '_id name urlSlug'
         }
       })
       .populate('factory', '_id name')
