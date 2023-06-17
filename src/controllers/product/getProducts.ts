@@ -25,7 +25,7 @@ const getProducts = async (req: Request, res: Response) => {
       search: search?.toString()
     }
     console.log("**************************")
-    console.log(res.locals.admin._id)
+    console.log(res.locals)
     console.log("**************************")
 		return await productService.getProducts(options)
 	}
