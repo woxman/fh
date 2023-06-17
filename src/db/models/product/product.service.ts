@@ -254,10 +254,8 @@ const getProducts = async (
     search?: string
   }
 ): Promise<IResponse> => {
-  console.log("TTER")
   try {
-    const { limit, skip, sortBy, sortOrder, search } = options
-
+    const { limit, skip, sortBy, sortOrder, search } = options    
     // Create and fill the query options object
     const queryOptions: { [key: string]: any } = {}
     

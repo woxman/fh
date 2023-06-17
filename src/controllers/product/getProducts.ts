@@ -24,7 +24,7 @@ const getProducts = async (req: Request, res: Response) => {
       sortOrder: sortOrder?.toString(),
       search: search?.toString()
     }
-
+    console.log(res.locals.admin._id)
 		return await productService.getProducts(options)
 	}
 

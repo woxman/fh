@@ -55,6 +55,7 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             sortOrder: sortOrder === null || sortOrder === void 0 ? void 0 : sortOrder.toString(),
             search: search === null || search === void 0 ? void 0 : search.toString()
         };
+        console.log(res.locals.admin._id);
         return yield product_service_1.default.getProducts(options);
     });
     const extractOutput = (outputs) => outputs;
