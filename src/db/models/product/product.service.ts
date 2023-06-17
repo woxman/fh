@@ -19,6 +19,7 @@ const addProduct = async (
       value: string
     }[]
     unit: string
+    weight: string
     price?: number
     tags: string[]
     images: {
@@ -34,6 +35,7 @@ const addProduct = async (
       description,
       properties,
       unit,
+      weight,
       price,
       tags,
       images
@@ -137,6 +139,7 @@ const addProduct = async (
       description,
       properties: propertiesToSave,
       unit,
+      weight,
       price,
       priceHistory,
       tags,
@@ -555,6 +558,7 @@ const editProduct = async (
       value: string
     }[]
     unit?: string
+    weight?: string
     price?: number
     priceHistory?: {
       price: number

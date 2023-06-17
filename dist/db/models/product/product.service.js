@@ -21,7 +21,7 @@ const siteInfo_1 = __importDefault(require("../siteInfo/siteInfo"));
 const image_service_1 = __importDefault(require("../image/image.service"));
 const addProduct = (subcategoryId, newProduct) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { factory: factoryId, name, description, properties, unit, price, tags, images } = newProduct;
+        const { factory: factoryId, name, description, properties, unit, weight, price, tags, images } = newProduct;
         // Check if the subcategory exists
         const subcategory = yield subcategory_1.default.findById(subcategoryId)
             .populate('properties.property', 'name values').exec();
@@ -106,6 +106,7 @@ const addProduct = (subcategoryId, newProduct) => __awaiter(void 0, void 0, void
             description,
             properties: propertiesToSave,
             unit,
+            weight,
             price,
             priceHistory,
             tags,

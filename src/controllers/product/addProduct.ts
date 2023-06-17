@@ -17,6 +17,7 @@ const addProduct = async (req: Request, res: Response) => {
       value: yup.string().required()
     })).required(),
     unit: yup.string().required(),
+    weight: yup.string(),
     price: yup.number(),
     tags: yup.array().of(yup.string()).required(),
     images: yup.array().of(yup.object({
@@ -26,7 +27,7 @@ const addProduct = async (req: Request, res: Response) => {
   })
 
 	const handle = async () => {
-    const { factory, name, description, properties, unit, price, tags, images } = req.body
+    const { factory, name, description, properties, unit, weight , price, tags, images } = req.body
     const { subcategoryId } = req.params
 
     const newProduct = {
@@ -35,6 +36,7 @@ const addProduct = async (req: Request, res: Response) => {
       description,
       properties,
       unit,
+      weight,
       price,
       tags,
       images

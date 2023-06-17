@@ -18,6 +18,7 @@ const editProduct = async (req: Request, res: Response) => {
         value: yup.string().required()
       })),
       unit: yup.string(),
+      weight: yup.string(),
       price: yup.number(),
       tags: yup.array().of(yup.string()),
       images: yup.array().of(yup.mixed<string | {
@@ -30,7 +31,7 @@ const editProduct = async (req: Request, res: Response) => {
 	const handle = async () => {
     const { productId } = req.params
     
-    const allowedUpdates = ['name', 'factory', 'description', 'properties', 'unit', 'price', 'tags', 'images']
+    const allowedUpdates = ['name', 'factory', 'description', 'properties', 'unit', 'weight', 'price', 'tags', 'images']
     const updates: { [key: string]: any } = {}
 
     Object.keys(req.body.updates || {}).forEach((update) => {

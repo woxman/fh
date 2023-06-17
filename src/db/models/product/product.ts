@@ -18,6 +18,7 @@ export interface IProduct extends Document {
     value: string
   }[]
   unit: string
+  weight: string
   price: number
   priceHistory: {
     price: number
@@ -78,6 +79,9 @@ const productSchema = new Schema<IProduct>({
   unit: {
     type: String,
     required: true
+  },
+  weight: {
+    type: String,
   },
   price: {
     type: Number,

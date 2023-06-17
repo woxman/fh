@@ -68,6 +68,9 @@ const productSchema = new mongoose_1.Schema({
         type: String,
         required: true
     },
+    weight: {
+        type: String,
+    },
     price: {
         type: Number,
         default: 0

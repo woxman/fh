@@ -49,6 +49,7 @@ const editProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
                 value: yup.string().required()
             })),
             unit: yup.string(),
+            weight: yup.string(),
             price: yup.number(),
             tags: yup.array().of(yup.string()),
             images: yup.array().of(yup.mixed())
@@ -56,7 +57,7 @@ const editProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
         const { productId } = req.params;
-        const allowedUpdates = ['name', 'factory', 'description', 'properties', 'unit', 'price', 'tags', 'images'];
+        const allowedUpdates = ['name', 'factory', 'description', 'properties', 'unit', 'weight', 'price', 'tags', 'images'];
         const updates = {};
         Object.keys(req.body.updates || {}).forEach((update) => {
             if (allowedUpdates.includes(update)) {

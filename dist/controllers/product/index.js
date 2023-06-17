@@ -67,6 +67,8 @@ exports.websiteProductRouter = (0, express_1.Router)();
  *                       type: string
  *               unit:
  *                 type: string
+ *               weight:
+ *                 type: string
  *               price:
  *                 type: number
  *               tags:
@@ -141,6 +143,8 @@ exports.websiteProductRouter = (0, express_1.Router)();
  *                           value:
  *                             type: string
  *                     unit:
+ *                       type: string
+ *                     weight:
  *                       type: string
  *                     price:
  *                       type: number
@@ -285,6 +289,8 @@ exports.panelProductRouter.post('/subcategory/:subcategoryId', (0, auth_1.defaul
  *                             type: string
  *                     unit:
  *                       type: string
+ *                     weight:
+ *                       type: string
  *                     price:
  *                       type: number
  *                     priceHistory:
@@ -393,7 +399,7 @@ exports.panelProductRouter.get('/:productUrlSlug', (0, auth_1.default)('admin'),
  *         in: query
  *         schema:
  *           type: string
- *           enum: ['name', 'unit', 'createdAt', 'updatedAt']
+ *           enum: ['name', 'unit','weight', 'createdAt', 'updatedAt']
  *         description: The property to sort by
  *       - name: sortOrder
  *         in: query
@@ -460,6 +466,8 @@ exports.panelProductRouter.get('/:productUrlSlug', (0, auth_1.default)('admin'),
  *                             value:
  *                               type: string
  *                       unit:
+ *                         type: string
+ *                       weight:
  *                         type: string
  *                       price:
  *                         type: number
@@ -549,7 +557,7 @@ exports.panelProductRouter.get('/', (0, auth_1.default)('admin'), getProducts_1.
  *         in: query
  *         schema:
  *           type: string
- *           enum: ['name', 'unit', 'createdAt', 'updatedAt']
+ *           enum: ['name', 'unit', 'weight', 'createdAt', 'updatedAt']
  *         description: The property to sort by
  *       - name: sortOrder
  *         in: query
@@ -616,6 +624,8 @@ exports.panelProductRouter.get('/', (0, auth_1.default)('admin'), getProducts_1.
  *                             value:
  *                               type: string
  *                       unit:
+ *                         type: string
+ *                       weight:
  *                         type: string
  *                       price:
  *                         type: number
@@ -705,7 +715,7 @@ exports.panelProductRouter.get('/subcategory/:subcategoryId', (0, auth_1.default
  *         in: query
  *         schema:
  *           type: string
- *           enum: ['name', 'unit', 'createdAt', 'updatedAt']
+ *           enum: ['name', 'unit', 'weight', 'createdAt', 'updatedAt']
  *         description: The property to sort by
  *       - name: sortOrder
  *         in: query
@@ -772,6 +782,8 @@ exports.panelProductRouter.get('/subcategory/:subcategoryId', (0, auth_1.default
  *                             value:
  *                               type: string
  *                       unit:
+ *                         type: string
+ *                       weight:
  *                         type: string
  *                       price:
  *                         type: number
@@ -861,6 +873,8 @@ exports.panelProductRouter.get('/factory/:factoryId', (0, auth_1.default)('admin
  *                           type: string
  *                   unit:
  *                     type: string
+ *                   weight:
+ *                     type: string
  *                   price:
  *                     type: number
  *                   tags:
@@ -929,6 +943,8 @@ exports.panelProductRouter.get('/factory/:factoryId', (0, auth_1.default)('admin
  *                           value:
  *                             type: string
  *                     unit:
+ *                       type: string
+ *                     weight:
  *                       type: string
  *                     price:
  *                       type: number
@@ -1127,6 +1143,8 @@ exports.panelProductRouter.post('/delete', (0, auth_1.default)('admin'), deleteP
  *                             type: string
  *                     unit:
  *                       type: string
+ *                     weight:
+ *                       type: string
  *                     price:
  *                       type: number
  *                     priceHistory:
@@ -1224,7 +1242,7 @@ exports.websiteProductRouter.get('/:productUrlSlug', getProduct_1.default);
  *         in: query
  *         schema:
  *           type: string
- *           enum: ['name', 'unit', 'createdAt', 'updatedAt']
+ *           enum: ['name', 'unit', 'weight', 'createdAt', 'updatedAt']
  *         description: The property to sort by
  *       - name: sortOrder
  *         in: query
@@ -1291,6 +1309,8 @@ exports.websiteProductRouter.get('/:productUrlSlug', getProduct_1.default);
  *                             value:
  *                               type: string
  *                       unit:
+ *                         type: string
+ *                       weight:
  *                         type: string
  *                       price:
  *                         type: number
@@ -1440,6 +1460,8 @@ exports.websiteProductRouter.get('/', getProducts_1.default);
  *                                     type: string
  *                             unit:
  *                               type: string
+ *                             weight:
+ *                               type: string
  *                             price:
  *                               type: number
  *                             priceHistory:
@@ -1566,6 +1588,8 @@ exports.websiteProductRouter.get('/subcategory/:subcategoryUrlSlug', getFactorie
  *                           value:
  *                             type: string
  *                     unit:
+ *                       type: string
+ *                     weight:
  *                       type: string
  *                     price:
  *                       type: number

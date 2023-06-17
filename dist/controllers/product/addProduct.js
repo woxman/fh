@@ -49,6 +49,7 @@ const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             value: yup.string().required()
         })).required(),
         unit: yup.string().required(),
+        weight: yup.string(),
         price: yup.number(),
         tags: yup.array().of(yup.string()).required(),
         images: yup.array().of(yup.object({
@@ -57,7 +58,7 @@ const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         })).required()
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
-        const { factory, name, description, properties, unit, price, tags, images } = req.body;
+        const { factory, name, description, properties, unit, weight, price, tags, images } = req.body;
         const { subcategoryId } = req.params;
         const newProduct = {
             factory,
@@ -65,6 +66,7 @@ const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             description,
             properties,
             unit,
+            weight,
             price,
             tags,
             images
