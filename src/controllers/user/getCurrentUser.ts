@@ -8,8 +8,7 @@ import userService from "../../db/models/user/user.service"
 const getCurrentUser = async (req: Request, res: Response) => {
 
 	const handle = async () => {
-    const userId = res.locals.user?._id
-
+    	const userId = res.locals.user?._id
 		return await userService.getUser(userId)
 	}
 
