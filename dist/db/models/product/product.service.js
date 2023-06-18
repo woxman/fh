@@ -225,7 +225,7 @@ const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () 
         let products = yield product_1.default.find(filter, {}, queryOptions)
             .populate({
             path: 'subcategory',
-            select: '_id name category',
+            select: '_id name category code',
             populate: {
                 path: 'category',
                 select: '_id name'

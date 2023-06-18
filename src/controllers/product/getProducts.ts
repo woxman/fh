@@ -15,18 +15,19 @@ const getProducts = async (req: Request, res: Response) => {
   })
   
   const handle = async () => {
-    const { limit, skip, sortBy, sortOrder, search } = req.query
+    const { limit, skip, sortBy, sortOrder, search,code } = req.query
     
     const options = {
       limit: limit ? Number(limit) : undefined,
       skip: skip ? Number(skip) : undefined,
       sortBy: sortBy?.toString(),
       sortOrder: sortOrder?.toString(),
-      search: search?.toString()
-    }
-    console.log("**************************")
+      search: search?.toString(),
+      code:code?.toString()
+    }    
+    console.log("*****************************")
     console.log(res.locals)
-    console.log("**************************")
+    console.log("*****************************")
 		return await productService.getProducts(options)
 	}
 

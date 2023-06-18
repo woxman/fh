@@ -47,17 +47,18 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         search: yup.string()
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
-        const { limit, skip, sortBy, sortOrder, search } = req.query;
+        const { limit, skip, sortBy, sortOrder, search, code } = req.query;
         const options = {
             limit: limit ? Number(limit) : undefined,
             skip: skip ? Number(skip) : undefined,
             sortBy: sortBy === null || sortBy === void 0 ? void 0 : sortBy.toString(),
             sortOrder: sortOrder === null || sortOrder === void 0 ? void 0 : sortOrder.toString(),
-            search: search === null || search === void 0 ? void 0 : search.toString()
+            search: search === null || search === void 0 ? void 0 : search.toString(),
+            code: code === null || code === void 0 ? void 0 : code.toString()
         };
-        console.log("**************************");
+        console.log("*****************************");
         console.log(res.locals);
-        console.log("**************************");
+        console.log("*****************************");
         return yield product_service_1.default.getProducts(options);
     });
     const extractOutput = (outputs) => outputs;

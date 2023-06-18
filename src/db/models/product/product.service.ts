@@ -280,7 +280,7 @@ const getProducts = async (
     let products = await Product.find(filter, {}, queryOptions)
       .populate({
         path: 'subcategory',
-        select: '_id name category',
+        select: '_id name category code',
         populate: {
           path: 'category',
           select: '_id name'
