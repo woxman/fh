@@ -203,7 +203,10 @@ const getProduct = (productUrlSlug) => __awaiter(void 0, void 0, void 0, functio
 // ----------------------------------------------------------------------------
 const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { limit, skip, sortBy, sortOrder, search } = options;
+        const { limit, skip, sortBy, sortOrder, search, access } = options;
+        console.log("*****************************");
+        console.log(access);
+        console.log("*****************************");
         // Create and fill the query options object
         const queryOptions = {};
         if (limit) {

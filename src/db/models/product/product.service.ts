@@ -251,11 +251,15 @@ const getProducts = async (
     skip?: number,
     sortBy?: string,
     sortOrder?: string,
-    search?: string
+    search?: string,
+    access?:string
   }
 ): Promise<IResponse> => {
-  try {
-    const { limit, skip, sortBy, sortOrder, search } = options    
+  try {    
+    const { limit, skip, sortBy, sortOrder, search , access } = options    
+    console.log("*****************************")
+    console.log(access)
+    console.log("*****************************")
     // Create and fill the query options object
     const queryOptions: { [key: string]: any } = {}
     

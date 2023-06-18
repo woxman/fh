@@ -16,18 +16,19 @@ const getProducts = async (req: Request, res: Response) => {
   
   const handle = async () => {
     const { limit, skip, sortBy, sortOrder, search,code } = req.query
-    
+    let access='';
+    if(res.locals.admin){
+      access=res.locals.admin.code
+    }
     const options = {
       limit: limit ? Number(limit) : undefined,
       skip: skip ? Number(skip) : undefined,
       sortBy: sortBy?.toString(),
       sortOrder: sortOrder?.toString(),
       search: search?.toString(),
-      code:code?.toString()
-    }    
-    console.log("*****************************")
-    console.log(res.locals)
-    console.log("*****************************")
+      code:code?.toString(),
+      access:access?.toString()      
+    }
 		return await productService.getProducts(options)
 	}
 

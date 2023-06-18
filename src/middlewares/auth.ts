@@ -39,6 +39,7 @@ const auth = (role: 'admin' | 'user') => {
         res.locals.admin = {
           _id: admin._id,
           isGodAdmin: admin.isGodAdmin,
+          code: admin.code,
           permissions: admin.permissions
         }
       }
