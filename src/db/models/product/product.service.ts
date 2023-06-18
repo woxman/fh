@@ -256,13 +256,9 @@ const getProducts = async (
   }
 ): Promise<IResponse> => {
   try {    
-    const { limit, skip, sortBy, sortOrder, search , access } = options    
-    console.log("*****************************")
-    console.log(access)
-    console.log("*****************************")
+    const { limit, skip, sortBy, sortOrder, search , access } = options
     // Create and fill the query options object
     const queryOptions: { [key: string]: any } = {}
-    
     if(limit) {
       queryOptions['limit'] = limit
     }
@@ -273,26 +269,30 @@ const getProducts = async (
       queryOptions['sort'] = {}
       queryOptions['sort'][`${sortBy}`] = sortOrder || 'asc'
     }
-
     const filter: { [key: string]: any } = {}
     if(search) {
       filter.name = { $regex: search }
     }
-    
+        
     // Fetch the subcategories
-    const count = await Product.countDocuments(filter)
+    let qr={
+      path: 'subcategory',
+      select: '_id name category code',
+      populate: {
+        path: 'category',
+        select: '_id name'
+      },
+      match: {}
+    }
+    if(access != "all"){
+      const coder = access?.split(",")
+      qr.match = { 'code': { $in: coder } }
+    }
+    const count = await Product.countDocuments(filter)    
     let products = await Product.find(filter, {}, queryOptions)
-      .populate({
-        path: 'subcategory',
-        select: '_id name category code',
-        populate: {
-          path: 'category',
-          select: '_id name'
-        }
-      })
-      .populate('factory', '_id name')
-      .exec()
-
+    .populate(qr)
+    .exec();
+    products = products.filter(product => product.subcategory);
     return {
       success: true,
       outputs: { 

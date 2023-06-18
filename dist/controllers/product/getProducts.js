@@ -48,8 +48,8 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
         const { limit, skip, sortBy, sortOrder, search, code } = req.query;
-        let access = '';
-        if (res.locals.admin) {
+        let access = 'all';
+        if (res.locals.admin && res.locals.admin.isGodAdmin == false) {
             access = res.locals.admin.code;
         }
         const options = {

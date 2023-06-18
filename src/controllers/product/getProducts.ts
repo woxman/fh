@@ -16,8 +16,8 @@ const getProducts = async (req: Request, res: Response) => {
   
   const handle = async () => {
     const { limit, skip, sortBy, sortOrder, search,code } = req.query
-    let access='';
-    if(res.locals.admin){
+    let access='all';
+    if(res.locals.admin && res.locals.admin.isGodAdmin==false){
       access=res.locals.admin.code
     }
     const options = {

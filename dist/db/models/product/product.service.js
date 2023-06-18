@@ -204,9 +204,6 @@ const getProduct = (productUrlSlug) => __awaiter(void 0, void 0, void 0, functio
 const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { limit, skip, sortBy, sortOrder, search, access } = options;
-        console.log("*****************************");
-        console.log(access);
-        console.log("*****************************");
         // Create and fill the query options object
         const queryOptions = {};
         if (limit) {
@@ -224,18 +221,24 @@ const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () 
             filter.name = { $regex: search };
         }
         // Fetch the subcategories
-        const count = yield product_1.default.countDocuments(filter);
-        let products = yield product_1.default.find(filter, {}, queryOptions)
-            .populate({
+        let qr = {
             path: 'subcategory',
             select: '_id name category code',
             populate: {
                 path: 'category',
                 select: '_id name'
-            }
-        })
-            .populate('factory', '_id name')
+            },
+            match: {}
+        };
+        if (access != "all") {
+            const coder = access === null || access === void 0 ? void 0 : access.split(",");
+            qr.match = { 'code': { $in: coder } };
+        }
+        const count = yield product_1.default.countDocuments(filter);
+        let products = yield product_1.default.find(filter, {}, queryOptions)
+            .populate(qr)
             .exec();
+        products = products.filter(product => product.subcategory);
         return {
             success: true,
             outputs: {
