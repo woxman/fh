@@ -286,7 +286,7 @@ const getProducts = async (
     }
     if(access != "all"){
       const coder = access?.split(",")
-      qr.match = { 'code': { $in: access } }
+      qr.match = { 'code': { $in: coder } }
     }
     console.log(access)
     console.log(qr)

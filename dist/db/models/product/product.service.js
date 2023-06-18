@@ -232,7 +232,7 @@ const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () 
         };
         if (access != "all") {
             const coder = access === null || access === void 0 ? void 0 : access.split(",");
-            qr.match = { 'code': { $in: access } };
+            qr.match = { 'code': { $in: coder } };
         }
         console.log(access);
         console.log(qr);
