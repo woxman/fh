@@ -345,6 +345,9 @@ const logout = async (token: string): Promise<IResponse> => {
 
 const getUser = async (userId: string): Promise<IResponse> => {
   try {
+    console.log("*********************")
+    console.log(userId)
+    console.log("*********************")
     const user = await User.findById(userId)
       .populate({
         path: 'favoriteProducts',
