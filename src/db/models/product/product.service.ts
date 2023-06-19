@@ -288,12 +288,13 @@ const getProducts = async (
       const coder = access?.split(",")
       qr.match = { 'code': { $in: coder } }
     }
-    const count = await Product.countDocuments(filter)    
+    //const count = await Product.countDocuments(filter)        
     let products = await Product.find(filter, {}, queryOptions)
     .populate(qr)
     .populate('factory', '_id name')
     .exec();
-    products = products.filter(product => product.subcategory);
+    products = products.filter(product => product.subcategory)
+    const count = products.length
     return {
       success: true,
       outputs: { 
