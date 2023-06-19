@@ -611,6 +611,83 @@ exports.panelUserRouter.get('/', (0, auth_1.default)('admin'), getUsers_1.defaul
 exports.panelUserRouter.get('/:userId', (0, auth_1.default)('admin'), getUser_1.default);
 /**
  * @swagger
+ * /website/user/{userId}:
+ *   get:
+ *     tags:
+ *       - User | Panel
+ *     summary: get a user by id
+ *     description: get a user by id
+ *     security:
+ *       - adminBearerAuth: []
+ *     parameters:
+ *       - name: userId
+ *         in: path
+ *         required: true
+ *         description: The ID of the user
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: A page object.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 page:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                     name:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *                     postCode:
+ *                       type: string
+ *                     shSabtMelli:
+ *                       type: string
+ *                     shEghtasadi:
+ *                       type: string
+ *                     addresses:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                     createdAt:
+ *                       type: number
+ *                     updatedAt:
+ *                       type: number
+ *       401:
+ *         description: Not authorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       404:
+ *         description: Not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
+exports.websiteUserRouter.get('/:userId', (0, auth_1.default)('user'), getUser_1.default);
+/**
+ * @swagger
  * /website/user:
  *   get:
  *     tags:
