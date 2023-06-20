@@ -11,22 +11,21 @@ const getProducts = async (req: Request, res: Response) => {
     skip: yup.string(),
     sortBy: yup.string().oneOf(['name', 'unit', 'weight', 'price', 'createdAt', 'updatedAt']),
     sortOrder: yup.string().oneOf(['asc', 'desc']),
-    search: yup.string()
+    search: yup.string(),
+    access: yup.string()
   })
   
   const handle = async () => {
-    const { limit, skip, sortBy, sortOrder, search,code } = req.query
-    let access='all';
-    if(res.locals.admin && res.locals.admin.isGodAdmin==false){
+    const { limit, skip, sortBy, sortOrder, search,access } = req.query    
+    /*if(res.locals.admin && res.locals.admin.isGodAdmin==false){
       access=res.locals.admin.code
-    }
+    }*/
     const options = {
       limit: limit ? Number(limit) : undefined,
       skip: skip ? Number(skip) : undefined,
       sortBy: sortBy?.toString(),
       sortOrder: sortOrder?.toString(),
       search: search?.toString(),
-      code:code?.toString(),
       access:access?.toString()      
     }
 		return await productService.getProducts(options)
