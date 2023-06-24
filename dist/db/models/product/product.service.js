@@ -239,14 +239,15 @@ const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () 
             .populate('factory', '_id name')
             .exec();
         products = products.filter(product => product.subcategory);
-        let count = yield product_1.default.countDocuments(filter)
+        let counts = yield product_1.default.find(filter, {}, {})
             .populate(qr)
             .populate('factory', '_id name')
             .exec();
+        counts = counts.filter(count => count.subcategory);
         return {
             success: true,
             outputs: {
-                count,
+                count: counts.length,
                 products
             }
         };

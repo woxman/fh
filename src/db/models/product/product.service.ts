@@ -295,15 +295,16 @@ const getProducts = async (
     .exec();
     products = products.filter(product => product.subcategory)
   
-    let count = await Product.countDocuments(filter)
+    let counts = await Product.find(filter, {}, {})
     .populate(qr)
     .populate('factory', '_id name')
     .exec();
+    counts = counts.filter(count => count.subcategory)
 
     return {
       success: true,
       outputs: { 
-        count,
+        count:counts.length,
         products
       }
     }
