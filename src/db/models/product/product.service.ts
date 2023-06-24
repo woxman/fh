@@ -295,7 +295,10 @@ const getProducts = async (
     .exec();
     products = products.filter(product => product.subcategory)
   
-    const count = await Product.countDocuments(filter) 
+    let count = await Product.countDocuments(filter)
+    .populate(qr)
+    .populate('factory', '_id name')
+    .exec();
 
     return {
       success: true,

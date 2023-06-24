@@ -239,7 +239,10 @@ const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () 
             .populate('factory', '_id name')
             .exec();
         products = products.filter(product => product.subcategory);
-        const count = yield product_1.default.countDocuments(filter);
+        let count = yield product_1.default.countDocuments(filter)
+            .populate(qr)
+            .populate('factory', '_id name')
+            .exec();
         return {
             success: true,
             outputs: {
