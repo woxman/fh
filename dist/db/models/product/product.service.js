@@ -234,16 +234,12 @@ const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () 
             const coder = access === null || access === void 0 ? void 0 : access.split(",");
             qr.match = { 'code': { $in: coder } };
         }
-        //const count = await Product.countDocuments(filter)        
         let products = yield product_1.default.find(filter, {}, queryOptions)
             .populate(qr)
             .populate('factory', '_id name')
             .exec();
         products = products.filter(product => product.subcategory);
-        let count = yield product_1.default.find(filter, {}, {})
-            .populate(qr)
-            .populate('factory', '_id name')
-            .exec();
+        const count = yield product_1.default.countDocuments(filter);
         return {
             success: true,
             outputs: {
