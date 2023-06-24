@@ -44,21 +44,20 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         skip: yup.string(),
         sortBy: yup.string().oneOf(['name', 'unit', 'weight', 'price', 'createdAt', 'updatedAt']),
         sortOrder: yup.string().oneOf(['asc', 'desc']),
-        search: yup.string()
+        search: yup.string(),
+        access: yup.string()
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
-        const { limit, skip, sortBy, sortOrder, search, code } = req.query;
-        let access = 'all';
-        if (res.locals.admin && res.locals.admin.isGodAdmin == false) {
-            access = res.locals.admin.code;
-        }
+        const { limit, skip, sortBy, sortOrder, search, access } = req.query;
+        /*if(res.locals.admin && res.locals.admin.isGodAdmin==false){
+          access=res.locals.admin.code
+        }*/
         const options = {
             limit: limit ? Number(limit) : undefined,
             skip: skip ? Number(skip) : undefined,
             sortBy: sortBy === null || sortBy === void 0 ? void 0 : sortBy.toString(),
             sortOrder: sortOrder === null || sortOrder === void 0 ? void 0 : sortOrder.toString(),
             search: search === null || search === void 0 ? void 0 : search.toString(),
-            code: code === null || code === void 0 ? void 0 : code.toString(),
             access: access === null || access === void 0 ? void 0 : access.toString()
         };
         return yield product_service_1.default.getProducts(options);
