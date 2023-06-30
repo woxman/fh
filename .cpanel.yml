@@ -1,5 +1,5 @@
 ---
 deployment:
  tasks:
- - export DEPLOYPATH=/home/acoexper/projects/hadad
+ - export DEPLOYPATH=/home/acoexper/projects/back_end
  - /bin/cp * $DEPLOYPATH

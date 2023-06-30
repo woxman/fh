@@ -49,7 +49,7 @@ const addOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         fullNameOfReceiverParty: yup.string().required(),
         accountNumber: yup.string().required(),
         fullNameOfAccountOwner: yup.string().required(),
-        shabaNumber: yup.string().required()
+        shabaNumber: yup.string()
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
         var _a;

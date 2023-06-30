@@ -1234,7 +1234,6 @@ exports.panelOrderRouter.get('/site/statistics', (0, auth_1.default)('admin'), g
  *               - fullNameOfReceiverParty
  *               - accountNumber
  *               - fullNameOfAccountOwner
- *               - shabaNumber
  *     responses:
  *       200:
  *         description: Added order
