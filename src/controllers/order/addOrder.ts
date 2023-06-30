@@ -17,7 +17,7 @@ const addOrder = async (req: Request, res: Response) => {
     fullNameOfReceiverParty: yup.string().required(),
     accountNumber: yup.string().required(),
     fullNameOfAccountOwner: yup.string().required(),
-    shabaNumber: yup.string().required()
+    shabaNumber: yup.string()
   })
 
   const handle = async () => {
