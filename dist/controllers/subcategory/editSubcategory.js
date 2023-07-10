@@ -44,6 +44,7 @@ const editSubcategory = (req, res) => __awaiter(void 0, void 0, void 0, function
             name: yup.string(),
             urlSlug: yup.string(),
             code: yup.string(),
+            factory: yup.string(),
             description: yup.string(),
             properties: yup.array().of(yup.object({
                 property: yup.string().length(24),
@@ -53,7 +54,7 @@ const editSubcategory = (req, res) => __awaiter(void 0, void 0, void 0, function
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
         const { subcategoryId } = req.params;
-        const allowedUpdates = ['name', 'description', 'code', 'urlSlug', 'properties'];
+        const allowedUpdates = ['name', 'description', 'code', 'factory', 'urlSlug', 'properties'];
         const updates = {};
         Object.keys(req.body.updates || {}).forEach((update) => {
             if (allowedUpdates.includes(update)) {

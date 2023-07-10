@@ -12,6 +12,7 @@ const addSubcategory = async (
     name: string
     urlSlug: string,
     code: string,
+    factoryId: string,
     description: string
     properties: {
       property: string
@@ -20,7 +21,7 @@ const addSubcategory = async (
   }
 ): Promise<IResponse> => {
   try {
-    const { name, urlSlug,code, description, properties } = newSubcategory
+    const { name, urlSlug,code,factoryId, description, properties } = newSubcategory
 
     // Checking for availability
     const subcategoryWithExistingName = await Subcategory.findOne({ name }).exec()
@@ -82,6 +83,7 @@ const addSubcategory = async (
     let addedSubcategory = await Subcategory.create({ 
       name,
       category: categoryId,
+      factory: factoryId,
       urlSlug,
       code,
       properties,
@@ -121,6 +123,7 @@ const getSubcategory = async (subcategoryId: string): Promise<IResponse> => {
     // Find and return the subcategory
     const subcategory = await Subcategory.findById(subcategoryId)
       .populate('category', '_id name')
+      .populate('factory', '_id name city description')
       .populate('properties.property', '_id name values')
       .exec()
 
@@ -189,6 +192,7 @@ const getSubcategories = async (
     const count = await Subcategory.countDocuments(filter)
     let subcategories = await Subcategory.find(filter, {}, queryOptions)
       .populate('category', '_id name')
+      .populate('factory', '_id name city description')
       .populate('properties.property', '_id name values')
       .exec()
 
@@ -260,6 +264,7 @@ const getSubcategoriesByCategoryId = async (
     const count = await Subcategory.countDocuments(filter)
     let subcategories = await Subcategory.find(filter, {}, queryOptions)
       .populate('category', '_id name description icon')
+      .populate('factory', '_id name city description')
       .populate('properties.property', '_id name values')
       .exec()
 
@@ -291,6 +296,7 @@ const editSubcategory = async (
     name?: string
     urlSlug?: string
     code?: string
+    factory?: string
     description?: string
     properties?: {
       property: string
@@ -380,6 +386,7 @@ const editSubcategory = async (
     // Update the subcategory
     const updatedSubcategory = await Subcategory.findByIdAndUpdate(subcategoryId, updates, { new: true })
       .populate('category', '_id name')
+      .populate('factory', '_id name city description')
       .populate('properties.property', '_id name values')
       .exec()
 

@@ -1,8 +1,15 @@
 import mongoose, { Document, Schema, ObjectId as objectId } from "mongoose"
 const ObjectId = mongoose.Types.ObjectId
 
-interface ISubcategory extends Document {
-  category: objectId
+interface ISubcategory extends Document {  
+  category: objectId | {
+    _id: objectId
+    name: string
+  }
+  factory: objectId | {
+    _id: objectId
+    name: string
+  }
   name: string
   urlSlug: string
   code: string
@@ -27,6 +34,11 @@ const subcategorySchema = new Schema<ISubcategory>({
   category: {
     type: ObjectId,
     ref: 'Category',
+    required: true
+  },
+  factory: {
+    type: ObjectId,
+    ref: 'Factory',
     required: true
   },
   name: {

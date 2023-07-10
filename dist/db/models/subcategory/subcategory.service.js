@@ -20,7 +20,7 @@ const product_1 = __importDefault(require("../product/product"));
 const product_service_1 = __importDefault(require("../product/product.service"));
 const addSubcategory = (categoryId, newSubcategory) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, urlSlug, code, description, properties } = newSubcategory;
+        const { name, urlSlug, code, factoryId, description, properties } = newSubcategory;
         // Checking for availability
         const subcategoryWithExistingName = yield subcategory_1.default.findOne({ name }).exec();
         if (subcategoryWithExistingName) {
@@ -75,6 +75,7 @@ const addSubcategory = (categoryId, newSubcategory) => __awaiter(void 0, void 0,
         let addedSubcategory = yield subcategory_1.default.create({
             name,
             category: categoryId,
+            factory: factoryId,
             urlSlug,
             code,
             properties,
@@ -110,6 +111,7 @@ const getSubcategory = (subcategoryId) => __awaiter(void 0, void 0, void 0, func
         // Find and return the subcategory
         const subcategory = yield subcategory_1.default.findById(subcategoryId)
             .populate('category', '_id name')
+            .populate('factory', '_id name city description')
             .populate('properties.property', '_id name values')
             .exec();
         if (!subcategory) {
@@ -163,6 +165,7 @@ const getSubcategories = (options) => __awaiter(void 0, void 0, void 0, function
         const count = yield subcategory_1.default.countDocuments(filter);
         let subcategories = yield subcategory_1.default.find(filter, {}, queryOptions)
             .populate('category', '_id name')
+            .populate('factory', '_id name city description')
             .populate('properties.property', '_id name values')
             .exec();
         return {
@@ -219,6 +222,7 @@ const getSubcategoriesByCategoryId = (categoryId, options) => __awaiter(void 0, 
         const count = yield subcategory_1.default.countDocuments(filter);
         let subcategories = yield subcategory_1.default.find(filter, {}, queryOptions)
             .populate('category', '_id name description icon')
+            .populate('factory', '_id name city description')
             .populate('properties.property', '_id name values')
             .exec();
         return {
@@ -317,6 +321,7 @@ const editSubcategory = (subcategoryId, updates) => __awaiter(void 0, void 0, vo
         // Update the subcategory
         const updatedSubcategory = yield subcategory_1.default.findByIdAndUpdate(subcategoryId, updates, { new: true })
             .populate('category', '_id name')
+            .populate('factory', '_id name city description')
             .populate('properties.property', '_id name values')
             .exec();
         if (updates.properties) {

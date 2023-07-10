@@ -11,6 +11,7 @@ const editSubcategory = async (req: Request, res: Response) => {
       name: yup.string(),
       urlSlug: yup.string(),
       code: yup.string(),
+      factory: yup.string(),
       description: yup.string(),
       properties: yup.array().of(yup.object({
         property: yup.string().length(24),
@@ -21,7 +22,7 @@ const editSubcategory = async (req: Request, res: Response) => {
 
 	const handle = async () => {
     const { subcategoryId } = req.params
-    const allowedUpdates = ['name', 'description','code', 'urlSlug', 'properties']
+    const allowedUpdates = ['name', 'description','code','factory', 'urlSlug', 'properties']
     const updates: { [key: string]: any } = {}
 
     Object.keys(req.body.updates || {}).forEach((update) => {
