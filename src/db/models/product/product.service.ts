@@ -290,7 +290,7 @@ const getProducts = async (
       qr.match = { 'code': { $in: coder } }
     }
     if(factory != "all"){      
-      qr.match = { 'factory.name': { $in: factory} }
+      qr.match = { 'factory._id': { $in: factory} }
     }
            
     let products = await Product.find(filter, {}, queryOptions)

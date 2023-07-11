@@ -235,7 +235,7 @@ const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () 
             qr.match = { 'code': { $in: coder } };
         }
         if (factory != "all") {
-            qr.match = { 'factory.name': { $in: factory } };
+            qr.match = { 'factory._id': { $in: factory } };
         }
         let products = yield product_1.default.find(filter, {}, queryOptions)
             .populate(qr)
