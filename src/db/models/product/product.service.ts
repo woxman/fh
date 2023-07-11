@@ -252,11 +252,12 @@ const getProducts = async (
     sortBy?: string,
     sortOrder?: string,
     search?: string,
-    access?:string
+    access?:string,
+    factory?:string
   }
 ): Promise<IResponse> => {
   try {    
-    const { limit, skip, sortBy, sortOrder, search , access } = options
+    const { limit, skip, sortBy, sortOrder, search , access , factory } = options
     // Create and fill the query options object
     const queryOptions: { [key: string]: any } = {}
     if(limit) {
@@ -277,16 +278,19 @@ const getProducts = async (
     // Fetch the subcategories
     let qr={
       path: 'subcategory',
-      select: '_id name category code',
+      select: '_id name category code factory',
+      match: {},
       populate: {
         path: 'category',
         select: '_id name'
-      },
-      match: {}
+      }
     }
     if(access != "all"){
       const coder = access?.split(",")
       qr.match = { 'code': { $in: coder } }
+    }
+    if(factory != "all"){      
+      qr.match = { 'factory.name': { $in: factory} }
     }
            
     let products = await Product.find(filter, {}, queryOptions)

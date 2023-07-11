@@ -203,7 +203,7 @@ const getProduct = (productUrlSlug) => __awaiter(void 0, void 0, void 0, functio
 // ----------------------------------------------------------------------------
 const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { limit, skip, sortBy, sortOrder, search, access } = options;
+        const { limit, skip, sortBy, sortOrder, search, access, factory } = options;
         // Create and fill the query options object
         const queryOptions = {};
         if (limit) {
@@ -223,16 +223,19 @@ const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () 
         // Fetch the subcategories
         let qr = {
             path: 'subcategory',
-            select: '_id name category code',
+            select: '_id name category code factory',
+            match: {},
             populate: {
                 path: 'category',
                 select: '_id name'
-            },
-            match: {}
+            }
         };
         if (access != "all") {
             const coder = access === null || access === void 0 ? void 0 : access.split(",");
             qr.match = { 'code': { $in: coder } };
+        }
+        if (factory != "all") {
+            qr.match = { 'factory.name': { $in: factory } };
         }
         let products = yield product_1.default.find(filter, {}, queryOptions)
             .populate(qr)

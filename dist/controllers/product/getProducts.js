@@ -45,10 +45,11 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         sortBy: yup.string().oneOf(['name', 'unit', 'weight', 'price', 'createdAt', 'updatedAt']),
         sortOrder: yup.string().oneOf(['asc', 'desc']),
         search: yup.string(),
-        access: yup.string()
+        access: yup.string(),
+        factory: yup.string(),
     });
     const handle = () => __awaiter(void 0, void 0, void 0, function* () {
-        const { limit, skip, sortBy, sortOrder, search, access } = req.query;
+        const { limit, skip, sortBy, sortOrder, search, access, factory } = req.query;
         /*if(res.locals.admin && res.locals.admin.isGodAdmin==false){
           access=res.locals.admin.code
         }*/
@@ -58,7 +59,8 @@ const getProducts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             sortBy: sortBy === null || sortBy === void 0 ? void 0 : sortBy.toString(),
             sortOrder: sortOrder === null || sortOrder === void 0 ? void 0 : sortOrder.toString(),
             search: search === null || search === void 0 ? void 0 : search.toString(),
-            access: access === null || access === void 0 ? void 0 : access.toString()
+            access: access === null || access === void 0 ? void 0 : access.toString(),
+            factory: factory === null || factory === void 0 ? void 0 : factory.toString(),
         };
         return yield product_service_1.default.getProducts(options);
     });
