@@ -283,11 +283,12 @@ const getProducts = async (
       populate: [
         {
           path: 'category',
-          select: '_id name'
+          select: '_id name',          
         },
         {
           path: 'factory',
-          select: '_id name'
+          select: '_id name',
+          match: {},
         }
       ]
     }
@@ -297,7 +298,7 @@ const getProducts = async (
     }    
     if(factory != "all"){
       console.log(factory)
-      qr.match = { "factory.name": { $elemMatch: { name: factory } } }
+      qr.populate[1].match = { "factory.name": { $elemMatch: { name: factory } } }
     }
            
     let products = await Product.find(filter, {}, queryOptions)

@@ -228,11 +228,12 @@ const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () 
             populate: [
                 {
                     path: 'category',
-                    select: '_id name'
+                    select: '_id name',
                 },
                 {
                     path: 'factory',
-                    select: '_id name'
+                    select: '_id name',
+                    match: {},
                 }
             ]
         };
@@ -242,7 +243,7 @@ const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () 
         }
         if (factory != "all") {
             console.log(factory);
-            qr.match = { "factory.name": { $elemMatch: { name: factory } } };
+            qr.populate[1].match = { "factory.name": { $elemMatch: { name: factory } } };
         }
         let products = yield product_1.default.find(filter, {}, queryOptions)
             .populate(qr)
