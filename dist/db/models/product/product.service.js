@@ -232,7 +232,8 @@ const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () 
                 },
                 {
                     path: 'factory',
-                    select: '_id name'
+                    select: '_id name',
+                    match: {}
                 }
             ]
         };
@@ -240,14 +241,17 @@ const getProducts = (options) => __awaiter(void 0, void 0, void 0, function* () 
             const coder = access === null || access === void 0 ? void 0 : access.split(",");
             qr.match = { 'code': { $in: coder } };
         }
-        if (factory != "all") {
+        if (factory !== "all") {
             console.log(factory);
-            qr.match = { "factory.name": "هفت الماس" };
+            qr.populate[1].match = {
+                'name': { $regex: factory }
+            };
         }
         let products = yield product_1.default.find(filter, {}, queryOptions)
             .populate(qr)
             .populate('factory', '_id name')
             .exec();
+        console.log(products);
         products = products.filter(product => product.subcategory);
         let counts = yield product_1.default.find(filter, {}, {})
             .populate(qr)

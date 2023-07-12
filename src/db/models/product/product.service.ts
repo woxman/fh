@@ -287,23 +287,27 @@ const getProducts = async (
         },
         {
           path: 'factory',
-          select: '_id name'
+          select: '_id name',
+          match: {} 
         }
       ]
     }
     if(access != "all"){
       const coder = access?.split(",")
       qr.match = { 'code': { $in: coder } }
-    }        
-    if (factory != "all") {
-      console.log(factory)
-      qr.match = { "factory.name": "هفت الماس" };
     }
+    if (factory !== "all") {
+      console.log(factory)
+      qr.populate[1].match = {
+        'name': { $regex: factory }
+      };
+    }  
            
     let products = await Product.find(filter, {}, queryOptions)
     .populate(qr)
     .populate('factory', '_id name')
     .exec();
+    console.log(products);
     products = products.filter(product => product.subcategory)
   
     let counts = await Product.find(filter, {}, {})
