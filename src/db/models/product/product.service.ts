@@ -280,17 +280,23 @@ const getProducts = async (
       path: 'subcategory',
       select: '_id name category code factory',
       match: {},
-      populate: {
-        path: 'category',
-        select: '_id name'
-      }
+      populate: [
+        {
+          path: 'category',
+          select: '_id name'
+        },
+        {
+          path: 'factory',
+          select: '_id name'
+        }
+      ]
     }
     if(access != "all"){
       const coder = access?.split(",")
       qr.match = { 'code': { $in: coder } }
     }
     if(factory != "all"){      
-      qr.match = { 'factory._id': { $in: factory} }
+      qr.match = { 'factory.name': { $in: factory} }
     }
            
     let products = await Product.find(filter, {}, queryOptions)
