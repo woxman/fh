@@ -295,8 +295,8 @@ const getProducts = async (
       const coder = access?.split(",")
       qr.match = { 'code': { $in: coder } }
     }
-    if(factory != "all"){      
-      qr.match = { 'factory.name': { $in: factory} }
+    if(factory != 'all'){      
+      qr.match = { 'factory.name': { $elemMatch: { $in: factory } } };
     }
            
     let products = await Product.find(filter, {}, queryOptions)
