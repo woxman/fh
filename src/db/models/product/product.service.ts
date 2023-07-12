@@ -297,8 +297,8 @@ const getProducts = async (
       qr.match = { 'code': { $in: coder } }
     }    
     if(factory != "all"){
-      console.log(factory)
-      qr.populate[1].match = { "factory.name": { $elemMatch: { name: factory } } }
+      console.log(factory)      
+      qr.populate[1].match = { "factory.name": { elemMatch: { name: factory } } }
     }
            
     let products = await Product.find(filter, {}, queryOptions)
