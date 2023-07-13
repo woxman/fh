@@ -307,24 +307,21 @@ const getProducts = async (
     .populate('factory', '_id name')
     .exec();
     counts = counts.filter(count => count.subcategory)
-
-    if (factory !== "all") {
-      let filteredProducts = [];
+    
+    let filteredProducts = [];    
+    if (factory !== "all") {      
       products.forEach(product => {        
         if (product.subcategory && product.subcategory.factory && product.subcategory.factory.name) {
-          console.log(product.subcategory.factory.name);
           filteredProducts.push(product);
         }
       });
-      products=filteredProducts;
-      counts=filteredProducts.concat;
     }
 
     return {
       success: true,
-      outputs: { 
-        count:counts.length,
-        products
+      outputs: {         
+        count:(factory !== "all"?filteredProducts.length:counts.length),
+        products:(factory !== "all"?filteredProducts:products)
       }
     }
 
