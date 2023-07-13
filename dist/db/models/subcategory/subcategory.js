@@ -34,7 +34,6 @@ const subcategorySchema = new mongoose_1.Schema({
     factory: {
         type: ObjectId,
         ref: 'Factory',
-        required: true
     },
     name: {
         type: String,

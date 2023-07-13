@@ -39,7 +39,6 @@ const subcategorySchema = new Schema<ISubcategory>({
   factory: {
     type: ObjectId,
     ref: 'Factory',
-    required: true
   },
   name: {
     type: String,
